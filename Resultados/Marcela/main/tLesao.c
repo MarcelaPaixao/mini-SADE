@@ -4,13 +4,16 @@
 #include "tLesao.h"
 
 struct tLesao {
-    char rotulo[6];
-    char regiao[16];
-    char diagnostico[25];
+    char rotulo[5];
+    int tamRotulo; //colocar em consulta????
+    //eRegiao regiao;
+    //eDiagnostico diagnostico;
+    char regiao[15];
+    char diagnostico[24];
     int tamLesao, enviaCirurgia, enviaCrioterapia;
 };
 
-tLesao *CriaLesao(int idxRotulo){
+tLesao *CriaLesao(){
     tLesao *lesao = malloc(sizeof(tLesao));
     if(lesao == NULL){
         exit(1);
@@ -22,14 +25,14 @@ tLesao *CriaLesao(int idxRotulo){
     printf("TAMANHO ");
     scanf("%[^\n]%*c", lesao->tamLesao);
     printf("ENVIAR PARA CIRURGIA: ");
-    scanf("%d\n", &lesao->enviaCirurgia);
+    scanf("%d", lesao->enviaCirurgia);
     printf("ENVIAR PARA CRIOTERAPIA: ");
-    scanf("%d\n", &lesao->enviaCrioterapia);
-    char rotulo[6];
-    sprintf(rotulo, "L%d", idxRotulo);
-    strcpy(lesao->rotulo, rotulo);
+    scanf("%d", lesao->enviaCrioterapia);
+    lesao->tamRotulo = 0;
     return lesao;
 }
+
+
 
 void DesalocaLesao(tLesao *lesao){
     if(!lesao) return;
@@ -42,21 +45,5 @@ int EnviaCirugia(tLesao *lesao){
 
 int EnviaCrioterapia(tLesao *lesao){
     return lesao->enviaCrioterapia;
-}
-
-char *ObtemRegiaoLesao(tLesao *lesao){
-    return lesao->regiao;
-}
-
-char *ObtemDiagnosticoLesao(tLesao *lesao){
-    return lesao->diagnostico;
-}
-
-int ObtemTamLesao(tLesao *lesao){
-    return lesao->tamLesao;
-}
-
-char *ObtemRotuloLesao(tLesao *lesao){
-    return lesao->rotulo;
 }
 

@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include "tDocumento.h"
 
-typedef void (*func_ptr_imprimeNaTela)(void *dado);
-typedef void (*func_ptr_imprimeEmArquivo)(void *dado, char *path);
-typedef void (*func_ptr_desaloca)(void *dado);
-
 struct tDocumento {
     void *dado;
     func_ptr_imprimeNaTela funcImprimeEmTela;

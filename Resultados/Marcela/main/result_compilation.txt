@@ -32,3 +32,32 @@ In file included from tAgente.c:4:
 tAgente.h:37:5: note: previous declaration of ‘verificaEhIgualCPF’ with type ‘int(int,  int)’
    37 | int verificaEhIgualCPF(int cpf1, int cpf2);
       |     ^~~~~~~~~~~~~~~~~~
+tBiopsia.c:10:1: warning: declaration does not declare anything
+   10 | };
+      | ^
+tBiopsia.c:10:1: warning: no semicolon at end of struct or union
+In file included from tLesao.c:4:
+tLesao.h:39:20: error: expected ‘;’ before ‘int’
+   39 | void AdicionaRotulo
+      |                    ^
+      |                    ;
+   40 | 
+   41 | int EnviaCirugia(tLesao *lesao);
+      | ~~~                 
+tLesao.c: In function ‘CriaLesao’:
+tLesao.c:26:15: warning: format ‘%[^
+   ’ expects argument of type ‘char *’, but argument 2 has type ‘int’ [-Wformat=]
+   26 |     scanf("%[^\n]%*c", lesao->tamLesao);
+      |            ~~~^~       ~~~~~~~~~~~~~~~
+      |               |             |
+      |               char *        int
+tLesao.c:28:13: warning: format ‘%d’ expects argument of type ‘int *’, but argument 2 has type ‘int’ [-Wformat=]
+   28 |     scanf("%d", lesao->enviaCirurgia);
+      |            ~^   ~~~~~~~~~~~~~~~~~~~~
+      |             |        |
+      |             int *    int
+tLesao.c:30:13: warning: format ‘%d’ expects argument of type ‘int *’, but argument 2 has type ‘int’ [-Wformat=]
+   30 |     scanf("%d", lesao->enviaCrioterapia);
+      |            ~^   ~~~~~~~~~~~~~~~~~~~~~~~
+      |             |        |
+      |             int *    int

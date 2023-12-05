@@ -6,7 +6,7 @@
 struct tBiopsia {
     char nomePaciente[100];
     char cpfPaciente[15];
-    
+    char 
 };
 
 tBiopsia *CriaBiopsia();

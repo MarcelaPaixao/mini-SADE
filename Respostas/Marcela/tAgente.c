@@ -39,7 +39,7 @@ tMedico *CadastraMedico(){
         exit(1);
     }
     printf("#################### CADASTRO MEDICO #######################\n");
-    printf("NOME COMPLETO: ")
+    printf("NOME COMPLETO: ");
     scanf("%[^\n]%*c", medico->nome);
     printf("CPF: ");
     scanf("%[^\n]%*c", medico->cpf);
@@ -69,7 +69,7 @@ tPaciente *CadastraPaciente(){
         exit(1);
     }
     printf("#################### CADASTRO PACIENTE #######################\n");
-    printf("NOME COMPLETO: ")
+    printf("NOME COMPLETO: ");
     scanf("%[^\n]%*c", paciente->nome);
     printf("CPF: ");
     scanf("%[^\n]%*c", paciente->cpf);
@@ -84,11 +84,11 @@ tPaciente *CadastraPaciente(){
 
 tSecretario *CadastraSecretario(){
     tSecretario *secretario = malloc(sizeof(tSecretario));
-    if(medico == NULL){
+    if(secretario == NULL){
         exit(1);
     }
     printf("#################### CADASTRO SECRETARIO #######################\n");
-    printf("NOME COMPLETO: ")
+    printf("NOME COMPLETO: ");
     scanf("%[^\n]%*c", secretario->nome);
     printf("CPF: ");
     scanf("%[^\n]%*c", secretario->cpf);
@@ -125,16 +125,6 @@ void DesalocaPaciente(tPaciente *p){
 void SalvarMedico(tMedico *medico, FILE *arquivo){
     fwrite(medico, sizeof(tMedico), 1, arquivo);
 }
-//funciona se eu fizer:
-/*void SalvarAgente(void *dado, FILE *arquivo){
-    fwrite(dado, sizeof(dado), 1, arquivo);
-} 
-e se eu usar callback?
-void SalvarAgente(void *dado, FILE *arquivo){
-    tMedico *m = dado;
-    fwrite(m, sizeof(tMedico), 1, arquivo);
-    ai em tClinica.h ou sla eu uso salva agente
-}*/
 
 void SalvarPaciente(tPaciente *paciente, FILE *arquivo){
     fwrite(paciente, sizeof(tPaciente), 1, arquivo);
@@ -176,3 +166,30 @@ int verificaEhIgualCPF(char *cpf1, char *cpf2){
     else return 0;
 }
 
+char *ObtemCPFMedico(tMedico *m){
+    return m->cpf;
+}
+
+char *ObtemCPFPaciente(tPaciente *p){
+    return p->cpf;
+}
+
+char *ObtemCPFSecretario(tSecretario *s){
+    return s->cpf;
+}
+
+char *ObtemNomeMedico(tMedico *m){
+    return m->nome;
+}
+
+char *ObtemNomePaciente(tPaciente *p){
+    return p->nome;
+}
+
+char *ObtemNomeSecretario(tSecretario *s){
+    return s->nome;
+}
+
+char *ObtemCRMMedico(tMedico *m){
+    return m->CRM;
+}
