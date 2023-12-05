@@ -1,0 +1,34 @@
+tAgente.c: In function ‘CadastraMedico’:
+tAgente.c:42:30: error: expected ‘;’ before ‘scanf’
+   42 |     printf("NOME COMPLETO: ")
+      |                              ^
+      |                              ;
+   43 |     scanf("%[^\n]%*c", medico->nome);
+      |     ~~~~~                     
+tAgente.c: In function ‘CadastraPaciente’:
+tAgente.c:72:30: error: expected ‘;’ before ‘scanf’
+   72 |     printf("NOME COMPLETO: ")
+      |                              ^
+      |                              ;
+   73 |     scanf("%[^\n]%*c", paciente->nome);
+      |     ~~~~~                     
+tAgente.c: In function ‘CadastraSecretario’:
+tAgente.c:87:8: error: ‘medico’ undeclared (first use in this function); did you mean ‘tMedico’?
+   87 |     if(medico == NULL){
+      |        ^~~~~~
+      |        tMedico
+tAgente.c:87:8: note: each undeclared identifier is reported only once for each function it appears in
+tAgente.c:91:30: error: expected ‘;’ before ‘scanf’
+   91 |     printf("NOME COMPLETO: ")
+      |                              ^
+      |                              ;
+   92 |     scanf("%[^\n]%*c", secretario->nome);
+      |     ~~~~~                     
+tAgente.c: At top level:
+tAgente.c:174:5: error: conflicting types for ‘verificaEhIgualCPF’; have ‘int(char *, char *)’
+  174 | int verificaEhIgualCPF(char *cpf1, char *cpf2){
+      |     ^~~~~~~~~~~~~~~~~~
+In file included from tAgente.c:4:
+tAgente.h:37:5: note: previous declaration of ‘verificaEhIgualCPF’ with type ‘int(int,  int)’
+   37 | int verificaEhIgualCPF(int cpf1, int cpf2);
+      |     ^~~~~~~~~~~~~~~~~~

@@ -50,6 +50,9 @@ COPIANDO OS ARQUIVOS PARA A PASTA DE RESULTADO DO ALUNO:
  - Arquivos copiados: ok!
 
 COMPILANDO OS ARQUIVOS NA PASTA DE RESULTADO DO ALUNO:
+ - Erro de compilação! Verifique os arquivos da pasta completo.
+ - Erro de compilação! Verifique os arquivos da pasta main.
+ - Arquivos Compilados: Erro!: 2 arquivos com erros de compilacao.
  - Copiando os arquivos objetos do professor para cada subpasta do Resultado do Marcela:
  - Copiando o Gabarito-obj/tFila.o para a pasta Resultados/Marcela/tDocumento
  - Copiando o Gabarito-obj/tFila.o para a pasta Resultados/Marcela/tReceita
@@ -226,7 +229,7 @@ RESULTADOS FINAIS
 ----------------------------------------------------------------------------
 Nome 0: Marcela
  - Resumo dos Resultados:
- - Resumo das Compilações: 5 compilações corretas de 5 no total
+ - Resumo das Compilações: 3 compilações corretas de 5 no total
  - Resumo das Linkagens: 3 linkagens corretas de 5 no total
  - Valgrinds Corretos tFila: 3 valgrinds corretos de 3 (não teve desconto na nota)
  - Valgrinds Corretos tDocumento: 3 valgrinds corretos de 3 (não teve desconto na nota)
