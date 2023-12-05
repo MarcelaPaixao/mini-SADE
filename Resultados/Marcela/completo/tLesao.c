@@ -4,16 +4,13 @@
 #include "tLesao.h"
 
 struct tLesao {
-    char rotulo[5];
-    int tamRotulo; //colocar em consulta????
-    //eRegiao regiao;
-    //eDiagnostico diagnostico;
-    char regiao[15];
-    char diagnostico[24];
+    char rotulo[6];
+    char regiao[16];
+    char diagnostico[25];
     int tamLesao, enviaCirurgia, enviaCrioterapia;
 };
 
-tLesao *CriaLesao(){
+tLesao *CriaLesao(int idxRotulo){
     tLesao *lesao = malloc(sizeof(tLesao));
     if(lesao == NULL){
         exit(1);
@@ -23,27 +20,50 @@ tLesao *CriaLesao(){
     printf("REGIAO DO CORPO: ");
     scanf("%[^\n]%*c", lesao->regiao);
     printf("TAMANHO ");
-    scanf("%[^\n]%*c", lesao->tamLesao);
+    scanf("%d\n", &lesao->tamLesao);
     printf("ENVIAR PARA CIRURGIA: ");
-    scanf("%d", lesao->enviaCirurgia);
+    scanf("%d\n", &lesao->enviaCirurgia);
     printf("ENVIAR PARA CRIOTERAPIA: ");
-    scanf("%d", lesao->enviaCrioterapia);
-    lesao->tamRotulo = 0;
+    scanf("%d\n", &lesao->enviaCrioterapia);
+    char rotulo[6];
+    sprintf(rotulo, "L%d", idxRotulo);
+    strcpy(lesao->rotulo, rotulo);
     return lesao;
 }
-
-
 
 void DesalocaLesao(tLesao *lesao){
     if(!lesao) return;
     free(lesao);
 }
 
-int EnviaCirugia(tLesao *lesao){
+int ObtemEnviaCirugia(tLesao *lesao){
     return lesao->enviaCirurgia;
 }
 
-int EnviaCrioterapia(tLesao *lesao){
+int ObtemEnviaCrioterapia(tLesao *lesao){
     return lesao->enviaCrioterapia;
 }
 
+char *ObtemRegiaoLesao(tLesao *lesao){
+    return lesao->regiao;
+}
+
+char *ObtemDiagnosticoLesao(tLesao *lesao){
+    return lesao->diagnostico;
+}
+
+int ObtemTamLesao(tLesao *lesao){
+    return lesao->tamLesao;
+}
+
+char *ObtemRotuloLesao(tLesao *lesao){
+    return lesao->rotulo;
+}
+
+void ImprimeLesaoTela(tLesao *lesao){
+    printf("%s - %s - %s - %dMM\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
+}
+
+void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq){
+    fprintf(arq, "%s - %s - %s - %dMM\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
+}

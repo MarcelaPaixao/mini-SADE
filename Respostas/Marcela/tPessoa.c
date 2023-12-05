@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tAgente.h"
+#include "tPessoa.h"
 
 struct tMedico {
     char nome[100];
@@ -192,4 +192,32 @@ char *ObtemNomeSecretario(tSecretario *s){
 
 char *ObtemCRMMedico(tMedico *m){
     return m->CRM;
+}
+
+char *ObtemSenhaMedico(tMedico *m){
+    return m->senha;
+}
+
+char *ObtemUserMedico(tMedico *m){
+    return m->user;
+}
+
+char *ObtemSenhaSecretario(tSecretario *s){
+    return s->senha;
+}
+
+char *ObtemUserSecretario(tSecretario *s){
+    return s->user;
+}
+
+char *ObtemAcessoSecretario(tSecretario *s){
+    return s->acesso;
+}
+
+char *ObtemDataNascPaciente(tPaciente *p){
+    return p->dataNasc;
+}
+
+char *ObtemGeneroPaciente(tPaciente *p){
+    return p->genero;
 }

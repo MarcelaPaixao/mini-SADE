@@ -1,5 +1,5 @@
-#ifndef _TAGENTE_H_
-#define _TAGENTE_H_
+#ifndef _TPESSOA_H_
+#define _TPESSOA_H_
 
 typedef struct tMedico tMedico;
 
@@ -47,5 +47,16 @@ char *ObtemNomeSecretario(tSecretario *);
 
 char *ObtemCRMMedico(tMedico *);
 
+char *ObtemSenhaMedico(tMedico *);
+
+char *ObtemUserMedico(tMedico *);
+
+char *ObtemSenhaSecretario(tSecretario *);
+
+char *ObtemUserSecretario(tSecretario *);
+
+char *ObtemAcessoSecretario(tSecretario *);
+
+char *ObtemDataNascPaciente(tPaciente *);
 
 #endif

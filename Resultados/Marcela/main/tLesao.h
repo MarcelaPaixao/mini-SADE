@@ -1,45 +1,26 @@
-#ifndef _TAGENTE_H_
-#define _TAGENTE_H_
-
-/*typedef enum
-{
-    FACE, 
-    ORELHA, 
-    COURO CABELUDO, 
-    PEITORAL, 
-    DORSO, 
-    ABDOME,  
-    BRAÇO, 
-    ANTEBRAÇO, 
-    MAO, 
-    COXA, 
-    CANELA,
-    PE,
-    OUTROS
-}eRegiao;
-*/
-
-/*typedef enum
-{
-    CARCINOMA BASOCELULAR, 
-    CARCINOMA ESPINOCELULAR, 
-    MELANOMA, 
-    CERATOSE ACTINICA, 
-    NEVO, 
-    CERATOSE SEBORREICA,
-    OUTROS
-}eDiagnostico;*/
+#ifndef _TLESAO_H_
+#define _TLESAO_H_
 
 typedef struct tLesao tLesao;
 
-tLesao *CriaLesao();
+tLesao *CriaLesao(int idxRotulo);
 
 void DesalocaLesao(tLesao *lesao);
 
-void AdicionaRotulo
+int ObtemEnviaCirugia(tLesao *lesao);
 
-int EnviaCirugia(tLesao *lesao);
+int ObtemEnviaCrioterapia(tLesao *lesao);
 
-int EnviaCrioterapia(tLesao *lesao);
+char *ObtemRegiaoLesao(tLesao *lesao);
+
+char *ObtemDiagnosticoLesao(tLesao *lesao);
+
+int ObtemTamLesao(tLesao *lesao);
+
+char *ObtemRotuloLesao(tLesao *lesao);
+
+void ImprimeLesaoTela(tLesao *lesao);
+
+void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq);
 
 #endif

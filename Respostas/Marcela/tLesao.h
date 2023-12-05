@@ -7,9 +7,9 @@ tLesao *CriaLesao(int idxRotulo);
 
 void DesalocaLesao(tLesao *lesao);
 
-int EnviaCirugia(tLesao *lesao);
+int ObtemEnviaCirugia(tLesao *lesao);
 
-int EnviaCrioterapia(tLesao *lesao);
+int ObtemEnviaCrioterapia(tLesao *lesao);
 
 char *ObtemRegiaoLesao(tLesao *lesao);
 
@@ -18,5 +18,9 @@ char *ObtemDiagnosticoLesao(tLesao *lesao);
 int ObtemTamLesao(tLesao *lesao);
 
 char *ObtemRotuloLesao(tLesao *lesao);
+
+void ImprimeLesaoTela(tLesao *lesao);
+
+void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq);
 
 #endif

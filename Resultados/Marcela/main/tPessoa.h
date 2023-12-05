@@ -1,5 +1,5 @@
-#ifndef _TAGENTE_H_
-#define _TAGENTE_H_
+#ifndef _TPESSOA_H_
+#define _TPESSOA_H_
 
 typedef struct tMedico tMedico;
 
@@ -31,9 +31,32 @@ tSecretario *RecuperaSecretario(FILE *arquivo);
 
 tPaciente *RecuperaPaciente(FILE *arquivo);
 
-/*Usar função pra verificar se ja existe alguem cadastrado com esse cpf;
-usar pela main mandando todas as pessoas cadastradas
-Talvez colocar função em tConsulta.h*/
-int verificaEhIgualCPF(int cpf1, int cpf2);
+int verificaEhIgualCPF(char *cpf1, char *cpf2);
+
+char *ObtemCPFMedico(tMedico *);
+
+char *ObtemCPFPaciente(tPaciente *);
+
+char *ObtemCPFSecretario(tSecretario *);
+
+char *ObtemNomeMedico(tMedico *);
+
+char *ObtemNomePaciente(tPaciente *);
+
+char *ObtemNomeSecretario(tSecretario *);
+
+char *ObtemCRMMedico(tMedico *);
+
+char *ObtemSenhaMedico(tMedico *);
+
+char *ObtemUserMedico(tMedico *);
+
+char *ObtemSenhaSecretario(tSecretario *);
+
+char *ObtemUserSecretario(tSecretario *);
+
+char *ObtemAcessoSecretario(tSecretario *);
+
+char *ObtemDataNascPaciente(tPaciente *);
 
 #endif

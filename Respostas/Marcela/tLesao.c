@@ -20,7 +20,7 @@ tLesao *CriaLesao(int idxRotulo){
     printf("REGIAO DO CORPO: ");
     scanf("%[^\n]%*c", lesao->regiao);
     printf("TAMANHO ");
-    scanf("%[^\n]%*c", lesao->tamLesao);
+    scanf("%d\n", &lesao->tamLesao);
     printf("ENVIAR PARA CIRURGIA: ");
     scanf("%d\n", &lesao->enviaCirurgia);
     printf("ENVIAR PARA CRIOTERAPIA: ");
@@ -36,11 +36,11 @@ void DesalocaLesao(tLesao *lesao){
     free(lesao);
 }
 
-int EnviaCirugia(tLesao *lesao){
+int ObtemEnviaCirugia(tLesao *lesao){
     return lesao->enviaCirurgia;
 }
 
-int EnviaCrioterapia(tLesao *lesao){
+int ObtemEnviaCrioterapia(tLesao *lesao){
     return lesao->enviaCrioterapia;
 }
 
@@ -60,3 +60,10 @@ char *ObtemRotuloLesao(tLesao *lesao){
     return lesao->rotulo;
 }
 
+void ImprimeLesaoTela(tLesao *lesao){
+    printf("%s - %s - %s - %dMM\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
+}
+
+void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq){
+    fprintf(arq, "%s - %s - %s - %dMM\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
+}
