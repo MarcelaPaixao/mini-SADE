@@ -59,9 +59,8 @@ void FinalizaConsulta(tConsulta *consulta){
         DesalocaLesao(consulta->lesoes[i]);
     }
     free(consulta->lesoes);
-    DesalocaMedico(consulta->medico);//será?
-    DesalocaPaciente(consulta->paciente);
     free(consulta);
+    //lembrar de desalocar o resto das coisas depois
 }
 
 void ImprimeMenuConsulta(tConsulta *consulta){
