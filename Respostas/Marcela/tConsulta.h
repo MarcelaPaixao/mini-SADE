@@ -10,7 +10,7 @@
 
 typedef struct tConsulta tConsulta;
 
-tConsulta *IniciaConsulta(tPaciente *paciente);
+tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico);
 
 void FinalizaConsulta(tConsulta *consulta);
 
@@ -22,10 +22,10 @@ void CadastraLesao(tConsulta *consulta);
 
 int VerificaSePrecisaCirurgia(tConsulta *consulta);
 
-void SolicitaBiopsia(tConsulta *consulta, int idxLesao);
+void SolicitaBiopsia(tConsulta *consulta);
 
 void EncaminhaPaciente(tConsulta *consulta);
 
-void ImprimeReceita(tConsulta *consulta);
+void GeraReceita(tConsulta *consulta);
 
 #endif

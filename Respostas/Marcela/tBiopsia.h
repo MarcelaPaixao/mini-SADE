@@ -2,6 +2,11 @@
 #define _TBIOPSIA_H_
 
 #include "tPessoa.h"
+#include "tLesao.h"
+#include "tPessoa.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct tBiopsia tBiopsia;
 

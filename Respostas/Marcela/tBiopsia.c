@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "tBiopsia.h"
-#include "tLesao.h"
-#include "tPessoa.h"
 
 struct tBiopsia {
     char nomePaciente[100];
