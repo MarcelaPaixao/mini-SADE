@@ -1,6 +1,10 @@
 #ifndef _TPESSOA_H_
 #define _TPESSOA_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct tMedico tMedico;
 
 tMedico *CadastraMedico();
@@ -55,8 +59,21 @@ char *ObtemSenhaSecretario(tSecretario *);
 
 char *ObtemUserSecretario(tSecretario *);
 
-char *ObtemAcessoSecretario(tSecretario *);
+char ObtemAcessoSecretario(tSecretario *);
 
-char *ObtemDataNascPaciente(tPaciente *);
+int ObtemDiaNascPaciente(tPaciente *);
+
+int ObtemMesNascPaciente(tPaciente *);
+
+int ObtemAnoNascPaciente(tPaciente *);
+
+char *ObtemGeneroPaciente(tPaciente *);
+
+/*void ImprimePaciente(tPaciente *);
+
+void ImprimeMedico(tMedico *);
+
+void ImprimeSecretario(tSecretario *);*/
+
 
 #endif

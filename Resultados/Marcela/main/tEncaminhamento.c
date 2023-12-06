@@ -24,6 +24,7 @@ tEncaminhamento *CriaEncaminhamento(tPaciente *paciente, tMedico *medico, char *
     strcpy(enc->nomeMedico, ObtemNomeMedico(medico));
     strcpy(enc->CRMMedico, ObtemCRMMedico(medico));
     strcpy(enc->data, data);
+    printf("ENCAMINHAMENTO:\n");
     printf("ESPECIALIDADE ENCAMINHADA: ");
     scanf("%[^\n]%*c", enc->especialidade);
     printf("MOTIVO: ");

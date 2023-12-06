@@ -6,7 +6,7 @@
 struct tMedico {
     char nome[100];
     char cpf[15];
-    char dataNasc[11];
+    int nascDia, nascMes, nascAno;
     char telefone[15];
     char genero[10];
     char CRM[12];
@@ -17,7 +17,7 @@ struct tMedico {
 struct tPaciente {
     char nome[100];
     char cpf[15];
-    char dataNasc[11];
+    int nascDia, nascMes, nascAno;
     char telefone[15];
     char genero[10];
 };
@@ -25,12 +25,12 @@ struct tPaciente {
 struct tSecretario {
     char nome[100];
     char cpf[15];
-    char dataNasc[11];
+    int nascDia, nascMes, nascAno;
     char telefone[15];
     char genero[10];
     char user[20];
     char senha[20];
-    char acesso[6];
+    char acesso;
 };
 
 tMedico *CadastraMedico(){
@@ -44,7 +44,7 @@ tMedico *CadastraMedico(){
     printf("CPF: ");
     scanf("%[^\n]%*c", medico->cpf);
     printf("DATA DE NASCIMENTO: ");
-    scanf("%[^\n]%*c", medico->dataNasc);
+    scanf("%d/%d/%d%*c", &medico->nascDia, &medico->nascMes, &medico->nascAno);
     printf("TELEFONE: ");
     scanf("%[^\n]%*c", medico->telefone);
     printf("GENERO: ");
@@ -55,12 +55,11 @@ tMedico *CadastraMedico(){
     scanf("%[^\n]%*c", medico->user);
     printf("SENHA: ");
     scanf("%[^\n]%*c", medico->senha);
+    printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+    printf("###############################################################\n");
+    char c;
+    scanf("%c%*c", &c);
     return medico;
-    //
-    /* na main, fazer: 
-    if(medico != NULL){
-        printf("CADASTRO REALIZADO COM SUCESSO.");
-    }*/
 }
 
 tPaciente *CadastraPaciente(){
@@ -74,11 +73,15 @@ tPaciente *CadastraPaciente(){
     printf("CPF: ");
     scanf("%[^\n]%*c", paciente->cpf);
     printf("DATA DE NASCIMENTO: ");
-    scanf("%[^\n]%*c", paciente->dataNasc);
+    scanf("%d/%d/%d%*c", &paciente->nascDia, &paciente->nascMes, &paciente->nascAno);
     printf("TELEFONE: ");
     scanf("%[^\n]%*c", paciente->telefone);
     printf("GENERO: ");
     scanf("%[^\n]%*c", paciente->genero);
+    printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+    printf("###############################################################\n");
+    char c;
+    scanf("%c%*c", &c);
     return paciente;
 }
 
@@ -87,13 +90,14 @@ tSecretario *CadastraSecretario(){
     if(secretario == NULL){
         exit(1);
     }
+    char acesso[6];
     printf("#################### CADASTRO SECRETARIO #######################\n");
     printf("NOME COMPLETO: ");
     scanf("%[^\n]%*c", secretario->nome);
     printf("CPF: ");
     scanf("%[^\n]%*c", secretario->cpf);
     printf("DATA DE NASCIMENTO: ");
-    scanf("%[^\n]%*c", secretario->dataNasc);
+    scanf("%d/%d/%d%*c", &secretario->nascDia, &secretario->nascMes, &secretario->nascAno);
     printf("TELEFONE: ");
     scanf("%[^\n]%*c", secretario->telefone);
     printf("GENERO: ");
@@ -103,7 +107,17 @@ tSecretario *CadastraSecretario(){
     printf("SENHA: ");
     scanf("%[^\n]%*c", secretario->senha);
     printf("NIVEL DE ACESSO: ");
-    scanf("%[^\n]%*c", secretario->acesso);
+    scanf("%[^\n]%*c", acesso);
+    if(acesso[0] == 'A'){
+        secretario->acesso = 'A';
+    }
+    else if(acesso[0] == 'U'){
+        secretario->acesso = 'U';
+    }
+    printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+    printf("###############################################################\n");
+    char c;
+    scanf("%c%*c", &c);
     return secretario;
 }
 
@@ -167,53 +181,108 @@ int verificaEhIgualCPF(char *cpf1, char *cpf2){
 }
 
 char *ObtemCPFMedico(tMedico *m){
-    return m->cpf;
+    char *cpf = m->cpf;
+    return cpf;
 }
 
 char *ObtemCPFPaciente(tPaciente *p){
-    return p->cpf;
+    char *cpf = p->cpf;
+    return cpf;
 }
 
 char *ObtemCPFSecretario(tSecretario *s){
-    return s->cpf;
+    char *cpf = s->cpf;
+    return cpf;
 }
 
 char *ObtemNomeMedico(tMedico *m){
-    return m->nome;
+    char *nome = m->nome;
+    return nome;
 }
 
 char *ObtemNomePaciente(tPaciente *p){
-    return p->nome;
+    char *nome = p->nome;
+    return nome;
 }
 
 char *ObtemNomeSecretario(tSecretario *s){
-    return s->nome;
+    char *nome = s->nome;
+    return nome;
 }
 
 char *ObtemCRMMedico(tMedico *m){
-    return m->CRM;
+    char *CRM = m->CRM;
+    return CRM;
 }
 
 char *ObtemSenhaMedico(tMedico *m){
-    return m->senha;
+    char *senha = m->senha;
+    return senha;
 }
 
 char *ObtemUserMedico(tMedico *m){
-    return m->user;
+    char *user = m->user;
+    return user;
 }
 
 char *ObtemSenhaSecretario(tSecretario *s){
-    return s->senha;
+    char *senha = s->senha;
+    return senha;
 }
 
 char *ObtemUserSecretario(tSecretario *s){
-    return s->user;
+    char *user = s->user;
+    return user;
 }
 
-char *ObtemAcessoSecretario(tSecretario *s){
-    return s->acesso;
+char ObtemAcessoSecretario(tSecretario *s){
+    char acesso = s->acesso;
+    return acesso;
 }
 
-char *ObtemDataNascPaciente(tPaciente *p){
-    return p->dataNasc;
+int ObtemDiaNascPaciente(tPaciente *p){
+    return p->nascDia;
 }
+
+int ObtemMesNascPaciente(tPaciente *p){
+    return p->nascMes;
+}
+
+int ObtemAnoNascPaciente(tPaciente *p){
+    return p->nascAno;
+}
+
+char *ObtemGeneroPaciente(tPaciente *p){
+    char *genero = p->genero;
+    return genero;
+}
+
+/*void ImprimePaciente(tPaciente *p){
+    printf("PACIENTE: %s\n", p->nome);
+    printf("CPF: %s\n", p->cpf);
+    printf("DATA DE NASCIMENTO: %d/%d/%d\n", p->nascDia, p->nascMes, p->nascAno);
+    printf("TELEFONE: %s\n", p->telefone);
+    printf("GENERO: %s\n", p->genero);
+}
+
+void ImprimeMedico(tMedico *p){
+    printf("MEDICO: %s\n", p->nome);
+    printf("CPF: %s\n", p->cpf);
+    printf("DATA DE NASCIMENTO: %d/%d/%d\n", p->nascDia, p->nascMes, p->nascAno);
+    printf("TELEFONE: %s\n", p->telefone);
+    printf("GENERO: %s\n", p->genero);
+    printf("CRM: %s\n", p->CRM);
+    printf("SENHA: %s\n", p->senha);
+    printf("USER: %s\n", p->user);
+}
+
+void ImprimeSecretario(tSecretario *p){
+    printf("SECRETARIO: %s\n", p->nome);
+    printf("CPF: %s\n", p->cpf);
+    printf("DATA DE NASCIMENTO: %d/%d/%d\n", p->nascDia, p->nascMes, p->nascAno);
+    printf("TELEFONE: %s\n", p->telefone);
+    printf("GENERO: %s\n", p->genero);
+    printf("ACESSO: %c\n", p->acesso);
+    printf("SENHA: %s\n", p->senha);
+    printf("USER: %s\n", p->user);
+}*/

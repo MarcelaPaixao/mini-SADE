@@ -33,16 +33,18 @@ struct tSecretario {
     char acesso;
 };
 
-tMedico *CadastraMedico(){
+tMedico *CadastraMedico(char *nome, char *cpf){
     tMedico *medico = malloc(sizeof(tMedico));
     if(medico == NULL){
         exit(1);
     }
-    printf("#################### CADASTRO MEDICO #######################\n");
-    printf("NOME COMPLETO: ");
-    scanf("%[^\n]%*c", medico->nome);
-    printf("CPF: ");
-    scanf("%[^\n]%*c", medico->cpf);
+    //printf("#################### CADASTRO MEDICO #######################\n");
+    //printf("NOME COMPLETO: ");
+    //scanf("%[^\n]%*c", medico->nome);
+    //printf("CPF: ");
+    //scanf("%[^\n]%*c", medico->cpf);
+    strcpy(medico->nome, nome);
+    strcpy(medico->cpf, cpf);
     printf("DATA DE NASCIMENTO: ");
     scanf("%d/%d/%d%*c", &medico->nascDia, &medico->nascMes, &medico->nascAno);
     printf("TELEFONE: ");
@@ -62,7 +64,7 @@ tMedico *CadastraMedico(){
     return medico;
 }
 
-tPaciente *CadastraPaciente(){
+tPaciente *CadastraPaciente(char *nome, char *cpf){
     tPaciente *paciente = malloc(sizeof(tPaciente));
     if(paciente == NULL){
         exit(1);
@@ -85,7 +87,7 @@ tPaciente *CadastraPaciente(){
     return paciente;
 }
 
-tSecretario *CadastraSecretario(){
+tSecretario *CadastraSecretario(char *nome, char *cpf){
     tSecretario *secretario = malloc(sizeof(tSecretario));
     if(secretario == NULL){
         exit(1);
@@ -257,7 +259,34 @@ char *ObtemGeneroPaciente(tPaciente *p){
     return genero;
 }
 
-/*void ImprimePaciente(tPaciente *p){
+int VerificaCadastroSecretario(tSecretario **secretarios, char *login, char *senha){
+    if(!secretarios) return 0;
+    int qtd = sizeof(secretarios)/sizeof(secretarios[0]);
+    for(int i=0; i < qtd; i++){
+        if(strcmp(login, secretarios[0]->user) == 0){
+            if(strcmp(senha, secretarios[0]->senha) == 0){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int VerificaCadastroMedicos(tMedico **medicos, char *login, char *senha){
+    if(!medicos) return 0;
+    int qtd = sizeof(medicos)/sizeof(medicos[0]);
+    for(int i=0; i < qtd; i++){
+        if(strcmp(login, medicos[0]->user) == 0){
+            if(strcmp(senha, medicos[0]->senha) == 0){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
+void ImprimePaciente(tPaciente *p){
     printf("PACIENTE: %s\n", p->nome);
     printf("CPF: %s\n", p->cpf);
     printf("DATA DE NASCIMENTO: %d/%d/%d\n", p->nascDia, p->nascMes, p->nascAno);
@@ -285,4 +314,4 @@ void ImprimeSecretario(tSecretario *p){
     printf("ACESSO: %c\n", p->acesso);
     printf("SENHA: %s\n", p->senha);
     printf("USER: %s\n", p->user);
-}*/
+}

@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "tBiopsia.h"
-#include "tLesao.h"
-#include "tPessoa.h"
 
 struct tBiopsia {
     char nomePaciente[100];
@@ -31,18 +26,15 @@ tBiopsia *CriaBiopsia(tMedico *medico, tPaciente *paciente, char *data){
     return biopsia;
 }
 
-void AdicionaLesao(tBiopsia *biopsia){
+void AdicionaLesao(tBiopsia *biopsia, tLesao *lesao){
     (biopsia->qtdLesoes)++;
     biopsia->lesoes = realloc(biopsia->lesoes, biopsia->qtdLesoes * sizeof(tLesao *));
-    biopsia->lesoes[biopsia->qtdLesoes - 1] = CriaLesao(biopsia->qtdLesoes + 1);
+    biopsia->lesoes[biopsia->qtdLesoes - 1] = lesao;
 }
 
-void LiberaBiopsia(tBiopsia *biopsia){
+void DesalocaBiopsia(tBiopsia *biopsia){
     if(!biopsia) return;
     if(biopsia->lesoes){
-        for(int i=0; i < biopsia->qtdLesoes; i++){
-            DesalocaLesao(biopsia->lesoes[i]);
-        }
         free(biopsia->lesoes);
     }
     free(biopsia);
@@ -58,7 +50,6 @@ void ImprimeNaTelaBiopsia(tBiopsia *biopsia){
     }
     if(precisaCirurgia){
         printf("PACIENTE: %s\n", biopsia->nomePaciente);
-        printf("CPF: %s\n\n", biopsia->cpfPaciente);
         printf("CPF: %s\n\n", biopsia->cpfPaciente);
         printf("SOLICITACAO DE BIOPSIA PARA AS LESOES:\n");
     
@@ -88,7 +79,6 @@ void ImprimeEmArquivoBiopsia(tBiopsia *biopsia, char *path){
     }
     if(precisaCirurgia){
         fprintf(arq,"PACIENTE: %s\n", biopsia->nomePaciente);
-        fprintf(arq, "CPF: %s\n\n", biopsia->cpfPaciente);
         fprintf(arq, "CPF: %s\n\n", biopsia->cpfPaciente);
         fprintf(arq, "SOLICITACAO DE BIOPSIA PARA AS LESOES:\n");
     

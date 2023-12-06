@@ -63,6 +63,8 @@ void FinalizaConsulta(tConsulta *consulta){
     //lembrar de desalocar o resto das coisas depois
 }
 
+
+
 void ImprimeMenuConsulta(tConsulta *consulta){
     printf("#################### CONSULTA MEDICA #######################\n");
     printf("ESCOLHA UMA OPCAO:\n");
@@ -92,22 +94,25 @@ void CadastraLesao(tConsulta *consulta){
 int VerificaSePrecisaCirurgia(tConsulta *consulta){
     for(int i=0; i < consulta->qtdLesoes; i++){
         if(ObtemEnviaCirugia(consulta->lesoes[i])){
-            return i;
+            return 1;
         }
     }
-    return -1;
+    return 0;
 }
 
 void SolicitaBiopsia(tConsulta *consulta){
-    int idxLesao = VerificaSePrecisaCirurgia(consulta);
     printf("#################### CONSULTA MEDICA #######################\n");
-    if(idxLesao < 0){
+    if(!VerificaSePrecisaCirurgia(consulta)){
         printf("NAO E POSSIVEL SOLICITAR BIOPSIA SEM LESAO CIRURGICA. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
         printf("############################################################\n");
     }
     else{
         consulta->biopsia = CriaBiopsia(consulta->medico, consulta->paciente, consulta->data);
-        AdicionaLesao(consulta->biopsia, consulta->lesoes[idxLesao]);
+        for(int i=0; i < consulta->qtdLesoes; i++){
+            if(ObtemEnviaCirugia(consulta->lesoes[i])){
+                AdicionaLesao(consulta->biopsia, consulta->lesoes[i]);
+            }
+        }
         printf("SOLICITACAO DE BIOPSIA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
         printf("############################################################\n");
     }
