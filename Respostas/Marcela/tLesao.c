@@ -15,6 +15,7 @@ tLesao *CriaLesao(int idxRotulo){
     if(lesao == NULL){
         exit(1);
     }
+    printf("CADASTRO DE LESAO:\n");
     printf("DIAGNOSTICO CLINICO: ");
     scanf("%[^\n]%*c", lesao->diagnostico);
     printf("REGIAO DO CORPO: ");
@@ -44,20 +45,23 @@ int ObtemEnviaCrioterapia(tLesao *lesao){
     return lesao->enviaCrioterapia;
 }
 
-char *ObtemRegiaoLesao(tLesao *lesao){
-    return lesao->regiao;
+const char *ObtemRegiaoLesao(tLesao *lesao){
+    char *regiao = lesao->regiao;
+    return regiao;
 }
 
-char *ObtemDiagnosticoLesao(tLesao *lesao){
-    return lesao->diagnostico;
+const char *ObtemDiagnosticoLesao(tLesao *lesao){
+    char *diagnostico = lesao->diagnostico;
+    return diagnostico;
 }
 
 int ObtemTamLesao(tLesao *lesao){
     return lesao->tamLesao;
 }
 
-char *ObtemRotuloLesao(tLesao *lesao){
-    return lesao->rotulo;
+const char *ObtemRotuloLesao(tLesao *lesao){
+    char *rotulo = lesao->rotulo;
+    return rotulo;
 }
 
 void ImprimeLesaoTela(tLesao *lesao){

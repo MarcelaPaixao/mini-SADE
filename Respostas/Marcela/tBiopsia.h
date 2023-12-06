@@ -7,9 +7,9 @@ typedef struct tBiopsia tBiopsia;
 
 tBiopsia *CriaBiopsia(tMedico *medico, tPaciente *paciente, char *data);
 
-void AdicionaLesao(tBiopsia *);
+void AdicionaLesao(tBiopsia *, tLesao *);
 
-void LiberaBiopsia(tBiopsia *);
+void DesalocaBiopsia(tBiopsia *);
 
 void ImprimeNaTelaBiopsia(tBiopsia *);
 

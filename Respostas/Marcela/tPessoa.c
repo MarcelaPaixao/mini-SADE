@@ -166,58 +166,72 @@ int verificaEhIgualCPF(char *cpf1, char *cpf2){
     else return 0;
 }
 
-char *ObtemCPFMedico(tMedico *m){
-    return m->cpf;
+const char *ObtemCPFMedico(tMedico *m){
+    char *cpf = m->cpf;
+    return cpf;
 }
 
-char *ObtemCPFPaciente(tPaciente *p){
-    return p->cpf;
+const char *ObtemCPFPaciente(tPaciente *p){
+    char *cpf = p->cpf;
+    return cpf;
 }
 
-char *ObtemCPFSecretario(tSecretario *s){
-    return s->cpf;
+const char *ObtemCPFSecretario(tSecretario *s){
+    char *cpf = s->cpf;
+    return cpf;
 }
 
-char *ObtemNomeMedico(tMedico *m){
-    return m->nome;
+const char *ObtemNomeMedico(tMedico *m){
+    char *nome = m->nome;
+    return nome;
 }
 
-char *ObtemNomePaciente(tPaciente *p){
-    return p->nome;
+const char *ObtemNomePaciente(tPaciente *p){
+    char *nome = p->nome;
+    return nome;
 }
 
-char *ObtemNomeSecretario(tSecretario *s){
-    return s->nome;
+const char *ObtemNomeSecretario(tSecretario *s){
+    char *nome = s->nome;
+    return nome;
 }
 
-char *ObtemCRMMedico(tMedico *m){
-    return m->CRM;
+const char *ObtemCRMMedico(tMedico *m){
+    char *CRM = m->CRM;
+    return CRM;
 }
 
-char *ObtemSenhaMedico(tMedico *m){
-    return m->senha;
+const char *ObtemSenhaMedico(tMedico *m){
+    char *senha = m->senha;
+    return senha;
 }
 
-char *ObtemUserMedico(tMedico *m){
-    return m->user;
+const char *ObtemUserMedico(tMedico *m){
+    char *user = m->user;
+    return user;
 }
 
-char *ObtemSenhaSecretario(tSecretario *s){
-    return s->senha;
+const char *ObtemSenhaSecretario(tSecretario *s){
+    char *senha = s->senha;
+    return senha;
 }
 
-char *ObtemUserSecretario(tSecretario *s){
-    return s->user;
+const char *ObtemUserSecretario(tSecretario *s){
+    char *user = s->user;
+    return user;
 }
 
-char *ObtemAcessoSecretario(tSecretario *s){
-    return s->acesso;
+const char *ObtemAcessoSecretario(tSecretario *s){
+    char *acesso = s->acesso;
+    return acesso;
 }
 
-char *ObtemDataNascPaciente(tPaciente *p){
-    return p->dataNasc;
+const char *ObtemDataNascPaciente(tPaciente *p){
+    char *dataNasc = p->dataNasc;
+    return dataNasc;
 }
 
-char *ObtemGeneroPaciente(tPaciente *p){
-    return p->genero;
+const char *ObtemGeneroPaciente(tPaciente *p){
+    char *genero = p->genero;
+    return genero;
 }
