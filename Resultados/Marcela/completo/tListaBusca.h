@@ -11,8 +11,10 @@ void AdicionaPacienteLista(tListaPacientes *lista, tPaciente *paciente);
 
 void DesalocaListaPacientes(tListaPacientes *lista);
 
-void ImprimeListaPacientesTela(tListaPacientes *lista, tPaciente *paciente);
+void ImprimeListaPacientesTela(tListaPacientes *lista, char *nome);
 
-void ImprimeListaPacientesArquivo(tListaPacientes *lista, tPaciente *paciente, char *path);
+void ImprimeListaPacientesArquivo(tListaPacientes *lista, char *nome, char *path);
+
+int ObtemTamanhoLista(tListaPacientes *lista);
 
 #endif

@@ -1,0 +1,11 @@
+#################### CADASTRO MEDICO #######################
+NOME COMPLETO: CPF: DATA DE NASCIMENTO: TELEFONE: GENERO: CRM: NOME DE USUARIO: SENHA: CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL
+###############################################################
+MEDICO: ../../
+CPF: soraka
+DATA DE NASCIMENTO: 0/0/0
+TELEFONE: cura$
+GENERO: 5
+CRM: vaine
+SENHA: 5
+USER: -

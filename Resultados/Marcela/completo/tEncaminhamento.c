@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tEncaminhamento.h"
-#include "tPessoa.h"
 
 struct tEncaminhamento {
     char nomePaciente[100];

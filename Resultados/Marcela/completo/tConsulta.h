@@ -20,8 +20,6 @@ void ImprimeCabecalhoConsulta();
 
 void CadastraLesao(tConsulta *consulta);
 
-int VerificaSePrecisaCirurgia(tConsulta *consulta);
-
 void SolicitaBiopsia(tConsulta *consulta);
 
 void EncaminhaPaciente(tConsulta *consulta);

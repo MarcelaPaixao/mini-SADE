@@ -1,7 +1,6 @@
 #ifndef _TBIOPSIA_H_
 #define _TBIOPSIA_H_
 
-#include "tPessoa.h"
 #include "tLesao.h"
 #include "tPessoa.h"
 #include <stdio.h>
@@ -20,6 +19,7 @@ void ImprimeNaTelaBiopsia(tBiopsia *);
 
 void ImprimeEmBinarioBiopsia(tBiopsia *);
 
-void ImprimeEmArquivoBiopsia(tBiopsia *biopsia, char *path);
+void ImprimeEmArquivoBiopsia(tBiopsia *, char *path);
+
 
 #endif

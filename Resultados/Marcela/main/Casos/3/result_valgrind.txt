@@ -1,15 +1,63 @@
-==64546== Memcheck, a memory error detector
-==64546== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==64546== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==64546== Command: Resultados/Marcela/main/prog Resultados/Marcela/main/Casos/3
-==64546== Parent PID: 64545
-==64546== 
-==64546== 
-==64546== HEAP SUMMARY:
-==64546==     in use at exit: 0 bytes in 0 blocks
-==64546==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
-==64546== 
-==64546== All heap blocks were freed -- no leaks are possible
-==64546== 
-==64546== For lists of detected and suppressed errors, rerun with: -s
-==64546== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94446== Memcheck, a memory error detector
+==94446== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==94446== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==94446== Command: Resultados/Marcela/main/prog Resultados/Marcela/main/Casos/3
+==94446== Parent PID: 94445
+==94446== 
+==94446== Conditional jump or move depends on uninitialised value(s)
+==94446==    at 0x48F0AD6: __vfprintf_internal (vfprintf-internal.c:1516)
+==94446==    by 0x48DA79E: printf (printf.c:33)
+==94446==    by 0x10BFB2: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446==    by 0x10964C: main (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446== 
+==94446== Use of uninitialised value of size 8
+==94446==    at 0x48D42EB: _itoa_word (_itoa.c:177)
+==94446==    by 0x48EFABD: __vfprintf_internal (vfprintf-internal.c:1516)
+==94446==    by 0x48DA79E: printf (printf.c:33)
+==94446==    by 0x10BFB2: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446==    by 0x10964C: main (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446== 
+==94446== Conditional jump or move depends on uninitialised value(s)
+==94446==    at 0x48D42FC: _itoa_word (_itoa.c:177)
+==94446==    by 0x48EFABD: __vfprintf_internal (vfprintf-internal.c:1516)
+==94446==    by 0x48DA79E: printf (printf.c:33)
+==94446==    by 0x10BFB2: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446==    by 0x10964C: main (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446== 
+==94446== Conditional jump or move depends on uninitialised value(s)
+==94446==    at 0x48F05C3: __vfprintf_internal (vfprintf-internal.c:1516)
+==94446==    by 0x48DA79E: printf (printf.c:33)
+==94446==    by 0x10BFB2: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446==    by 0x10964C: main (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446== 
+==94446== Conditional jump or move depends on uninitialised value(s)
+==94446==    at 0x48EFC05: __vfprintf_internal (vfprintf-internal.c:1516)
+==94446==    by 0x48DA79E: printf (printf.c:33)
+==94446==    by 0x10BFB2: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446==    by 0x10964C: main (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446== 
+==94446== 
+==94446== HEAP SUMMARY:
+==94446==     in use at exit: 224 bytes in 2 blocks
+==94446==   total heap usage: 4 allocs, 2 frees, 8,416 bytes allocated
+==94446== 
+==94446== 16 bytes in 1 blocks are definitely lost in loss record 1 of 2
+==94446==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==94446==    by 0x10B021: CriaListaPacientes (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446==    by 0x109587: main (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446== 
+==94446== 208 bytes in 1 blocks are definitely lost in loss record 2 of 2
+==94446==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==94446==    by 0x10B358: CadastraMedico (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446==    by 0x109636: main (in /home/mcpaixao/trab2/Resultados/Marcela/main/prog)
+==94446== 
+==94446== LEAK SUMMARY:
+==94446==    definitely lost: 224 bytes in 2 blocks
+==94446==    indirectly lost: 0 bytes in 0 blocks
+==94446==      possibly lost: 0 bytes in 0 blocks
+==94446==    still reachable: 0 bytes in 0 blocks
+==94446==         suppressed: 0 bytes in 0 blocks
+==94446== 
+==94446== Use --track-origins=yes to see where uninitialised values come from
+==94446== For lists of detected and suppressed errors, rerun with: -s
+==94446== ERROR SUMMARY: 17 errors from 7 contexts (suppressed: 0 from 0)
