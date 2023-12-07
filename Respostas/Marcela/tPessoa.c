@@ -33,82 +33,62 @@ struct tSecretario {
     char acesso;
 };
 
-tMedico *CadastraMedico(char *nome, char *cpf){
+tMedico *CadastraMedico(char *nome, char *cpf, char *telefone, char *genero, char *CRM, char *user, char *senha, int dia, int mes, int ano){
     tMedico *medico = malloc(sizeof(tMedico));
     if(medico == NULL){
         exit(1);
-    }   
+    }  
     strcpy(medico->nome, nome);
-    strcpy(medico->cpf, cpf);
-    printf("DATA DE NASCIMENTO: ");
-    scanf("%d/%d/%d%*c", &medico->nascDia, &medico->nascMes, &medico->nascAno);
-    printf("TELEFONE: ");
-    scanf("%[^\n]%*c", medico->telefone);
-    printf("GENERO: ");
-    scanf("%[^\n]%*c", medico->genero);
-    printf("CRM: ");
-    scanf("%[^\n]%*c", medico->CRM);
-    printf("NOME DE USUARIO: ");
-    scanf("%[^\n]%*c", medico->user);
-    printf("SENHA: ");
-    scanf("%[^\n]%*c", medico->senha);
-    printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
-    printf("###############################################################\n");
-    //char c;
-    //scanf("%c%*c", &c);
+    strcpy(medico->cpf, cpf); 
+    strcpy(medico->telefone, telefone); 
+    strcpy(medico->cpf, cpf); 
+    strcpy(medico->genero, genero); 
+    strcpy(medico->CRM, CRM); 
+    strcpy(medico->user, user); 
+    strcpy(medico->senha, senha); 
+    medico->nascDia = dia;
+    medico->nascMes = mes;
+    medico->nascAno = ano;
     return medico;
 }
 
-tPaciente *CadastraPaciente(char *nome, char *cpf){
+tPaciente *CadastraPaciente(char *nome, char *cpf, char *telefone, char *genero, int dia, int mes, int ano){
     tPaciente *paciente = malloc(sizeof(tPaciente));
     if(paciente == NULL){
         exit(1);
     }
     strcpy(paciente->nome, nome);
     strcpy(paciente->cpf, cpf);
-    printf("DATA DE NASCIMENTO: ");
-    scanf("%d/%d/%d%*c", &paciente->nascDia, &paciente->nascMes, &paciente->nascAno);
-    printf("TELEFONE: ");
-    scanf("%[^\n]%*c", paciente->telefone);
-    printf("GENERO: ");
-    scanf("%[^\n]%*c", paciente->genero);
-    printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
-    printf("###############################################################\n");
-   // char c;
-    //scanf("%c%*c", &c);
+    strcpy(paciente->telefone, telefone); 
+    strcpy(paciente->cpf, cpf); 
+    strcpy(paciente->genero, genero); 
+    paciente->nascDia = dia;
+    paciente->nascMes = mes;
+    paciente->nascAno = ano;
     return paciente;
 }
 
-tSecretario *CadastraSecretario(char *nome, char *cpf){
+tSecretario *CadastraSecretario(char *nome, char *cpf, char *telefone, char *genero, char *acesso, char *user, char *senha, int dia, int mes, int ano){
     tSecretario *secretario = malloc(sizeof(tSecretario));
     if(secretario == NULL){
         exit(1);
     }
-    char acesso[6];
     strcpy(secretario->nome, nome);
-    strcpy(secretario->cpf, cpf);
-    printf("DATA DE NASCIMENTO: ");
-    scanf("%d/%d/%d%*c", &secretario->nascDia, &secretario->nascMes, &secretario->nascAno);
-    printf("TELEFONE: ");
-    scanf("%[^\n]%*c", secretario->telefone);
-    printf("GENERO: ");
-    scanf("%[^\n]%*c", secretario->genero);
-    printf("NOME DE USUARIO: ");
-    scanf("%[^\n]%*c", secretario->user);
-    printf("SENHA: ");
-    scanf("%[^\n]%*c", secretario->senha);
-    printf("NIVEL DE ACESSO: ");
-    scanf("%[^\n]%*c", acesso);
+    strcpy(secretario->cpf, cpf); 
+    strcpy(secretario->telefone, telefone); 
+    strcpy(secretario->cpf, cpf); 
+    strcpy(secretario->genero, genero); 
+    strcpy(secretario->user, user); 
+    strcpy(secretario->senha, senha); 
+    secretario->nascDia = dia;
+    secretario->nascMes = mes;
+    secretario->nascAno = ano;
     if(acesso[0] == 'A'){
         secretario->acesso = 'A';
     }
     else if(acesso[0] == 'U'){
         secretario->acesso = 'U';
     }
-    printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
-    printf("###############################################################\n");
-    //char c;
-    //scanf("%c%*c", &c);
     return secretario;
 }
 

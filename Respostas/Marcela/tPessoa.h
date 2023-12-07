@@ -7,15 +7,15 @@
 
 typedef struct tMedico tMedico;
 
-tMedico *CadastraMedico(char *nome, char *cpf);
+tMedico *CadastraMedico(char *nome, char *cpf, char *telefone, char *genero, char *CRM, char *user, char *senha, int dia, int mes, int ano);
 
 typedef struct tPaciente tPaciente;
 
-tPaciente *CadastraPaciente(char *nome, char *cpf);
+tPaciente *CadastraPaciente(char *nome, char *cpf, char *telefone, char *genero, int dia, int mes, int ano);
 
 typedef struct tSecretario tSecretario;
 
-tSecretario *CadastraSecretario(char *nome, char *cpf);
+tSecretario *CadastraSecretario(char *nome, char *cpf, char *telefone, char *genero, char *acesso, char *user, char *senha, int dia, int mes, int ano);
 
 void DesalocaMedico(tMedico *);
 

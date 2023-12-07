@@ -7,7 +7,7 @@
 
 typedef struct tMedico tMedico;
 
-tMedico *CadastraMedico(char *nome, char *cpf);
+void CadastraMedico(tMedico **vetMedicos, int qtdMed);
 
 typedef struct tPaciente tPaciente;
 

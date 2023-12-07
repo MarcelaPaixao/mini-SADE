@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tPessoa.h"
+#include "tDocumento.h"
+#include "tFila.h"
 
 typedef struct tListaPacientes tListaPacientes;
 
@@ -12,7 +14,7 @@ tListaPacientes *CriaListaPacientes();
 
 void AdicionaPacienteLista(tListaPacientes *lista, tPaciente *paciente);
 
-void DesalocaListaPacientes(tListaPacientes *lista);
+void DesalocaListaPacientes(void *dado);
 
 void ImprimeListaPacientesTela(void *dado);
 
@@ -20,6 +22,6 @@ void ImprimeListaPacientesArquivo(void *dado, char *path);
 
 int ObtemTamanhoLista(tListaPacientes *lista);
 
-void MenuBusca(void *dado, char *path);
+void MenuBusca(void *dado, char *path, tFila *fila);
 
 #endif
