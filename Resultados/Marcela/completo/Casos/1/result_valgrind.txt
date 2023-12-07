@@ -1,63 +1,57 @@
-==91765== Memcheck, a memory error detector
-==91765== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==91765== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==91765== Command: Resultados/Marcela/completo/prog Resultados/Marcela/completo/Casos/1
-==91765== Parent PID: 91764
-==91765== 
-==91765== Conditional jump or move depends on uninitialised value(s)
-==91765==    at 0x48F0AD6: __vfprintf_internal (vfprintf-internal.c:1516)
-==91765==    by 0x48DA79E: printf (printf.c:33)
-==91765==    by 0x10BFB1: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765==    by 0x10962C: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765== 
-==91765== Use of uninitialised value of size 8
-==91765==    at 0x48D42EB: _itoa_word (_itoa.c:177)
-==91765==    by 0x48EFABD: __vfprintf_internal (vfprintf-internal.c:1516)
-==91765==    by 0x48DA79E: printf (printf.c:33)
-==91765==    by 0x10BFB1: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765==    by 0x10962C: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765== 
-==91765== Conditional jump or move depends on uninitialised value(s)
-==91765==    at 0x48D42FC: _itoa_word (_itoa.c:177)
-==91765==    by 0x48EFABD: __vfprintf_internal (vfprintf-internal.c:1516)
-==91765==    by 0x48DA79E: printf (printf.c:33)
-==91765==    by 0x10BFB1: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765==    by 0x10962C: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765== 
-==91765== Conditional jump or move depends on uninitialised value(s)
-==91765==    at 0x48F05C3: __vfprintf_internal (vfprintf-internal.c:1516)
-==91765==    by 0x48DA79E: printf (printf.c:33)
-==91765==    by 0x10BFB1: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765==    by 0x10962C: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765== 
-==91765== Conditional jump or move depends on uninitialised value(s)
-==91765==    at 0x48EFC05: __vfprintf_internal (vfprintf-internal.c:1516)
-==91765==    by 0x48DA79E: printf (printf.c:33)
-==91765==    by 0x10BFB1: ImprimeMedico (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765==    by 0x10962C: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765== 
-==91765== 
-==91765== HEAP SUMMARY:
-==91765==     in use at exit: 224 bytes in 2 blocks
-==91765==   total heap usage: 4 allocs, 2 frees, 8,416 bytes allocated
-==91765== 
-==91765== 16 bytes in 1 blocks are definitely lost in loss record 1 of 2
-==91765==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==91765==    by 0x10B020: CriaListaPacientes (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765==    by 0x109567: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765== 
-==91765== 208 bytes in 1 blocks are definitely lost in loss record 2 of 2
-==91765==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==91765==    by 0x10B357: CadastraMedico (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765==    by 0x109616: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
-==91765== 
-==91765== LEAK SUMMARY:
-==91765==    definitely lost: 224 bytes in 2 blocks
-==91765==    indirectly lost: 0 bytes in 0 blocks
-==91765==      possibly lost: 0 bytes in 0 blocks
-==91765==    still reachable: 0 bytes in 0 blocks
-==91765==         suppressed: 0 bytes in 0 blocks
-==91765== 
-==91765== Use --track-origins=yes to see where uninitialised values come from
-==91765== For lists of detected and suppressed errors, rerun with: -s
-==91765== ERROR SUMMARY: 12 errors from 7 contexts (suppressed: 0 from 0)
+==153040== Memcheck, a memory error detector
+==153040== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==153040== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==153040== Command: Resultados/Marcela/completo/prog Resultados/Marcela/completo/Casos/1
+==153040== Parent PID: 153039
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109A67: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109A7C: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109AAF: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109AE6: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109B1D: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109B54: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109B6C: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== Conditional jump or move depends on uninitialised value(s)
+==153040==    at 0x109CB5: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== 
+==153040== More than 10000000 total errors detected.  I'm not reporting any more.
+==153040== Final error counts will be inaccurate.  Go fix your program!
+==153040== Rerun with --error-limit=no to disable this cutoff.  Note
+==153040== that errors may occur in your program without prior warning from
+==153040== Valgrind, because errors are no longer being displayed.
+==153040== 
+==153040== 
+==153040== Process terminating with default action of signal 15 (SIGTERM)
+==153040==    at 0x109AA6: main (in /home/mcpaixao/trab2/Resultados/Marcela/completo/prog)
+==153040== 
+==153040== HEAP SUMMARY:
+==153040==     in use at exit: 4,128 bytes in 5 blocks
+==153040==   total heap usage: 5 allocs, 0 frees, 4,128 bytes allocated
+==153040== 
+==153040== LEAK SUMMARY:
+==153040==    definitely lost: 0 bytes in 0 blocks
+==153040==    indirectly lost: 0 bytes in 0 blocks
+==153040==      possibly lost: 0 bytes in 0 blocks
+==153040==    still reachable: 4,128 bytes in 5 blocks
+==153040==         suppressed: 0 bytes in 0 blocks
+==153040== Reachable blocks (those to which a pointer was found) are not shown.
+==153040== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==153040== 
+==153040== Use --track-origins=yes to see where uninitialised values come from
+==153040== For lists of detected and suppressed errors, rerun with: -s
+==153040== ERROR SUMMARY: 10000000 errors from 8 contexts (suppressed: 0 from 0)

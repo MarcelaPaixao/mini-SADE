@@ -8,17 +8,14 @@
 typedef struct tMedico tMedico;
 
 tMedico *CadastraMedico(char *nome, char *cpf);
-//tMedico *CadastraMedico(char *nome, char *cpf);
 
 typedef struct tPaciente tPaciente;
 
 tPaciente *CadastraPaciente(char *nome, char *cpf);
-//tPaciente *CadastraPaciente(char *nome, char *cpf);
 
 typedef struct tSecretario tSecretario;
 
 tSecretario *CadastraSecretario(char *nome, char *cpf);
-//tSecretario *CadastraSecretario(char *nome, char *cpf);
 
 void DesalocaMedico(tMedico *);
 
@@ -75,6 +72,8 @@ char *ObtemGeneroPaciente(tPaciente *);
 int VerificaCadastroSecretario(tSecretario **secretarios, char *login, char *senha);
 
 int VerificaCadastroMedicos(tMedico **medicos, char *login, char *senha);
+
+int VerificaSeJaExisteCpf(char *cpf1, char *cpf2);
 
 void ImprimePaciente(tPaciente *);
 

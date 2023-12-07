@@ -1,48 +1,33 @@
 main.c: In function ‘main’:
-main.c:60:21: warning: unused variable ‘senha’ [-Wunused-variable]
-   60 |     char login[20], senha[20], nome[100], cpf[15];
+main.c:117:21: warning: unused variable ‘senha’ [-Wunused-variable]
+  117 |     char login[20], senha[20];
       |                     ^~~~~
-main.c:60:10: warning: unused variable ‘login’ [-Wunused-variable]
-   60 |     char login[20], senha[20], nome[100], cpf[15];
+main.c:117:10: warning: unused variable ‘login’ [-Wunused-variable]
+  117 |     char login[20], senha[20];
       |          ^~~~~
-main.c:57:17: warning: unused variable ‘consultas’ [-Wunused-variable]
-   57 |     tConsulta **consultas = NULL;
+main.c:114:17: warning: unused variable ‘consultas’ [-Wunused-variable]
+  114 |     tConsulta **consultas = malloc(sizeof(tConsulta **));
       |                 ^~~~~~~~~
-main.c:56:19: warning: unused variable ‘secretarios’ [-Wunused-variable]
-   56 |     tSecretario **secretarios = NULL;
-      |                   ^~~~~~~~~~~
-main.c:55:15: warning: unused variable ‘medicos’ [-Wunused-variable]
-   55 |     tMedico **medicos = NULL;
-      |               ^~~~~~~
-main.c:54:22: warning: unused variable ‘listaPacientes’ [-Wunused-variable]
-   54 |     tListaPacientes *listaPacientes = CriaListaPacientes();
-      |                      ^~~~~~~~~~~~~~
-main.c:52:50: warning: unused variable ‘qtdPac’ [-Wunused-variable]
-   52 |     int opcao, sec=0, med=0, qtdMed=0, qtdSec=0, qtdPac=0;
-      |                                                  ^~~~~~
-main.c:52:40: warning: unused variable ‘qtdSec’ [-Wunused-variable]
-   52 |     int opcao, sec=0, med=0, qtdMed=0, qtdSec=0, qtdPac=0;
-      |                                        ^~~~~~
-main.c:52:23: warning: unused variable ‘med’ [-Wunused-variable]
-   52 |     int opcao, sec=0, med=0, qtdMed=0, qtdSec=0, qtdPac=0;
-      |                       ^~~
-main.c:52:16: warning: unused variable ‘sec’ [-Wunused-variable]
-   52 |     int opcao, sec=0, med=0, qtdMed=0, qtdSec=0, qtdPac=0;
-      |                ^~~
-main.c:52:9: warning: unused variable ‘opcao’ [-Wunused-variable]
-   52 |     int opcao, sec=0, med=0, qtdMed=0, qtdSec=0, qtdPac=0;
-      |         ^~~~~
+main.c:106:28: warning: unused variable ‘ehMed’ [-Wunused-variable]
+  106 |     int opcao, ehSecret=0, ehMed=0, qtdMed=0, qtdSec=0, qtdPac=0;
+      |                            ^~~~~
+main.c:106:16: warning: unused variable ‘ehSecret’ [-Wunused-variable]
+  106 |     int opcao, ehSecret=0, ehMed=0, qtdMed=0, qtdSec=0, qtdPac=0;
+      |                ^~~~~~~~
+main.c:145:11: warning: ‘acesso’ is used uninitialized [-Wuninitialized]
+  145 |         if(acesso == 'A'){
+      |           ^
 tPessoa.c: In function ‘VerificaCadastroSecretario’:
-tPessoa.c:264:34: warning: division ‘sizeof (tSecretario **) / sizeof (tSecretario *)’ does not compute the number of array elements [-Wsizeof-pointer-div]
-  264 |     int qtd = sizeof(secretarios)/sizeof(secretarios[0]);
+tPessoa.c:253:34: warning: division ‘sizeof (tSecretario **) / sizeof (tSecretario *)’ does not compute the number of array elements [-Wsizeof-pointer-div]
+  253 |     int qtd = sizeof(secretarios)/sizeof(secretarios[0]);
       |                                  ^
-tPessoa.c:262:46: note: first ‘sizeof’ operand was declared here
-  262 | int VerificaCadastroSecretario(tSecretario **secretarios, char *login, char *senha){
+tPessoa.c:251:46: note: first ‘sizeof’ operand was declared here
+  251 | int VerificaCadastroSecretario(tSecretario **secretarios, char *login, char *senha){
       |                                ~~~~~~~~~~~~~~^~~~~~~~~~~
 tPessoa.c: In function ‘VerificaCadastroMedicos’:
-tPessoa.c:277:30: warning: division ‘sizeof (tMedico **) / sizeof (tMedico *)’ does not compute the number of array elements [-Wsizeof-pointer-div]
-  277 |     int qtd = sizeof(medicos)/sizeof(medicos[0]);
+tPessoa.c:266:30: warning: division ‘sizeof (tMedico **) / sizeof (tMedico *)’ does not compute the number of array elements [-Wsizeof-pointer-div]
+  266 |     int qtd = sizeof(medicos)/sizeof(medicos[0]);
       |                              ^
-tPessoa.c:275:39: note: first ‘sizeof’ operand was declared here
-  275 | int VerificaCadastroMedicos(tMedico **medicos, char *login, char *senha){
+tPessoa.c:264:39: note: first ‘sizeof’ operand was declared here
+  264 | int VerificaCadastroMedicos(tMedico **medicos, char *login, char *senha){
       |                             ~~~~~~~~~~^~~~~~~

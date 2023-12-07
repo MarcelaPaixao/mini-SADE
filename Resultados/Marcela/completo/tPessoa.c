@@ -37,12 +37,7 @@ tMedico *CadastraMedico(char *nome, char *cpf){
     tMedico *medico = malloc(sizeof(tMedico));
     if(medico == NULL){
         exit(1);
-    }
-    //printf("#################### CADASTRO MEDICO #######################\n");
-    //printf("NOME COMPLETO: ");
-    //scanf("%[^\n]%*c", medico->nome);
-    //printf("CPF: ");
-    //scanf("%[^\n]%*c", medico->cpf);
+    }   
     strcpy(medico->nome, nome);
     strcpy(medico->cpf, cpf);
     printf("DATA DE NASCIMENTO: ");
@@ -69,11 +64,8 @@ tPaciente *CadastraPaciente(char *nome, char *cpf){
     if(paciente == NULL){
         exit(1);
     }
-    printf("#################### CADASTRO PACIENTE #######################\n");
-    printf("NOME COMPLETO: ");
-    scanf("%[^\n]%*c", paciente->nome);
-    printf("CPF: ");
-    scanf("%[^\n]%*c", paciente->cpf);
+    strcpy(paciente->nome, nome);
+    strcpy(paciente->cpf, cpf);
     printf("DATA DE NASCIMENTO: ");
     scanf("%d/%d/%d%*c", &paciente->nascDia, &paciente->nascMes, &paciente->nascAno);
     printf("TELEFONE: ");
@@ -93,11 +85,8 @@ tSecretario *CadastraSecretario(char *nome, char *cpf){
         exit(1);
     }
     char acesso[6];
-    printf("#################### CADASTRO SECRETARIO #######################\n");
-    printf("NOME COMPLETO: ");
-    scanf("%[^\n]%*c", secretario->nome);
-    printf("CPF: ");
-    scanf("%[^\n]%*c", secretario->cpf);
+    strcpy(secretario->nome, nome);
+    strcpy(secretario->cpf, cpf);
     printf("DATA DE NASCIMENTO: ");
     scanf("%d/%d/%d%*c", &secretario->nascDia, &secretario->nascMes, &secretario->nascAno);
     printf("TELEFONE: ");
@@ -285,6 +274,10 @@ int VerificaCadastroMedicos(tMedico **medicos, char *login, char *senha){
     return 0;
 }
 
+int VerificaSeJaExisteCpf(char *cpf1, char *cpf2){
+    if(strcmp(cpf1, cpf2) == 0) return 1;
+    else return 0;
+}
 
 void ImprimePaciente(tPaciente *p){
     printf("PACIENTE: %s\n", p->nome);

@@ -1,6 +1,9 @@
 #ifndef _TLISTA_BUSCA_H_
 #define _TLISTA_BUSCA_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "tPessoa.h"
 
 typedef struct tListaPacientes tListaPacientes;
@@ -11,10 +14,12 @@ void AdicionaPacienteLista(tListaPacientes *lista, tPaciente *paciente);
 
 void DesalocaListaPacientes(tListaPacientes *lista);
 
-void ImprimeListaPacientesTela(tListaPacientes *lista, char *nome);
+void ImprimeListaPacientesTela(void *dado);
 
-void ImprimeListaPacientesArquivo(tListaPacientes *lista, char *nome, char *path);
+void ImprimeListaPacientesArquivo(void *dado, char *path);
 
 int ObtemTamanhoLista(tListaPacientes *lista);
+
+void MenuBusca(void *dado, char *path);
 
 #endif

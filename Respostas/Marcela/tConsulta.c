@@ -88,7 +88,7 @@ void CadastraLesao(tConsulta *consulta){
     printf("LESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
-    scanf("%c%*c", &c);
+    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
 }
 
 int VerificaSePrecisaCirurgia(tConsulta *consulta){
@@ -117,7 +117,7 @@ void SolicitaBiopsia(tConsulta *consulta){
         printf("############################################################\n");
     }
     char c;
-    scanf("%c%*c", &c);
+    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
 }
 
 void EncaminhaPaciente(tConsulta *consulta){
@@ -128,7 +128,7 @@ void EncaminhaPaciente(tConsulta *consulta){
     printf("ENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
-    scanf("%c%*c", &c);
+    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
 }
 
 void GeraReceita(tConsulta *consulta){
@@ -170,5 +170,5 @@ void GeraReceita(tConsulta *consulta){
     printf("RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
-    scanf("%c%*c", &c);
+    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
 }
