@@ -71,38 +71,45 @@ int main(int argc, char *argv[]){
     tFila *fila = criaFila();
     
 
-    char login[20], senha2[20];
+    char login[20], code[20];
     //if(existir banco de dados)
-    /*while(1){
+    while(1){
         printf("######################## ACESSO MINI-SADE ######################\n");
         printf("DIGITE SEU LOGIN: ");
         scanf("%[^\n]%*c", login);
         printf("DIGITE SUA SENHA: ");
-        scanf("%[^\n]%*c", senha);
+        scanf("%[^\n]%*c", code);
         printf("###############################################################\n");
 
-        ehSecret = VerificaCadastroSecretario(secretarios, login, senha);//vai retornar o indice se encontrou e -1 se nao
-        ehMed = VerificaCadastroMedicos(medicos, login, senha);//vai retornar o incide se encontrou e -1 se nao
+        ehSecret = VerificaCadastroSecretario(secretarios, qtdSec, login, code);//vai retornar o indice se encontrou e -1 se nao
+        ehMed = VerificaCadastroMedicos(medicos, qtdMed, login, code);//vai retornar o indice se encontrou e -1 se nao
 
-        if(!ehSecret && !ehMed){
+        if(ehSecret < 0 && ehMed < 0){
             printf("SENHA INCORRETA OU USUARIO INEXISTENTE\n");
         }
-        if(ehSecret || ehMed){
+        else {
             break;
         }
+    }
+
+    if(ehSecret >= 0){
+        nivel = ObtemAcessoSecretario(secretarios[ehSecret]);
+    }
+    /*if(!banco e dados){
+        ImprimeMenuAdmin();
+        nivel = ADMIN;
     }*/
 
-    //int bancoDeDados = 0;
     while(1){
-            nivel = ADMIN;
-        //if(nivel == ADMIN || !bancoDeDados){
+            nivel = ADMIN;//usando pra teste
+        
         if(nivel == ADMIN){
             ImprimeMenuAdmin();
         }
         else if(nivel == USER){
             ImprimeMenuUser();
         }
-        else if(nivel == 'M'){
+        else if(ehMed >= 0){
             ImprimeMenuMedico();
         }
         scanf("%d%*c", &opcao);
@@ -144,7 +151,7 @@ int main(int argc, char *argv[]){
                 scanf("%c%*c", &c);
             }
         }
-        else if(opcao ==  2 && nivel != 'M'){//ou ehSec
+        else if(opcao ==  2 && ehMed < 0){
             printf("#################### CADASTRO MEDICO #######################\n");
             printf("NOME COMPLETO: ");
             scanf("%[^\n]%*c", nome);
@@ -181,7 +188,7 @@ int main(int argc, char *argv[]){
                 scanf("%c%*c", &c);
             }
         }
-        else if(opcao == 3 && nivel != 'M'){//ou ehSec
+        else if(opcao == 3 && ehMed < 0){
             printf("#################### CADASTRO PACIENTE #######################\n");
             printf("NOME COMPLETO: ");
             scanf("%[^\n]%*c", nome);
@@ -224,7 +231,7 @@ int main(int argc, char *argv[]){
                 break;
             }
             if(ehMed >= 0){
-                medicoConsulta = medicos[(VerificaCadastroMedicos(medicos, qtdMed, login, senha2))];
+                medicoConsulta = medicos[(VerificaCadastroMedicos(medicos, qtdMed, login, code))];
             }
             //medicoConsulta = medicos[0]; //só pra testar se funciona corretamente
 
@@ -292,13 +299,3 @@ int main(int argc, char *argv[]){
 
     return 0;
 }
-
-
-
-    /*tPaciente *paciente = CadastraPaciente();
-    ImprimePaciente(paciente);
-    tMedico *m = CadastraMedico();
-    ImprimeMedico(m);
-    tSecretario *s = CadastraSecretario();
-    ImprimeSecretario(s);
-    */
