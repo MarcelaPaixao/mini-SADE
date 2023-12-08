@@ -16,10 +16,17 @@ tBiopsia *CriaBiopsia(tMedico *medico, tPaciente *paciente, char *data){
     if(!biopsia){
         exit(1);
     }
+    if(medico == NULL){
+        biopsia->nomeMedico[0] = '\0';
+        biopsia->CRMMedico[0] = '\0';
+    }
+    else {
+        strcpy(biopsia->nomeMedico, ObtemNomeMedico(medico));
+        strcpy(biopsia->CRMMedico, ObtemCRMMedico(medico));
+    }
     strcpy(biopsia->nomePaciente, ObtemNomePaciente(paciente));
     strcpy(biopsia->cpfPaciente, ObtemCPFPaciente(paciente));
-    strcpy(biopsia->nomeMedico, ObtemNomeMedico(medico));
-    strcpy(biopsia->CRMMedico, ObtemCRMMedico(medico));
+    
     strcpy(biopsia->data, data);
     biopsia->qtdLesoes = 0;
     biopsia->lesoes = NULL;

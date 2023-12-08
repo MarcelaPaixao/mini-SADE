@@ -166,8 +166,8 @@ void GeraReceita(tConsulta *consulta, tFila *fila){
     char nomeMedico[100];
     char CRM[12];
     if(consulta->medico == NULL){
-        strcpy("", nomeMedico);
-        strcpy("", CRM);
+        nomeMedico[0] = '\0';
+        CRM[0] = '\0';
     }
     else {
         strcpy(ObtemNomeMedico(consulta->medico), nomeMedico);

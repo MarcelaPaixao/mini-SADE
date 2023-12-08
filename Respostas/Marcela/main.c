@@ -175,7 +175,7 @@ int main(int argc, char *argv[]){
                 secretarios[qtdSec - 1] = CadastraSecretario(nome, cpf, telefone, genero, acesso, user, senha, dia, mes, ano);
                 printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
                 printf("###############################################################\n");
-                scanf("%c%*c", &c);
+                scanf("%*c");
             }
         }
         else if(opcao ==  2 && ehMed < 0){
@@ -209,7 +209,7 @@ int main(int argc, char *argv[]){
                 medicos[qtdMed - 1] = CadastraMedico(nome, cpf, telefone, genero, CRM, user, senha, dia, mes, ano);
                 printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
                 printf("###############################################################\n");
-                scanf("%c%*c", &c);
+                scanf("%*c");
             }
         }
         else if(opcao == 3 && ehMed < 0){
@@ -236,7 +236,7 @@ int main(int argc, char *argv[]){
                 pacientes[qtdPac - 1] = CadastraPaciente(nome, cpf, telefone, genero, dia, mes, ano);
                 printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
                 printf("###############################################################\n");
-                scanf("%c%*c", &c);
+                scanf("%*c");
             }
         }
         else if(opcao == 4 && nivel != USER){
@@ -262,6 +262,7 @@ int main(int argc, char *argv[]){
             consultas = realloc(consultas, qtdConsult * sizeof(tConsulta *));
             consultas[qtdConsult - 1] = IniciaConsulta(pacientes[idxPaciente], medicoConsulta); 
             opcao = 0;
+
             while(opcao != 5){
                 ImprimeMenuConsulta();
                 scanf("%d%*c", &opcao);
@@ -308,12 +309,13 @@ int main(int argc, char *argv[]){
             }
             else {
                 printf("NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
-                scanf("%c%*c", &c);
+                scanf("%*c");
             }
         }
         else if(opcao == 6){
             //relatório geral
-            scanf("%c%*c", &c);    
+            scanf("%*c");    
+            scanf("%*c");
         }
         else if(opcao == 7){
             printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
@@ -332,7 +334,7 @@ int main(int argc, char *argv[]){
                 }
                 printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
                 printf("###############################################################\n");
-                scanf("%c%*c", &c);
+                scanf("%*c");
                 break;
             
             case 2:
