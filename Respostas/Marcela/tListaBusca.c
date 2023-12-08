@@ -1,6 +1,4 @@
 #include "tListaBusca.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 struct tListaPacientes {
     tPaciente **paciente;
@@ -36,8 +34,7 @@ void ImprimeListaPacientesTela(void *dado){
     for(int i=0; i < lista->qtdPacientes; i++){
         printf("%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
     }
-    printf("\n###############################################################\n");
-
+    printf("\n");
 }
 
 void ImprimeListaPacientesArquivo(void *dado, char *path){
@@ -65,8 +62,10 @@ void MenuBusca(void *dado, tFila *fila){
     scanf("%d%*c", &opcao);
     if(opcao == 1){
         insereDocumentoFila(fila, lista, ImprimeListaPacientesTela, ImprimeListaPacientesArquivo, DesalocaListaPacientes);
-        printf("LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU PRINCIPAL\n");
+        printf("\nLISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU PRINCIPAL\n");
         printf("############################################################\n");
+        char c;
+        scanf("%c%*c", &c);
     }
     if(opcao == 2){
         return;

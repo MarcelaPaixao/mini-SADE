@@ -38,7 +38,8 @@ tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
     scanf("%d%*c", &consulta->histCancer);
     printf("TIPO DE PELE: ");
     scanf("%[^\n]%*c", consulta->pele);
-    printf("############################################################\n");
+    
+    printf("\n############################################################\n");
     
     consulta->lesoes = NULL;
     consulta->medico = medico;

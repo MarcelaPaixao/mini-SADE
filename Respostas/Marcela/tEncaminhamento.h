@@ -1,7 +1,9 @@
 #ifndef _ENCAMINHAMENTO_H_
 #define _ENCAMINHAMENTO_H_
 
-#include "tPessoa.h"
+#include "tSecretario.h"
+#include "tPaciente.h"
+#include "tMedico.h"
 typedef struct tEncaminhamento tEncaminhamento;
 
 tEncaminhamento *CriaEncaminhamento(tPaciente *paciente, tMedico *medico, char *data);

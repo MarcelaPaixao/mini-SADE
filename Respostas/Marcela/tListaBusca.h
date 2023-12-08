@@ -4,7 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tPessoa.h"
+#include "tSecretario.h"
+#include "tPaciente.h"
+#include "tMedico.h"
 #include "tDocumento.h"
 #include "tFila.h"
 

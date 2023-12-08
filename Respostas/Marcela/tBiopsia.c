@@ -1,4 +1,3 @@
-
 #include "tBiopsia.h"
 
 struct tBiopsia {

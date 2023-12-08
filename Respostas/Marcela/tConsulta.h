@@ -3,7 +3,9 @@
 
 #include "tBiopsia.h"
 #include "tLesao.h"
-#include "tPessoa.h"
+#include "tSecretario.h"
+#include "tPaciente.h"
+#include "tMedico.h"
 #include "tDocumento.h"
 #include "tEncaminhamento.h"
 #include "tReceita.h"

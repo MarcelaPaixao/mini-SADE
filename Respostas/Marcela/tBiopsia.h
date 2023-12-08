@@ -2,7 +2,9 @@
 #define _TBIOPSIA_H_
 
 #include "tLesao.h"
-#include "tPessoa.h"
+#include "tSecretario.h"
+#include "tPaciente.h"
+#include "tMedico.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,6 +22,5 @@ void ImprimeNaTelaBiopsia(void *dado);
 void ImprimeEmBinarioBiopsia(tBiopsia *);
 
 void ImprimeEmArquivoBiopsia(void *dado, char *path);
-
 
 #endif
