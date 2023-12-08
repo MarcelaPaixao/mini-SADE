@@ -22,8 +22,7 @@ tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
     if(!consulta){
         exit(1);
     }
-    printf("#################### CONSULTA MEDICA #######################\n");
-    printf("CPF DO PACIENTE: ---\n");
+    printf("---\n");
     printf("-NOME: %s\n", ObtemNomePaciente(paciente));
     printf("-DATA DE NASCIMENTO: %d/%d/%d\n", ObtemDiaNascPaciente(paciente), ObtemMesNascPaciente(paciente), ObtemAnoNascPaciente(paciente));
     printf("---\n");
@@ -63,9 +62,7 @@ void FinalizaConsulta(tConsulta *consulta){
     //lembrar de desalocar o resto das coisas depois
 }
 
-
-
-void ImprimeMenuConsulta(tConsulta *consulta){
+void ImprimeMenuConsulta(){
     printf("#################### CONSULTA MEDICA #######################\n");
     printf("ESCOLHA UMA OPCAO:\n");
     printf("\t(1) CADASTRAR LESAO\n");
@@ -76,11 +73,8 @@ void ImprimeMenuConsulta(tConsulta *consulta){
     printf("############################################################\n");
 }
 
-void ImprimeCabecalhoConsulta(){
-    printf("#################### CONSULTA MEDICA #######################\n");
-}
-
 void CadastraLesao(tConsulta *consulta){
+    if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
     (consulta->qtdLesoes)++;
     consulta->lesoes = realloc(consulta->lesoes, consulta->qtdLesoes * sizeof(tLesao *));
@@ -88,10 +82,11 @@ void CadastraLesao(tConsulta *consulta){
     printf("LESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
-    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
+    scanf("%c%*c", &c);
 }
 
 int VerificaSePrecisaCirurgia(tConsulta *consulta){
+    if(!consulta) return 0;
     for(int i=0; i < consulta->qtdLesoes; i++){
         if(ObtemEnviaCirugia(consulta->lesoes[i])){
             return 1;
@@ -100,7 +95,8 @@ int VerificaSePrecisaCirurgia(tConsulta *consulta){
     return 0;
 }
 
-void SolicitaBiopsia(tConsulta *consulta){
+void SolicitaBiopsia(tConsulta *consulta, tFila *fila){
+    if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
     if(!VerificaSePrecisaCirurgia(consulta)){
         printf("NAO E POSSIVEL SOLICITAR BIOPSIA SEM LESAO CIRURGICA. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
@@ -113,25 +109,29 @@ void SolicitaBiopsia(tConsulta *consulta){
                 AdicionaLesao(consulta->biopsia, consulta->lesoes[i]);
             }
         }
+        insereDocumentoFila(fila, consulta->biopsia, ImprimeNaTelaBiopsia, ImprimeEmArquivoBiopsia, DesalocaBiopsia);
         printf("SOLICITACAO DE BIOPSIA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
         printf("############################################################\n");
     }
     char c;
-    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
+    scanf("%c%*c", &c);
 }
 
-void EncaminhaPaciente(tConsulta *consulta){
+void EncaminhaPaciente(tConsulta *consulta, tFila *fila){
+    if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
     (consulta->qtdEncam)++;
     consulta->encaminhamento = realloc(consulta->encaminhamento, consulta->qtdEncam * sizeof(tEncaminhamento *));
     consulta->encaminhamento[consulta->qtdEncam - 1] = CriaEncaminhamento(consulta->paciente, consulta->medico, consulta->data);
+    insereDocumentoFila(fila, consulta->encaminhamento[consulta->qtdEncam - 1], ImprimeNaTelaEncam, ImprimeEmArquivoEncam, DesalocaEncaminhamento);
     printf("ENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
-    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
+    scanf("%c%*c", &c);
 }
 
-void GeraReceita(tConsulta *consulta){
+void GeraReceita(tConsulta *consulta, tFila *fila){
+    if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
     eTipoUso tipoUso;
     char nomeMedicamento[MAX_TAM_NOME_MEDICAMENTO];
@@ -141,7 +141,6 @@ void GeraReceita(tConsulta *consulta){
     int qtd;
 
     printf("RECEITA MEDICA:\n");
-
     printf("TIPO DE USO: ");
     scanf("%[^\n]%*c", uso);
     printf("NOME DO MEDICAMENTO: ");
@@ -159,16 +158,45 @@ void GeraReceita(tConsulta *consulta){
     if(strcmp(uso, "TOPICO") == 0){
         tipoUso = TOPICO;
     }
-
+    
     (consulta->qtdReceitas)++;
     consulta->receita = realloc(consulta->receita, consulta->qtdReceitas * sizeof(tReceita *));
-
+    
+    char nomeMedico[100];
+    char CRM[12];
+    if(consulta->medico == NULL){
+        strcpy("", nomeMedico);
+        strcpy("", CRM);
+    }
+    else {
+        strcpy(ObtemNomeMedico(consulta->medico), nomeMedico);
+        strcpy(ObtemCRMMedico(consulta->medico), CRM);
+    }
     consulta->receita[consulta->qtdReceitas - 1] = criaReceita( ObtemNomePaciente(consulta->paciente), tipoUso, 
                                                                 nomeMedicamento, tipoMedicamento, instrucoes, qtd, 
-                                                                ObtemNomeMedico(consulta->medico), ObtemCRMMedico(consulta->medico), 
-                                                                consulta->data);
+                                                                nomeMedico, CRM, consulta->data);
+                                                                
+    insereDocumentoFila(fila, consulta->receita[consulta->qtdReceitas - 1], imprimeNaTelaReceita, imprimeEmArquivoReceita, desalocaReceita);
     printf("RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
-    scanf("%c%*c", &c); //talvez rtirar isso daqui e colocar na main pra padronizar
+    scanf("%c%*c", &c);
 }
+
+/*void imprimeConsulta(tConsulta *consulta){
+    if(!consulta) return;
+    printf("#################### CONSULTA MEDICA #######################\n");
+    printf("DATA DA CONSULTA: ");
+    printf("%s\n", consulta->data);
+    printf("POSSUI DIABETES: ");
+    printf("%d\n", consulta->diabetes);
+    printf("FUMANTE: ");
+    printf("%d\n", consulta->fumante);
+    printf("ALERGIA A MEDICAMENTO: ");
+    printf("%d\n", consulta->alergia);
+    printf("HISTORICO DE CANCER: ");
+    printf("%d\n", consulta->histCancer);
+    printf("TIPO DE PELE: ");
+    printf("%s\n", consulta->pele);
+    printf("############################################################\n");
+}*/

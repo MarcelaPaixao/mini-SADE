@@ -31,7 +31,8 @@ tEncaminhamento *CriaEncaminhamento(tPaciente *paciente, tMedico *medico, char *
     return enc;
 }
 
-void ImprimeNaTelaEncam(tEncaminhamento *enc){
+void ImprimeNaTelaEncam(void *dado){
+    tEncaminhamento *enc = (tEncaminhamento*) dado;
     printf("PACIENTE: %s\n", enc->nomePaciente);
     printf("CPF: %s\n\n", enc->cpfPaciente);
     printf("ESPECIALIDADE ENCAMINHADA: %s", enc->especialidade);
@@ -41,7 +42,8 @@ void ImprimeNaTelaEncam(tEncaminhamento *enc){
     printf("%s\n", enc->data);
 }
 
-void ImprimeEmArquivoEncam(tEncaminhamento *enc, char *path){
+void ImprimeEmArquivoEncam(void *dado, char *path){
+    tEncaminhamento *enc = (tEncaminhamento*) dado;
     char diretorio[1000];
     sprintf(diretorio, "%s/encaminhamento.txt", path);
     FILE *arq = fopen(diretorio, "a");
@@ -56,7 +58,8 @@ void ImprimeEmArquivoEncam(tEncaminhamento *enc, char *path){
     fclose(arq);
 }
 
-void DesalocaEncaminhamento(tEncaminhamento *enc){
+void DesalocaEncaminhamento(void *dado){
+    tEncaminhamento *enc = (tEncaminhamento*) dado;
     if(!enc) return;
     free(enc);
 }

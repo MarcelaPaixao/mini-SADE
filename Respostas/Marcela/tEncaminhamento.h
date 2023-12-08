@@ -6,10 +6,10 @@ typedef struct tEncaminhamento tEncaminhamento;
 
 tEncaminhamento *CriaEncaminhamento(tPaciente *paciente, tMedico *medico, char *data);
 
-void DesalocaEncaminhamento(tEncaminhamento *);
+void DesalocaEncaminhamento(void *dado);
 
-void ImprimeNaTelaEncam(tEncaminhamento *);
+void ImprimeNaTelaEncam(void *dado);
 
-void ImprimeEmArquivoEncam(tEncaminhamento *, char *path);
+void ImprimeEmArquivoEncam(void *dado, char *path);
 
 #endif

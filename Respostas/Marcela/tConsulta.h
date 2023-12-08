@@ -7,6 +7,7 @@
 #include "tDocumento.h"
 #include "tEncaminhamento.h"
 #include "tReceita.h"
+#include "tFila.h"
 
 typedef struct tConsulta tConsulta;
 
@@ -14,16 +15,16 @@ tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico);
 
 void FinalizaConsulta(tConsulta *consulta);
 
-void ImprimeMenuConsulta(tConsulta *consulta);
-
-void ImprimeCabecalhoConsulta();
+void ImprimeMenuConsulta();
 
 void CadastraLesao(tConsulta *consulta);
 
-void SolicitaBiopsia(tConsulta *consulta);
+void SolicitaBiopsia(tConsulta *consulta, tFila *fila);
 
-void EncaminhaPaciente(tConsulta *consulta);
+void EncaminhaPaciente(tConsulta *consulta, tFila *fila);
 
-void GeraReceita(tConsulta *consulta);
+void GeraReceita(tConsulta *consulta, tFila *fila);
+
+/*void imprimeConsulta(tConsulta *consulta);*/
 
 #endif

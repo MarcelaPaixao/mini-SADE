@@ -20,7 +20,7 @@ tLesao *CriaLesao(int idxRotulo){
     scanf("%[^\n]%*c", lesao->diagnostico);
     printf("REGIAO DO CORPO: ");
     scanf("%[^\n]%*c", lesao->regiao);
-    printf("TAMANHO ");
+    printf("TAMANHO: ");
     scanf("%d%*c", &lesao->tamLesao);
     printf("ENVIAR PARA CIRURGIA: ");
     scanf("%d%*c", &lesao->enviaCirurgia);

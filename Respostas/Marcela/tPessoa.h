@@ -69,16 +69,14 @@ int ObtemAnoNascPaciente(tPaciente *);
 
 char *ObtemGeneroPaciente(tPaciente *);
 
-int VerificaCadastroSecretario(tSecretario **secretarios, char *login, char *senha);
+int VerificaCadastroSecretario(tSecretario **secretarios, int qtdSec, char *login, char *senha);
 
-int VerificaCadastroMedicos(tMedico **medicos, char *login, char *senha);
+int VerificaCadastroMedicos(tMedico **medicos, int qtdMed, char *login, char *senha);
 
 int VerificaSeJaExisteCpf(char *cpf1, char *cpf2);
 
-void ImprimePaciente(tPaciente *);
+int VerificaSeJaExistePaciente(tPaciente **paciente, int qtdPac, char *cpf);
 
-void ImprimeMedico(tMedico *);
-
-void ImprimeSecretario(tSecretario *);
+int EncontraIdxMedico(tMedico **medicos, int qtdMed, char *login);
 
 #endif

@@ -13,13 +13,13 @@ tBiopsia *CriaBiopsia(tMedico *medico, tPaciente *paciente, char *data);
 
 void AdicionaLesao(tBiopsia *, tLesao *);
 
-void DesalocaBiopsia(tBiopsia *);
+void DesalocaBiopsia(void *dado);
 
-void ImprimeNaTelaBiopsia(tBiopsia *);
+void ImprimeNaTelaBiopsia(void *dado);
 
 void ImprimeEmBinarioBiopsia(tBiopsia *);
 
-void ImprimeEmArquivoBiopsia(tBiopsia *, char *path);
+void ImprimeEmArquivoBiopsia(void *dado, char *path);
 
 
 #endif

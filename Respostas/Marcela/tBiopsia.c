@@ -33,7 +33,8 @@ void AdicionaLesao(tBiopsia *biopsia, tLesao *lesao){
     biopsia->lesoes[biopsia->qtdLesoes - 1] = lesao;
 }
 
-void DesalocaBiopsia(tBiopsia *biopsia){
+void DesalocaBiopsia(void *dado){
+    tBiopsia *biopsia = (tBiopsia*) dado;
     if(!biopsia) return;
     if(biopsia->lesoes){
         free(biopsia->lesoes);
@@ -41,7 +42,8 @@ void DesalocaBiopsia(tBiopsia *biopsia){
     free(biopsia);
 }
 
-void ImprimeNaTelaBiopsia(tBiopsia *biopsia){
+void ImprimeNaTelaBiopsia(void *dado){
+    tBiopsia *biopsia = (tBiopsia*) dado;
     int precisaCirurgia=0;
     for(int i=0; i < biopsia->qtdLesoes; i++){
         if(ObtemEnviaCirugia(biopsia->lesoes[i])){
@@ -67,7 +69,8 @@ void ImprimeNaTelaBiopsia(tBiopsia *biopsia){
 
 void ImprimeEmBinarioBiopsia(tBiopsia *biopsia);
 
-void ImprimeEmArquivoBiopsia(tBiopsia *biopsia, char *path){
+void ImprimeEmArquivoBiopsia(void *dado, char *path){
+    tBiopsia *biopsia = (tBiopsia*) dado;
     char diretorio[1000];
     sprintf(diretorio, "%s/biopsia.txt", path);
     FILE *arq = fopen(diretorio, "a");

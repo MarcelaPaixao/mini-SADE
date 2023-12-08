@@ -228,12 +228,11 @@ char *ObtemGeneroPaciente(tPaciente *p){
     return genero;
 }
 
-int VerificaCadastroSecretario(tSecretario **secretarios, char *login, char *senha){
+int VerificaCadastroSecretario(tSecretario **secretarios, int qtdSec, char *login, char *senha){
     if(!secretarios) return 0;
-    int qtd = sizeof(secretarios)/sizeof(secretarios[0]);
-    for(int i=0; i < qtd; i++){
-        if(strcmp(login, secretarios[0]->user) == 0){
-            if(strcmp(senha, secretarios[0]->senha) == 0){
+    for(int i=0; i < qtdSec; i++){
+        if(strcmp(login, secretarios[i]->user) == 0){
+            if(strcmp(senha, secretarios[i]->senha) == 0){
                 return 1;
             }
         }
@@ -241,17 +240,16 @@ int VerificaCadastroSecretario(tSecretario **secretarios, char *login, char *sen
     return 0;
 }
 
-int VerificaCadastroMedicos(tMedico **medicos, char *login, char *senha){
-    if(!medicos) return 0;
-    int qtd = sizeof(medicos)/sizeof(medicos[0]);
-    for(int i=0; i < qtd; i++){
-        if(strcmp(login, medicos[0]->user) == 0){
-            if(strcmp(senha, medicos[0]->senha) == 0){
-                return 1;
+int VerificaCadastroMedicos(tMedico **medicos, int qtdMed, char *login, char *senha){
+    if(!medicos) return -1;
+    for(int i=0; i < qtdMed; i++){
+        if(strcmp(login, medicos[i]->user) == 0){
+            if(strcmp(senha, medicos[i]->senha) == 0){
+                return i;
             }
         }
     }
-    return 0;
+    return -1;
 }
 
 int VerificaSeJaExisteCpf(char *cpf1, char *cpf2){
@@ -259,7 +257,7 @@ int VerificaSeJaExisteCpf(char *cpf1, char *cpf2){
     else return 0;
 }
 
-void ImprimePaciente(tPaciente *p){
+/*void ImprimePaciente(tPaciente *p){
     printf("PACIENTE: %s\n", p->nome);
     printf("CPF: %s\n", p->cpf);
     printf("DATA DE NASCIMENTO: %d/%d/%d\n", p->nascDia, p->nascMes, p->nascAno);
@@ -287,4 +285,13 @@ void ImprimeSecretario(tSecretario *p){
     printf("ACESSO: %c\n", p->acesso);
     printf("SENHA: %s\n", p->senha);
     printf("USER: %s\n", p->user);
+}*/
+
+int VerificaSeJaExistePaciente(tPaciente **paciente, int qtdPac, char *cpf){
+    for(int i=0; i < qtdPac && qtdPac >= 1; i++){
+        if(strcmp(paciente[i]->cpf, cpf)==0){
+            return i;
+        }
+    }
+    return -1;
 }
