@@ -66,6 +66,7 @@ void imprimeFila(tFila *f, char *path){
     for(int i=0; i < f->qtdDoc; i++){
         imprimeNaTelaDocumento(f->documentos[i]);
         imprimeEmArquivoDocumento(f->documentos[i], path);
+        printf("\n");
     }
 }
 

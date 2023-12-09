@@ -65,9 +65,9 @@ char *ObtemRotuloLesao(tLesao *lesao){
 }
 
 void ImprimeLesaoTela(tLesao *lesao){
-    printf("%s - %s - %s - %dMM\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
+    printf("%s - %s - %s - %dMM\n\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
 }
 
 void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq){
-    fprintf(arq, "%s - %s - %s - %dMM\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
+    fprintf(arq, "%s - %s - %s - %dMM\n\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
 }

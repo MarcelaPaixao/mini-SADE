@@ -8,7 +8,6 @@
 #include "tMedico.h"
 #include "tDocumento.h"
 #include "tEncaminhamento.h"
-#include "tReceita.h"
 #include "tConsulta.h"
 #include "tListaBusca.h"
 #include "tReceita.h"
@@ -56,14 +55,15 @@ void ImprimeMenuMedico(){
 }
 
 int main(int argc, char *argv[]){
-    char nome[100], cpf[15], telefone[15], CRM[12], genero[10], acesso[6], user[20], senha[20], path[100], banco[100], nivel;
+    char nome[100], cpf[15], telefone[15], CRM[12], genero[10], acesso[6], user[20];
+    char login[20], code[20], senha[20], path[500], banco[500], nivel;
     int dia, mes, ano, flagJaExiste = 0, opcao, ehSecret=-1, ehMed=-1;
     int qtdMed=0, qtdSec=0, qtdPac=0, qtdConsult=0;
 
-   // if (argc <= 1) {
-	//	printf("ERRO: O diretorio de arquivos de configuracao nao foi informado\n");
-	//	exit(1);
-	//}//
+    if (argc <= 1) {
+		printf("ERRO: O diretorio de arquivos de configuracao nao foi informado\n");
+		exit(1);
+	}
     
     char pathBanco[1000];
     sprintf(path, "%s/saida", argv[1]);
@@ -82,9 +82,6 @@ int main(int argc, char *argv[]){
     tFila *fila = criaFila();
     tListaPacientes *listaPacientes = NULL;
     tRelatorio *relatorio = NULL;
-    
-
-    char login[20], code[20];
 
        //if(!bancodados){
         printf("#################### CADASTRO SECRETARIO #######################\n");
@@ -288,7 +285,6 @@ int main(int argc, char *argv[]){
                     break;
                 }
             }
-            opcao = 0;
         }
         else if(opcao == 5){
             listaPacientes = CriaListaPacientes();
@@ -304,6 +300,7 @@ int main(int argc, char *argv[]){
                 }
             }
             if(ObtemTamanhoLista(listaPacientes) > 0){
+                printf("PACIENTES ENCONTRADOS:\n");
                 ImprimeListaPacientesTela(listaPacientes);
                 MenuBusca(listaPacientes, fila);
             }
@@ -327,44 +324,57 @@ int main(int argc, char *argv[]){
             case 1:
                 insereDocumentoFila(fila, relatorio, ImprimeNaTelaRelatorio, ImprimeEmArquivoRelatorio, DesalocaRelatorio);
                 printf("\nRELATÓRIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
-                printf("###############################################################\n");
+                printf("############################################################\n");
                 scanf("%*c");
                 break;
             
             case 2:
                 break;
-            }   
-            opcao = 0;              
+            }                 
         }
         else if(opcao == 7){
-            printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
-            printf("ESCOLHA UMA OPCAO:\n");
-            printf("\t(1) EXECUTAR FILA DE IMPRESSAO\n");
-            printf("\t(2) RETORNAR AO MENU PRINCIPAL\n");
-            printf("############################################################\n");
-            
-            scanf("%d%*c", &opcao);
-            switch (opcao)
-            {
-            case 1:
-                printf("EXECUTANDO FILA DE IMPRESSAO:\n\n");
-                if(fila){
-                    imprimeFila(fila, path);
-                }
-                printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
-                printf("###############################################################\n");
-                scanf("%*c");
-                break;
-            
-            case 2:
-                break;
-            }   
-            opcao = 0;              
+            while(opcao != 2){
+                printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
+                printf("ESCOLHA UMA OPCAO:\n");
+                printf("\t(1) EXECUTAR FILA DE IMPRESSAO\n");
+                printf("\t(2) RETORNAR AO MENU PRINCIPAL\n");
+                printf("############################################################\n");
+                scanf("%d%*c", &opcao);
+                switch (opcao)
+                {
+                case 1:
+                    printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
+                    printf("EXECUTANDO FILA DE IMPRESSAO:\n");
+                    if(fila){
+                        imprimeFila(fila, path);
+                    }
+                    printf("\nPRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
+                    printf("############################################################\n");
+                    scanf("%*c");
+                    break;
+                
+                case 2:
+                    break;
+                } 
+            }               
         }
         else if(opcao == 8){
             break;     
         }
     }      
-            
+
+    desalocaFila(fila);   
+    for(int i=0; i < qtdMed; i++){
+        DesalocaMedico(medicos[i]);
+    }
+    for(int i=0; i < qtdSec; i++){
+        DesalocaSecretario(secretarios[i]);
+    }   
+    for(int i=0; i < qtdPac; i++){
+        DesalocaPaciente(pacientes[i]);
+    }  
+    for(int i=0; i < qtdConsult; i++){
+        DesalocaConsulta(consultas[i]);
+    }
     return 0;
 }

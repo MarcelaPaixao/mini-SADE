@@ -41,7 +41,7 @@ void ImprimeNaTelaEncam(void *dado){
     tEncaminhamento *enc = (tEncaminhamento*) dado;
     printf("PACIENTE: %s\n", enc->nomePaciente);
     printf("CPF: %s\n\n", enc->cpfPaciente);
-    printf("ESPECIALIDADE ENCAMINHADA: %s", enc->especialidade);
+    printf("ESPECIALIDADE ENCAMINHADA: %s\n", enc->especialidade);
     printf("MOTIVO: %s\n\n", enc->motivo);
     printf("%s ", enc->nomeMedico);
     printf("(%s)\n", enc->CRMMedico);
@@ -56,7 +56,7 @@ void ImprimeEmArquivoEncam(void *dado, char *path){
     
     fprintf(arq, "PACIENTE: %s\n", enc->nomePaciente);
     fprintf(arq, "CPF: %s\n\n", enc->cpfPaciente);
-    fprintf(arq, "ESPECIALIDADE ENCAMINHADA: %s", enc->especialidade);
+    fprintf(arq, "ESPECIALIDADE ENCAMINHADA: %s\n", enc->especialidade);
     fprintf(arq, "MOTIVO: %s\n\n", enc->motivo);
     fprintf(arq, "%s ", enc->nomeMedico);
     fprintf(arq, "(%s)\n", enc->CRMMedico);

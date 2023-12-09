@@ -30,11 +30,9 @@ void DesalocaListaPacientes(void *dado){
 
 void ImprimeListaPacientesTela(void *dado){
     tListaPacientes *lista = (tListaPacientes*) dado;
-    printf("PACIENTES ENCONTRADOS:\n");
     for(int i=0; i < lista->qtdPacientes; i++){
         printf("%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
     }
-    printf("\n");
 }
 
 void ImprimeListaPacientesArquivo(void *dado, char *path){

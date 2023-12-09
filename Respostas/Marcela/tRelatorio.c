@@ -11,12 +11,15 @@ tRelatorio *GeraRelatorio(tConsulta **consultas, int qtdConsulta, tPaciente **pa
     if(!relatorio){
         exit(1);
     }
-    relatorio->mediaLesoes = 0;
+    relatorio->qtdPacientesAtend = 0;
+    relatorio->qtdFem = 0;
+    relatorio->qtdMasc = 0;
+    relatorio->qtdOutros = 0;
     relatorio->qtdLesoes = 0;
-    relatorio->mediaIdade = 0;
     relatorio->qtdCirurgia = 0;
     relatorio->qtdCrioterapia = 0;
-    relatorio->qtdPacientesAtend = 0;
+    relatorio->mediaIdade = 0;
+    relatorio->mediaLesoes = 0;
 
     char *cpf;
     for(int i=0; i < qtdConsulta && qtdConsulta >= 1; i++){

@@ -92,9 +92,9 @@ void imprimeEmArquivoReceita(void *dado, char *path){
     }
 
     fprintf(arq, "RECEITUARIO\n");
-    fprintf(arq, "NOME: %s\n", receita->nomePaciente);
-    if(receita->tipoUso == ORAL) fprintf(arq, "\n\nUSO ORAL\n\n");
-    else if(receita->tipoUso == TOPICO) fprintf(arq, "\n\nUSO TOPICO\n\n");
+    fprintf(arq, "NOME: %s\n\n", receita->nomePaciente);
+    if(receita->tipoUso == ORAL) fprintf(arq, "USO ORAL\n\n");
+    else if(receita->tipoUso == TOPICO) fprintf(arq, "USO TOPICO\n\n");
     fprintf(arq, "%s\n", receita->nomeMedicamento);
     fprintf(arq, "%d %s\n\n", receita->qtd, receita->tipoMedicamento);
     fprintf(arq, "%s\n\n", receita->instrucoes);

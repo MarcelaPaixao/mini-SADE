@@ -15,7 +15,7 @@ typedef struct tConsulta tConsulta;
 
 tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico);
 
-void FinalizaConsulta(tConsulta *consulta);
+void DesalocaConsulta(tConsulta *consulta);
 
 void ImprimeMenuConsulta();
 

@@ -49,18 +49,20 @@ tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
     consulta->biopsia = NULL;
     consulta->qtdEncam = 0;
     consulta->qtdReceitas = 0;
+    consulta->qtdLesoes = 0;
 
     return consulta;
 }
 
-void FinalizaConsulta(tConsulta *consulta){
+void DesalocaConsulta(tConsulta *consulta){
     if(!consulta) return; 
     for(int i=0; i < consulta->qtdLesoes; i++){
         DesalocaLesao(consulta->lesoes[i]);
     }
-    free(consulta->lesoes);
+    if(consulta->encaminhamento) free(consulta->encaminhamento);
+    if(consulta->receita) free(consulta->receita);
+    if(consulta->lesoes) free(consulta->lesoes);
     free(consulta);
-    //lembrar de desalocar o resto das coisas depois
 }
 
 void ImprimeMenuConsulta(){
@@ -79,8 +81,8 @@ void CadastraLesao(tConsulta *consulta){
     printf("#################### CONSULTA MEDICA #######################\n");
     (consulta->qtdLesoes)++;
     consulta->lesoes = realloc(consulta->lesoes, consulta->qtdLesoes * sizeof(tLesao *));
-    consulta->lesoes[consulta->qtdLesoes - 1] = CriaLesao(consulta->qtdLesoes + 1);
-    printf("LESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+    consulta->lesoes[consulta->qtdLesoes - 1] = CriaLesao(consulta->qtdLesoes);
+    printf("\nLESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
     scanf("%c%*c", &c);
@@ -125,7 +127,7 @@ void EncaminhaPaciente(tConsulta *consulta, tFila *fila){
     consulta->encaminhamento = realloc(consulta->encaminhamento, consulta->qtdEncam * sizeof(tEncaminhamento *));
     consulta->encaminhamento[consulta->qtdEncam - 1] = CriaEncaminhamento(consulta->paciente, consulta->medico, consulta->data);
     insereDocumentoFila(fila, consulta->encaminhamento[consulta->qtdEncam - 1], ImprimeNaTelaEncam, ImprimeEmArquivoEncam, DesalocaEncaminhamento);
-    printf("ENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+    printf("\nENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
     scanf("%c%*c", &c);
@@ -150,7 +152,7 @@ void GeraReceita(tConsulta *consulta, tFila *fila){
     scanf("%[^\n]%*c", tipoMedicamento);
     printf("QUANTIDADE: ");
     scanf("%d%*c", &qtd);
-    printf("INSTRUÇÕES DE USO: ");
+    printf("INSTRUCOES DE USO: ");
     scanf("%[^\n]%*c", instrucoes);
 
     if(strcmp(uso, "ORAL") == 0){
@@ -178,7 +180,7 @@ void GeraReceita(tConsulta *consulta, tFila *fila){
                                                                 nomeMedico, CRM, consulta->data);
                                                                 
     insereDocumentoFila(fila, consulta->receita[consulta->qtdReceitas - 1], imprimeNaTelaReceita, imprimeEmArquivoReceita, desalocaReceita);
-    printf("RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+    printf("\nRECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     char c;
     scanf("%c%*c", &c);
