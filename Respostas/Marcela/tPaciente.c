@@ -3,7 +3,7 @@
 struct tPaciente {
     char nome[100];
     char cpf[15];
-    int nascDia, nascMes, nascAno;
+    int nascDia, nascMes, nascAno, atendido;
     char telefone[15];
     char genero[10];
 };
@@ -21,6 +21,7 @@ tPaciente *CadastraPaciente(char *nome, char *cpf, char *telefone, char *genero,
     paciente->nascDia = dia;
     paciente->nascMes = mes;
     paciente->nascAno = ano;
+    paciente->atendido = 0;
     return paciente;
 }
 
@@ -62,6 +63,24 @@ int ObtemMesNascPaciente(tPaciente *p){
 
 int ObtemAnoNascPaciente(tPaciente *p){
     return p->nascAno;
+}
+
+int ObtemSeFoiAtendidoPaciente(tPaciente *p){
+    return p->atendido;
+}
+
+void SetaAtendidoPaciente(tPaciente *p){
+    (p->atendido) = 1;
+}
+
+int ObtemIdadePaciente(tPaciente *p){
+    int idade=0;
+    idade = ANO_LIMITE - p->nascAno;
+
+    if (MES_LIMITE < p->nascMes || (MES_LIMITE == p->nascMes && DIA_LIMITE < p->nascDia)) {
+        idade--;
+    }
+    return idade;
 }
 
 char *ObtemGeneroPaciente(tPaciente *p){

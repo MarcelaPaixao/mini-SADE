@@ -184,20 +184,34 @@ void GeraReceita(tConsulta *consulta, tFila *fila){
     scanf("%c%*c", &c);
 }
 
-/*void imprimeConsulta(tConsulta *consulta){
-    if(!consulta) return;
-    printf("#################### CONSULTA MEDICA #######################\n");
-    printf("DATA DA CONSULTA: ");
-    printf("%s\n", consulta->data);
-    printf("POSSUI DIABETES: ");
-    printf("%d\n", consulta->diabetes);
-    printf("FUMANTE: ");
-    printf("%d\n", consulta->fumante);
-    printf("ALERGIA A MEDICAMENTO: ");
-    printf("%d\n", consulta->alergia);
-    printf("HISTORICO DE CANCER: ");
-    printf("%d\n", consulta->histCancer);
-    printf("TIPO DE PELE: ");
-    printf("%s\n", consulta->pele);
-    printf("############################################################\n");
-}*/
+int ObtemQtdLesoes(tConsulta *consulta){
+    return consulta->qtdLesoes;
+}
+
+int ObtemSomaTamanhoLesoes(tConsulta *consulta){
+    int tamanho=0;
+    for(int i=0; i < consulta->qtdLesoes; i++){
+        tamanho += ObtemTamLesao(consulta->lesoes[i]);
+    }
+    return tamanho;
+}
+
+int ObtemTotalCirurgia(tConsulta *consulta){
+    int total=0;
+    for(int i=0; i < consulta->qtdLesoes; i++){
+        total += ObtemEnviaCirugia(consulta->lesoes[i]);
+    }
+    return total;
+}
+
+int ObtemTotalCrioterapia(tConsulta *consulta){
+    int total=0;
+    for(int i=0; i < consulta->qtdLesoes; i++){
+        total += ObtemEnviaCrioterapia(consulta->lesoes[i]);
+    }
+    return total;
+}
+
+tPaciente *ObtemPaciente(tConsulta *consulta){
+    return consulta->paciente;
+}

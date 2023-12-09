@@ -13,10 +13,10 @@
 #include "tListaBusca.h"
 #include "tReceita.h"
 #include "tFila.h"
+#include "tRelatorio.h"
 
 #define ADMIN 'A'
 #define USER 'U'
-
 
 void ImprimeMenuAdmin(){
     printf("####################### MENU PRINCIPAL #########################\n");
@@ -65,25 +65,26 @@ int main(int argc, char *argv[]){
 	//	exit(1);
 	//}//
     
-    char teste[1000];
+    char pathBanco[1000];
     sprintf(path, "%s/saida", argv[1]);
     printf("################################################\n");
     printf("DIGITE O CAMINHO DO BANCO DE DADOS: ");
     scanf("%[^\n]%*c", banco);
-    sprintf(teste, "%s/%s", argv[1], banco);
+    sprintf(pathBanco, "%s/%s", argv[1], banco);
     printf("################################################\n");
-    printf("Caminho do banco de dados: %s\n", teste);
+    printf("Caminho do banco de dados: %s\n", pathBanco);
     printf("Caminho da pasta de saida: %s\n", path);
 
     tPaciente **pacientes = NULL;
     tMedico **medicos = NULL;
     tSecretario **secretarios = NULL;
     tConsulta **consultas = NULL;
-    tFila *fila = NULL;
+    tFila *fila = criaFila();
     tListaPacientes *listaPacientes = NULL;
+    tRelatorio *relatorio = NULL;
     
 
-    char login[20], code[20], c;
+    char login[20], code[20];
 
        //if(!bancodados){
         printf("#################### CADASTRO SECRETARIO #######################\n");
@@ -256,11 +257,11 @@ int main(int argc, char *argv[]){
             if(ehMed >= 0){
                 medicoConsulta = medicos[(VerificaCadastroMedicos(medicos, qtdMed, login, code))];
             }
-            //medicoConsulta = medicos[0]; //só pra testar se funciona corretamente
 
             qtdConsult++;
             consultas = realloc(consultas, qtdConsult * sizeof(tConsulta *));
             consultas[qtdConsult - 1] = IniciaConsulta(pacientes[idxPaciente], medicoConsulta); 
+            SetaAtendidoPaciente(pacientes[idxPaciente]);
             opcao = 0;
 
             while(opcao != 5){
@@ -291,7 +292,6 @@ int main(int argc, char *argv[]){
         }
         else if(opcao == 5){
             listaPacientes = CriaListaPacientes();
-            fila = criaFila();
             char nomePaciente[100];
 
             printf("#################### BUSCAR PACIENTES #######################\n");
@@ -313,9 +313,28 @@ int main(int argc, char *argv[]){
             }
         }
         else if(opcao == 6){
-            //relatório geral
-            scanf("%*c");    
-            scanf("%*c");
+            relatorio = GeraRelatorio(consultas, qtdConsult, pacientes, qtdPac);
+            printf("#################### RELATORIO GERAL #######################\n");
+            ImprimeNaTelaRelatorio(relatorio);
+            printf("\nESCOLHA UMA OPCAO:\n");
+            printf("\t(1) ENVIAR PARA IMPRESSAO\n");
+            printf("\t(2) RETORNAR AO MENU PRINCIPAL\n");
+            printf("############################################################\n");
+            
+            scanf("%d%*c", &opcao);
+            switch (opcao)
+            {
+            case 1:
+                insereDocumentoFila(fila, relatorio, ImprimeNaTelaRelatorio, ImprimeEmArquivoRelatorio, DesalocaRelatorio);
+                printf("\nRELATÓRIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+                printf("###############################################################\n");
+                scanf("%*c");
+                break;
+            
+            case 2:
+                break;
+            }   
+            opcao = 0;              
         }
         else if(opcao == 7){
             printf("################ FILA DE IMPRESSAO MEDICA ##################\n");

@@ -27,6 +27,14 @@ void EncaminhaPaciente(tConsulta *consulta, tFila *fila);
 
 void GeraReceita(tConsulta *consulta, tFila *fila);
 
-/*void imprimeConsulta(tConsulta *consulta);*/
+int ObtemQtdLesoes(tConsulta *consulta);
+
+int ObtemSomaTamanhoLesoes(tConsulta *consulta);
+
+int ObtemTotalCirurgia(tConsulta *consulta);
+
+int ObtemTotalCrioterapia(tConsulta *consulta);
+
+tPaciente *ObtemPaciente(tConsulta *consulta);
 
 #endif

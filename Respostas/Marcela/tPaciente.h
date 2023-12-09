@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ANO_LIMITE 2023
+#define MES_LIMITE 11
+#define DIA_LIMITE 9
+
 typedef struct tPaciente tPaciente;
 
 tPaciente *CadastraPaciente(char *nome, char *cpf, char *telefone, char *genero, int dia, int mes, int ano);
@@ -24,6 +28,12 @@ int ObtemDiaNascPaciente(tPaciente *);
 int ObtemMesNascPaciente(tPaciente *);
 
 int ObtemAnoNascPaciente(tPaciente *);
+
+int ObtemSeFoiAtendidoPaciente(tPaciente *);
+
+void SetaAtendidoPaciente(tPaciente *);
+
+int ObtemIdadePaciente(tPaciente *);
 
 char *ObtemGeneroPaciente(tPaciente *);
 
