@@ -42,9 +42,7 @@ void AdicionaLesao(tBiopsia *biopsia, tLesao *lesao){
 void DesalocaBiopsia(void *dado){
     tBiopsia *biopsia = (tBiopsia*) dado;
     if(!biopsia) return;
-    if(biopsia->lesoes){
-        free(biopsia->lesoes);
-    }
+    if(biopsia->lesoes) free(biopsia->lesoes);
     free(biopsia);
 }
 

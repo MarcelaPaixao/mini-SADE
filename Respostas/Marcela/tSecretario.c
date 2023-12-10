@@ -13,7 +13,7 @@ struct tSecretario {
 
 tSecretario *CadastraSecretario(char *nome, char *cpf, char *telefone, char *genero, char *acesso, 
                                 char *user, char *senha, int dia, int mes, int ano){
-    tSecretario *secretario = malloc(sizeof(tSecretario));
+    tSecretario *secretario = calloc(1, sizeof(tSecretario));
     if(secretario == NULL){
         exit(1);
     }
@@ -41,17 +41,44 @@ void DesalocaSecretario(tSecretario *s){
     free(s);
 }
 
-void SalvarSecretario(tSecretario *secretario, FILE *arquivo){
-    fwrite(secretario, sizeof(tSecretario), 1, arquivo);
+void SalvarSecretariosEmBinario(tSecretario **secretarios, int qtdSec, char *path){
+    char diretorio[1000];
+    sprintf(diretorio, "%s/secretarios.bin", path);
+    FILE *arq = fopen(diretorio, "wb");
+
+    if (arq == NULL) {
+        return;
+    }
+
+    fwrite(&qtdSec, sizeof(int), 1, arq);
+    
+    for (int i = 0; i < qtdSec; i++){
+       fwrite(secretarios[i], sizeof(tSecretario), 1, arq);
+    }
+    
+    fclose(arq);
 }
 
-tSecretario *RecuperaSecretario(FILE *arquivo){
-    tSecretario *secretario = malloc(sizeof(tSecretario));
-    if(secretario == NULL){
-        exit(1);
+tSecretario **RecuperaSecretariosBinario(int *qtd, char *path){
+    char diretorio[1000];
+    sprintf(diretorio, "%s/secretarios.bin", path);
+    FILE *arq = fopen(diretorio, "rb");
+    
+    if(arq == NULL){
+        return NULL;
     }
-    fread(secretario, sizeof(tSecretario), 1, arquivo);
-    return secretario;
+    
+    fread(qtd, sizeof(int), 1, arq);
+    tSecretario **secretarios = malloc(*qtd * sizeof(tSecretario *));
+    
+    for(int i=0; i < *qtd; i++){
+        tSecretario *secretario = malloc(sizeof(tSecretario));
+        fread(secretario, sizeof(tSecretario), 1, arq);
+        secretarios[i] = secretario;
+    }
+    
+    fclose(arq);
+    return secretarios;
 }
 
 char *ObtemCPFSecretario(tSecretario *s){
@@ -98,4 +125,30 @@ int VerificaSeJaExisteSecretario(tSecretario **secretarios, int qtdSec, char *cp
         }
     }
     return -1;
+}
+
+void ImprimeMenuUser(){
+    printf("####################### MENU PRINCIPAL #########################\n");
+    printf("ESCOLHA UMA OPCAO:\n");
+    printf("\t(2) CADASTRAR MEDICO\n");
+    printf("\t(3) CADASTRAR PACIENTE\n");
+    printf("\t(5) BUSCAR PACIENTES\n");
+    printf("\t(6) RELATORIO GERAL\n");
+    printf("\t(7) FILA DE IMPRESSAO\n");
+    printf("\t(8) FINALIZAR O PROGRAMA\n");
+    printf("###############################################################\n");
+}
+
+void ImprimeMenuAdmin(){
+    printf("####################### MENU PRINCIPAL #########################\n");
+    printf("ESCOLHA UMA OPCAO:\n");
+    printf("\t(1) CADASTRAR SECRETARIO\n");
+    printf("\t(2) CADASTRAR MEDICO\n");
+    printf("\t(3) CADASTRAR PACIENTE\n");
+    printf("\t(4) REALIZAR CONSULTA\n");
+    printf("\t(5) BUSCAR PACIENTES\n");
+    printf("\t(6) RELATORIO GERAL\n");
+    printf("\t(7) FILA DE IMPRESSAO\n");
+    printf("\t(8) FINALIZAR O PROGRAMA\n");
+    printf("###############################################################\n");
 }

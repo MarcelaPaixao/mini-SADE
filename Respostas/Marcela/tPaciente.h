@@ -15,9 +15,9 @@ tPaciente *CadastraPaciente(char *nome, char *cpf, char *telefone, char *genero,
 
 void DesalocaPaciente(tPaciente *);
 
-void SalvarPaciente(tPaciente *paciente, FILE *arquivo);
+void SalvarPacientesEmBinario(tPaciente **pacientes, int qtdPac, char *path);
 
-tPaciente *RecuperaPaciente(FILE *arquivo);
+tPaciente **RecuperaPacientesBinario(int *qtd, char *path);
 
 char *ObtemCPFPaciente(tPaciente *);
 

@@ -12,9 +12,9 @@ tSecretario *CadastraSecretario(char *nome, char *cpf, char *telefone, char *gen
 
 void DesalocaSecretario(tSecretario *);
 
-void SalvarSecretario(tSecretario *secretario, FILE *arquivo);
+void SalvarSecretariosEmBinario(tSecretario **secretarios, int qtdSec, char *path);
 
-tSecretario *RecuperaSecretario(FILE *arquivo);
+tSecretario **RecuperaSecretariosBinario(int *qtd, char *path);
 
 char *ObtemCPFSecretario(tSecretario *);
 
@@ -29,5 +29,9 @@ char ObtemAcessoSecretario(tSecretario *);
 int VerificaCadastroSecretario(tSecretario **secretarios, int qtdSec, char *login, char *senha);
 
 int VerificaSeJaExisteSecretario(tSecretario **secretarios, int qtdSec, char *cpf);
+
+void ImprimeMenuUser();
+
+void ImprimeMenuAdmin();
 
 #endif

@@ -13,7 +13,7 @@ struct tMedico {
 
 tMedico *CadastraMedico(char *nome, char *cpf, char *telefone, char *genero, char *CRM, 
                         char *user, char *senha, int dia, int mes, int ano){
-    tMedico *medico = malloc(sizeof(tMedico));
+    tMedico *medico = calloc(1, sizeof(tMedico));
     if(medico == NULL){
         exit(1);
     }  
@@ -36,17 +36,44 @@ void DesalocaMedico(tMedico *m){
     free(m);
 }
 
-void SalvarMedico(tMedico *medico, FILE *arquivo){
-    fwrite(medico, sizeof(tMedico), 1, arquivo);
+void SalvarMedicosEmBinario(tMedico **medicos, int qtd, char *path){
+    char diretorio[1000];
+    sprintf(diretorio, "%s/medicos.bin", path);
+    FILE *arq = fopen(diretorio, "wb");
+
+    if (arq == NULL) {
+        return;
+    }
+
+    fwrite(&qtd, sizeof(int), 1, arq);
+    
+    for (int i = 0; i < qtd; i++){
+       fwrite(medicos[i], sizeof(tMedico), 1, arq);
+    }
+    
+    fclose(arq);
 }
 
-tMedico *RecuperaMedico(FILE *arquivo){
-    tMedico *medico = malloc(sizeof(tMedico));
-    if(medico == NULL){
-        exit(1);
+tMedico **RecuperaMedicosBinario(int *qtd, char *path){
+    char diretorio[1000];
+    sprintf(diretorio, "%s/medicos.bin", path);
+    FILE *arq = fopen(diretorio, "rb");
+    
+    if(arq == NULL){
+        return NULL;
     }
-    fread(medico, sizeof(tMedico), 1, arquivo);
-    return medico;
+    
+    fread(qtd, sizeof(int), 1, arq);
+    tMedico **medicos = malloc(*qtd * sizeof(tMedico *));
+    
+    for(int i=0; i < *qtd; i++){
+        tMedico *medico = malloc(sizeof(tMedico));
+        fread(medico, sizeof(tMedico), 1, arq);
+        medicos[i] = medico;
+    }
+    
+    fclose(arq);
+    return medicos;
 }
 
 char *ObtemCPFMedico(tMedico *m){
@@ -75,7 +102,7 @@ char *ObtemUserMedico(tMedico *m){
 }
 
 int VerificaSeJaExisteMedico(tMedico **medicos, int qtdMed, char *cpf){
-     for(int i=0; i < qtdMed && qtdMed >= 1; i++){
+    for(int i=0; i < qtdMed && qtdMed >= 1; i++){
         if(strcmp(medicos[i]->cpf, cpf)==0){
             return i;
         }
@@ -95,3 +122,13 @@ int VerificaCadastroMedicos(tMedico **medicos, int qtdMed, char *login, char *se
     return -1;
 }
 
+void ImprimeMenuMedico(){
+    printf("####################### MENU PRINCIPAL #########################\n");
+    printf("ESCOLHA UMA OPCAO:\n");
+    printf("\t(4) REALIZAR CONSULTA\n");
+    printf("\t(5) BUSCAR PACIENTES\n");
+    printf("\t(6) RELATORIO GERAL\n");
+    printf("\t(7) FILA DE IMPRESSAO\n");
+    printf("\t(8) FINALIZAR O PROGRAMA\n");
+    printf("###############################################################\n");
+}

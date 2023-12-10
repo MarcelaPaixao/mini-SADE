@@ -12,9 +12,9 @@ tMedico *CadastraMedico(char *nome, char *cpf, char *telefone, char *genero, cha
 
 void DesalocaMedico(tMedico *);
 
-void SalvarMedico(tMedico *medico, FILE *arquivo);
+void SalvarMedicosEmBinario(tMedico **medicos, int qtd, char *path);
 
-tMedico *RecuperaMedico(FILE *arquivo);
+tMedico **RecuperaMedicosBinario(int *qtd, char *path);
 
 char *ObtemCPFMedico(tMedico *);
 
@@ -31,5 +31,7 @@ int VerificaCadastroMedicos(tMedico **medicos, int qtdMed, char *login, char *se
 int VerificaSeJaExisteMedico(tMedico **medicos, int qtdMed, char *cpf);
 
 int EncontraIdxMedico(tMedico **medicos, int qtdMed, char *login);
+
+void ImprimeMenuMedico();
 
 #endif

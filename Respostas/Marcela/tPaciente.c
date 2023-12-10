@@ -9,7 +9,7 @@ struct tPaciente {
 };
 
 tPaciente *CadastraPaciente(char *nome, char *cpf, char *telefone, char *genero, int dia, int mes, int ano){
-    tPaciente *paciente = malloc(sizeof(tPaciente));
+    tPaciente *paciente = calloc(1, sizeof(tPaciente));
     if(paciente == NULL){
         exit(1);
     }
@@ -30,17 +30,44 @@ void DesalocaPaciente(tPaciente *p){
     free(p);
 }
 
-void SalvarPaciente(tPaciente *paciente, FILE *arquivo){
-    fwrite(paciente, sizeof(tPaciente), 1, arquivo);
+void SalvarPacientesEmBinario(tPaciente **pacientes, int qtd, char *path){
+    char diretorio[1000];
+    sprintf(diretorio, "%s/pacientes.bin", path);
+    FILE *arq = fopen(diretorio, "wb");
+
+    if (arq == NULL) {
+        return;
+    }
+
+    fwrite(&qtd, sizeof(int), 1, arq);
+    
+    for (int i = 0; i < qtd; i++){
+       fwrite(pacientes[i], sizeof(tPaciente), 1, arq);
+    }
+    
+    fclose(arq);
 }
 
-tPaciente *RecuperaPaciente(FILE *arquivo){
-    tPaciente *paciente = malloc(sizeof(tPaciente));
-    if(paciente == NULL){
-        exit(1);
+tPaciente **RecuperaPacientesBinario(int *qtd, char *path){
+    char diretorio[1000];
+    sprintf(diretorio, "%s/pacientes.bin", path);
+    FILE *arq = fopen(diretorio, "rb");
+    
+    if(arq == NULL){
+        return NULL;
     }
-    fread(paciente, sizeof(tPaciente), 1, arquivo);
-    return paciente;
+    
+    fread(qtd, sizeof(int), 1, arq);
+    tPaciente **pacientes = malloc(*qtd * sizeof(tPaciente *));
+    
+    for(int i=0; i < *qtd; i++){
+        tPaciente *paciente = malloc(sizeof(tPaciente));
+        fread(paciente, sizeof(tPaciente), 1, arq);
+        pacientes[i] = paciente;
+    }
+    
+    fclose(arq);
+    return pacientes;
 }
 
 char *ObtemCPFPaciente(tPaciente *p){

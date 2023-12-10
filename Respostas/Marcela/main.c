@@ -17,46 +17,9 @@
 #define ADMIN 'A'
 #define USER 'U'
 
-void ImprimeMenuAdmin(){
-    printf("####################### MENU PRINCIPAL #########################\n");
-    printf("ESCOLHA UMA OPCAO:\n");
-    printf("\t(1) CADASTRAR SECRETARIO\n");
-    printf("\t(2) CADASTRAR MEDICO\n");
-    printf("\t(3) CADASTRAR PACIENTE\n");
-    printf("\t(4) REALIZAR CONSULTA\n");
-    printf("\t(5) BUSCAR PACIENTES\n");
-    printf("\t(6) RELATORIO GERAL\n");
-    printf("\t(7) FILA DE IMPRESSAO\n");
-    printf("\t(8) FINALIZAR O PROGRAMA\n");
-    printf("###############################################################\n");
-}
-
-void ImprimeMenuUser(){
-    printf("####################### MENU PRINCIPAL #########################\n");
-    printf("ESCOLHA UMA OPCAO:\n");
-    printf("\t(2) CADASTRAR MEDICO\n");
-    printf("\t(3) CADASTRAR PACIENTE\n");
-    printf("\t(5) BUSCAR PACIENTES\n");
-    printf("\t(6) RELATORIO GERAL\n");
-    printf("\t(7) FILA DE IMPRESSAO\n");
-    printf("\t(8) FINALIZAR O PROGRAMA\n");
-    printf("###############################################################\n");
-}
-
-void ImprimeMenuMedico(){
-    printf("####################### MENU PRINCIPAL #########################\n");
-    printf("ESCOLHA UMA OPCAO:\n");
-    printf("\t(4) REALIZAR CONSULTA\n");
-    printf("\t(5) BUSCAR PACIENTES\n");
-    printf("\t(6) RELATORIO GERAL\n");
-    printf("\t(7) FILA DE IMPRESSAO\n");
-    printf("\t(8) FINALIZAR O PROGRAMA\n");
-    printf("###############################################################\n");
-}
-
 int main(int argc, char *argv[]){
     char nome[100], cpf[15], telefone[15], CRM[12], genero[10], acesso[6], user[20];
-    char login[20], code[20], senha[20], path[500], banco[500], nivel;
+    char login[20], code[20], senha[20], nivel;
     int dia, mes, ano, flagJaExiste = 0, opcao, ehSecret=-1, ehMed=-1;
     int qtdMed=0, qtdSec=0, qtdPac=0, qtdConsult=0;
 
@@ -65,7 +28,7 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}
     
-    char pathBanco[1000];
+    char pathBanco[1000], path[500], banco[500];
     sprintf(path, "%s/saida", argv[1]);
     printf("################################################\n");
     printf("DIGITE O CAMINHO DO BANCO DE DADOS: ");
@@ -75,37 +38,41 @@ int main(int argc, char *argv[]){
     printf("Caminho do banco de dados: %s\n", pathBanco);
     printf("Caminho da pasta de saida: %s\n", path);
 
-    tPaciente **pacientes = NULL;
-    tMedico **medicos = NULL;
-    tSecretario **secretarios = NULL;
+    //tPaciente **pacientes = NULL;
+    tPaciente **pacientes = RecuperaPacientesBinario(&qtdPac, pathBanco);
+    //tMedico **medicos = NULL;
+    tMedico ** medicos = RecuperaMedicosBinario(&qtdMed, pathBanco);
+    //tSecretario **secretarios = NULL;
+    tSecretario **secretarios = RecuperaSecretariosBinario(&qtdSec, pathBanco);
     tConsulta **consultas = NULL;
+    
     tFila *fila = criaFila();
     tListaPacientes *listaPacientes = NULL;
     tRelatorio *relatorio = NULL;
 
-       //if(!bancodados){
+    //significa q n tem banco de dados, pq obrigatoriamente existe pelo menos 1 secretario
+    if(secretarios == NULL){
         printf("#################### CADASTRO SECRETARIO #######################\n");
-            printf("NOME COMPLETO: ");
-            scanf("%[^\n]%*c", nome);
-            printf("CPF: ");
-            scanf("%[^\n]%*c", cpf);
-            printf("DATA DE NASCIMENTO: ");
-            scanf("%d/%d/%d%*c", &dia, &mes, &ano);
-            printf("TELEFONE: ");
-            scanf("%[^\n]%*c", telefone);
-            printf("GENERO: ");
-            scanf("%[^\n]%*c", genero);
-            printf("NOME DE USUARIO: ");
-            scanf("%[^\n]%*c", user);
-            printf("SENHA: ");
-            scanf("%[^\n]%*c", senha);
-            printf("NIVEL DE ACESSO: ");
-            scanf("%[^\n]%*c", acesso);
-            qtdSec++;
-                secretarios = realloc(secretarios, qtdSec * sizeof(tSecretario *));
-                secretarios[qtdSec - 1] = CadastraSecretario(nome, cpf, telefone, genero, acesso, user, senha, dia, mes, ano);
-    //}
-    //if(existir banco de dados)
+        printf("NOME COMPLETO: ");
+        scanf("%[^\n]%*c", nome);
+        printf("CPF: ");
+        scanf("%[^\n]%*c", cpf);
+        printf("DATA DE NASCIMENTO: ");
+        scanf("%d/%d/%d%*c", &dia, &mes, &ano);
+        printf("TELEFONE: ");
+        scanf("%[^\n]%*c", telefone);
+        printf("GENERO: ");
+        scanf("%[^\n]%*c", genero);
+        printf("NOME DE USUARIO: ");
+        scanf("%[^\n]%*c", user);
+        printf("SENHA: ");
+        scanf("%[^\n]%*c", senha);
+        printf("NIVEL DE ACESSO: ");
+        scanf("%[^\n]%*c", acesso);
+        qtdSec++;
+        secretarios = realloc(secretarios, qtdSec * sizeof(tSecretario *));
+        secretarios[qtdSec - 1] = CadastraSecretario(nome, cpf, telefone, genero, acesso, user, senha, dia, mes, ano);
+    }
     
     while(1){
         printf("######################## ACESSO MINI-SADE ######################\n");
@@ -363,18 +330,31 @@ int main(int argc, char *argv[]){
         }
     }      
 
+    SalvarMedicosEmBinario(medicos, qtdMed, pathBanco);
+    SalvarSecretariosEmBinario(secretarios, qtdSec, pathBanco);
+    SalvarPacientesEmBinario(pacientes, qtdPac, pathBanco);
+
     desalocaFila(fila);   
+
     for(int i=0; i < qtdMed; i++){
         DesalocaMedico(medicos[i]);
     }
+    if(medicos) free(medicos);
+
     for(int i=0; i < qtdSec; i++){
         DesalocaSecretario(secretarios[i]);
-    }   
+    } 
+    if(secretarios) free(secretarios); 
+
     for(int i=0; i < qtdPac; i++){
         DesalocaPaciente(pacientes[i]);
-    }  
+    } 
+    if(pacientes) free(pacientes); 
+
     for(int i=0; i < qtdConsult; i++){
         DesalocaConsulta(consultas[i]);
     }
+    if(consultas) free(consultas);
+    
     return 0;
 }
