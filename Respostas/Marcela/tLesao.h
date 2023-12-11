@@ -25,4 +25,8 @@ void ImprimeLesaoTela(tLesao *lesao);
 
 void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq);
 
+void SalvaLesoesEmBinario(tLesao **lesoes, int qtd, FILE *arq);
+
+tLesao* LerLesaoBinario(FILE *arq);
+
 #endif

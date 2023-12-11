@@ -48,6 +48,10 @@ void SalvarPacientesEmBinario(tPaciente **pacientes, int qtd, char *path){
     fclose(arq);
 }
 
+void SalvarPacienteEmBinario(tPaciente *paciente, FILE *arq){
+    fwrite(paciente, sizeof(tPaciente), 1, arq);
+}
+
 tPaciente **RecuperaPacientesBinario(int *qtd, char *path){
     char diretorio[1000];
     sprintf(diretorio, "%s/pacientes.bin", path);
@@ -68,6 +72,15 @@ tPaciente **RecuperaPacientesBinario(int *qtd, char *path){
     
     fclose(arq);
     return pacientes;
+}
+
+tPaciente* LerPacienteBinario(FILE *arq){
+    tPaciente *paciente = malloc(sizeof(tPaciente));
+    if(!paciente){
+        return NULL;
+    }
+    fread(paciente, sizeof(tPaciente), 1, arq);
+    return paciente;
 }
 
 char *ObtemCPFPaciente(tPaciente *p){

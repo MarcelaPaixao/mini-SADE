@@ -12,7 +12,6 @@ struct tConsulta {
     tPaciente *paciente;
     tMedico *medico;
     char data[11];
-
 };
 
 tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
@@ -199,4 +198,73 @@ int ObtemTotalCrioterapia(tConsulta *consulta){
 
 tPaciente *ObtemPaciente(tConsulta *consulta){
     return consulta->paciente;
+}
+
+void SalvarConsultasEmBinario(tConsulta **consultas, int qtd, char *path){
+    char diretorioConsulta[1000];
+    sprintf(diretorioConsulta, "%s/consultas.bin", path);
+    FILE *arqConsulta = fopen(diretorioConsulta, "wb");
+    
+    char diretorioLesao[1000];
+    sprintf(diretorioLesao, "%s/lesoes.bin", path);
+    FILE *arqLesao = fopen(diretorioLesao, "wb");
+
+    if (arqConsulta == NULL || arqLesao == NULL) {
+        return;
+    }
+    
+    fwrite(&qtd, sizeof(int), 1, arqConsulta);
+    
+    for (int i = 0; i < qtd; i++) {
+        fwrite(consultas[i], sizeof(tConsulta), 1, arqConsulta);
+        
+        for (int j = 0; j < consultas[i]->qtdLesoes; j++) {
+            SalvaLesoesEmBinario(consultas[i]->lesoes, consultas[i]->qtdLesoes, arqLesao);
+            SalvaLesoesEmBinario(consultas[i]->lesoes, consultas[i]->qtdLesoes, arqConsulta);
+        }
+        SalvarPacienteEmBinario(consultas[i]->paciente, arqConsulta);
+        SalvarMedicoEmBinario(consultas[i]->medico, arqConsulta);
+    }
+
+    fclose(arqConsulta);
+    fclose(arqLesao);
+}
+
+tConsulta* LerConsultaBinario(FILE *arq){
+    tConsulta *consulta = malloc(sizeof(tConsulta));
+    if (!consulta) {
+        return NULL;
+    }
+
+    fread(consulta, sizeof(tConsulta), 1, arq);
+
+    consulta->lesoes = malloc(consulta->qtdLesoes * sizeof(tLesao*));
+    for(int i=0; i < consulta->qtdLesoes; i++){
+        consulta->lesoes[i] = LerLesaoBinario(arq);
+    }
+
+    consulta->paciente = LerPacienteBinario(arq);
+    consulta->medico = LerMedicoBinario(arq);
+
+    return consulta;
+}
+
+tConsulta **RecuperaConsultasBinario(int *qtd, char *path){
+    char diretorio[1000];
+    sprintf(diretorio, "%s/consultas.bin", path);
+    FILE *arqConsulta = fopen(diretorio, "rb");
+    
+    if(arqConsulta == NULL){
+        return NULL;
+    }
+    
+    fread(qtd, sizeof(int), 1, arqConsulta);
+    tConsulta **consultas = malloc(*qtd * sizeof(tConsulta *));
+
+    for (int i = 0; i < *qtd; i++) {
+        tConsulta *consulta = LerConsultaBinario(arqConsulta);
+        consultas[i] = consulta;
+    }
+    
+    return consultas;
 }

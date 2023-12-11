@@ -38,13 +38,10 @@ int main(int argc, char *argv[]){
     printf("Caminho do banco de dados: %s\n", pathBanco);
     printf("Caminho da pasta de saida: %s\n", path);
 
-    //tPaciente **pacientes = NULL;
     tPaciente **pacientes = RecuperaPacientesBinario(&qtdPac, pathBanco);
-    //tMedico **medicos = NULL;
     tMedico ** medicos = RecuperaMedicosBinario(&qtdMed, pathBanco);
-    //tSecretario **secretarios = NULL;
     tSecretario **secretarios = RecuperaSecretariosBinario(&qtdSec, pathBanco);
-    tConsulta **consultas = NULL;
+    tConsulta **consultas = RecuperaConsultasBinario(&qtdConsult, pathBanco);
     
     tFila *fila = criaFila();
     tListaPacientes *listaPacientes = NULL;
@@ -333,6 +330,7 @@ int main(int argc, char *argv[]){
     SalvarMedicosEmBinario(medicos, qtdMed, pathBanco);
     SalvarSecretariosEmBinario(secretarios, qtdSec, pathBanco);
     SalvarPacientesEmBinario(pacientes, qtdPac, pathBanco);
+    SalvarConsultasEmBinario(consultas, qtdConsult, pathBanco);
 
     desalocaFila(fila);   
 

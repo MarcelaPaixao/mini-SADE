@@ -71,3 +71,21 @@ void ImprimeLesaoTela(tLesao *lesao){
 void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq){
     fprintf(arq, "%s - %s - %s - %dMM\n\n", lesao->rotulo, lesao->diagnostico, lesao->regiao, lesao->tamLesao);
 }
+
+void SalvaLesoesEmBinario(tLesao **lesoes, int qtd, FILE *arq){
+    fwrite(&qtd, sizeof(int), 1, arq);
+    for (int i = 0; i < qtd; i++) {
+        if (lesoes[i]) {
+            fwrite(lesoes[i], sizeof(tLesao), 1, arq);
+        }
+    }
+}
+
+tLesao* LerLesaoBinario(FILE *arq){
+    tLesao *lesao = malloc(sizeof(tLesao));
+    if (!lesao) {
+        return NULL;
+    }
+    fread(lesao, sizeof(tLesao), 1, arq);
+    return lesao;
+}

@@ -14,7 +14,11 @@ void DesalocaMedico(tMedico *);
 
 void SalvarMedicosEmBinario(tMedico **medicos, int qtd, char *path);
 
+void SalvarMedicoEmBinario(tMedico *medico, FILE *arq);
+
 tMedico **RecuperaMedicosBinario(int *qtd, char *path);
+
+tMedico* LerMedicoBinario(FILE *arq);
 
 char *ObtemCPFMedico(tMedico *);
 
