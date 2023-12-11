@@ -44,12 +44,10 @@ void ImprimeListaPacientesArquivo(void *dado, char *path){
     FILE *arq = fopen(diretorio, "a");
     if(arq){
         for(int i=0; i < lista->qtdPacientes; i++){
-        fprintf(arq, "%d - %s (%s)\n", i, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
+        fprintf(arq, "%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
         }
     fclose(arq);
     }
-   
-    
 }
 
 int ObtemTamanhoLista(tListaPacientes *lista){

@@ -23,18 +23,17 @@ int main(int argc, char *argv[]){
     int dia, mes, ano, flagJaExiste = 0, opcao, ehSecret=-1, ehMed=-1;
     int qtdMed=0, qtdSec=0, qtdPac=0, qtdConsult=0;
 
-    //if (argc <= 1) {
-	//	printf("ERRO: O diretorio de arquivos de configuracao nao foi informado\n");
-	//	exit(1);
-	//}
+    if (argc <= 1) {
+		printf("ERRO: O diretorio de arquivos de configuracao nao foi informado\n");
+		exit(1);
+	}
     
     char pathBanco[1000], path[500], banco[500];
     sprintf(path, "%s/saida", argv[1]);
     printf("################################################\n");
     printf("DIGITE O CAMINHO DO BANCO DE DADOS: ");
     scanf("%[^\n]%*c", banco);
-    //sprintf(pathBanco, "%s/%s", argv[1], banco);
-    sprintf(pathBanco, "teste");
+    sprintf(pathBanco, "%s/%s", argv[1], banco);
     printf("################################################\n");
     printf("Caminho do banco de dados: %s\n", pathBanco);
     printf("Caminho da pasta de saida: %s\n", path);
