@@ -10,7 +10,6 @@ struct tConsulta {
     tLesao **lesoes;
     char nomePac[100], cpfPac[15];
     char nomeMed[100], CRM[12];
-    int dia, mes, ano;
     char data[20];
 };
 
@@ -25,8 +24,8 @@ tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
     printf("-DATA DE NASCIMENTO: %d/%d/%d\n", ObtemDiaNascPaciente(paciente), ObtemMesNascPaciente(paciente), ObtemAnoNascPaciente(paciente));
     printf("---\n");
     printf("DATA DA CONSULTA: ");
-    scanf("%d/%d/%d%*c", &consulta->dia, &consulta->mes, &consulta->ano);
-    sprintf(consulta->data, "%d/%d/%d", consulta->dia, consulta->mes, consulta->ano);
+    scanf("%d/%d/%d%*c", &dia, &mes, &ano);
+    sprintf(consulta->data, "%d/%d/%d", dia, mes, ano);
     printf("POSSUI DIABETES: ");
     scanf("%d%*c", &consulta->diabetes);
     printf("FUMANTE: ");

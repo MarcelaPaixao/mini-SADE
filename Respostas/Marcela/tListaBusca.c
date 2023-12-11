@@ -44,8 +44,9 @@ void ImprimeListaPacientesArquivo(void *dado, char *path){
     FILE *arq = fopen(diretorio, "a");
     if(arq){
         for(int i=0; i < lista->qtdPacientes; i++){
-        fprintf(arq, "%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
+            fprintf(arq, "%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
         }
+        fprintf(arq, "\n");
     fclose(arq);
     }
 }
@@ -56,7 +57,7 @@ int ObtemTamanhoLista(tListaPacientes *lista){
 
 void MenuBusca(void *dado, tFila *fila){
     tListaPacientes *lista = (tListaPacientes*) dado;
-    int opcao;
+    int opcao=0;
     printf("#################### BUSCAR PACIENTES #######################\n");
     printf("ESCOLHA UMA OPCAO:\n");
     printf("\t(1) ENVIAR LISTA PARA IMPRESSAO\n");
@@ -67,8 +68,7 @@ void MenuBusca(void *dado, tFila *fila){
         insereDocumentoFila(fila, lista, ImprimeListaPacientesTela, ImprimeListaPacientesArquivo, DesalocaListaPacientes);
         printf("\nLISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU PRINCIPAL\n");
         printf("############################################################\n");
-        char c;
-        scanf("%c%*c", &c);
+        scanf("%*c");
     }
     if(opcao == 2){
         return;

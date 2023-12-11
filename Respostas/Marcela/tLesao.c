@@ -73,7 +73,6 @@ void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq){
 }
 
 void SalvaLesoesEmBinario(tLesao **lesoes, int qtd, FILE *arq){
-    //fwrite(&qtd, sizeof(int), 1, arq);
     for (int i = 0; i < qtd; i++) {
         if(lesoes[i]){
             fwrite(lesoes[i], sizeof(tLesao), 1, arq);

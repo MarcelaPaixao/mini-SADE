@@ -20,7 +20,7 @@
 int main(int argc, char *argv[]){
     char nome[100], cpf[15], telefone[15], CRM[12], genero[10], acesso[6], user[20];
     char login[20], code[20], senha[20], nivel;
-    int dia, mes, ano, flagJaExiste = 0, opcao, ehSecret=-1, ehMed=-1;
+    int dia=0, mes=0, ano=0, flagJaExiste = 0, opcao=0, ehSecret=-1, ehMed=-1;
     int qtdMed=0, qtdSec=0, qtdPac=0, qtdConsult=0;
 
     if (argc <= 1) {
@@ -269,7 +269,8 @@ int main(int argc, char *argv[]){
                 MenuBusca(listaPacientes, fila);
             }
             else {
-                printf("\nNENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+                printf("\nNENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+                printf("############################################################\n");
                 scanf("%*c");
             }
         }
@@ -332,8 +333,6 @@ int main(int argc, char *argv[]){
     SalvarPacientesEmBinario(pacientes, qtdPac, pathBanco);
     SalvarConsultasEmBinario(consultas, qtdConsult, pathBanco);
 
-    desalocaFila(fila); 
-
     for(int i=0; i < qtdMed; i++){
         DesalocaMedico(medicos[i]);
     }
@@ -353,6 +352,8 @@ int main(int argc, char *argv[]){
         DesalocaConsulta(consultas[i]);
     }
     if(consultas) free(consultas);
+
+    desalocaFila(fila); 
     
     return 0;
 }
