@@ -35,13 +35,11 @@ int ObtemTotalCirurgia(tConsulta *consulta);
 
 int ObtemTotalCrioterapia(tConsulta *consulta);
 
-tPaciente *ObtemPaciente(tConsulta *consulta);
+char *ObtemCpfPaciente(tConsulta *consulta);
 
 void SalvarConsultasEmBinario(tConsulta **consultas, int qtd, char *path);
 
 tConsulta **RecuperaConsultasBinario(int *qtd, char *path);
-
-tConsulta* LerConsultaBinario(FILE *arq);
 
 tConsulta **RecuperaConsultasBinario(int *qtd, char *path);
 

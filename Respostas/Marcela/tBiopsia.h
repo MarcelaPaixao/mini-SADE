@@ -11,7 +11,7 @@
 
 typedef struct tBiopsia tBiopsia;
 
-tBiopsia *CriaBiopsia(tMedico *medico, tPaciente *paciente, char *data);
+tBiopsia *CriaBiopsia(char *nomeMed, char *CRM, char *nomePac, char *cpfPac, char *data);
 
 void AdicionaLesao(tBiopsia *, tLesao *);
 

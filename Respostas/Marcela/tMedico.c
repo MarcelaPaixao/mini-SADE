@@ -54,9 +54,6 @@ void SalvarMedicosEmBinario(tMedico **medicos, int qtd, char *path){
     fclose(arq);
 }
 
-void SalvarMedicoEmBinario(tMedico *medico, FILE *arq){
-    fwrite(medico, sizeof(tMedico), 1, arq);
-}
 
 tMedico **RecuperaMedicosBinario(int *qtd, char *path){
     char diretorio[1000];
@@ -78,15 +75,6 @@ tMedico **RecuperaMedicosBinario(int *qtd, char *path){
     
     fclose(arq);
     return medicos;
-}
-
-tMedico* LerMedicoBinario(FILE *arq){
-    tMedico *medico = malloc(sizeof(tMedico));
-    if (!medico) {
-        return NULL;
-    }
-    fread(medico, sizeof(tMedico), 1, arq);
-    return medico;
 }
 
 char *ObtemCPFMedico(tMedico *m){

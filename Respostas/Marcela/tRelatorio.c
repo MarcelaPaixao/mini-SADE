@@ -86,7 +86,7 @@ void ImprimeEmArquivoRelatorio(void *dado, char *path){
     fprintf(arq, "DISTRIBUICAO POR GENERO:\n");
     fprintf(arq, "- FEMININO: %d\n", r->qtdFem);
     fprintf(arq, "- MASCULINO: %d\n", r->qtdMasc);
-    fprintf(arq, "- OUTROS: %d\n", r->qtdFem);
+    fprintf(arq, "- OUTROS: %d\n", r->qtdOutros);
     fprintf(arq, "TAMANHO MEDIO DAS LESOES: %d\n", r->mediaLesoes);
     fprintf(arq, "NUMERO TOTAL DE LESOES: %d\n", r->qtdLesoes);
     fprintf(arq, "NUMERO TOTAL DE CIRURGIAS: %d\n", r->qtdCirurgia);

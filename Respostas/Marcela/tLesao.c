@@ -11,7 +11,7 @@ struct tLesao {
 };
 
 tLesao *CriaLesao(int idxRotulo){
-    tLesao *lesao = malloc(sizeof(tLesao));
+    tLesao *lesao = calloc(1, sizeof(tLesao));
     if(lesao == NULL){
         exit(1);
     }
@@ -73,19 +73,19 @@ void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq){
 }
 
 void SalvaLesoesEmBinario(tLesao **lesoes, int qtd, FILE *arq){
-    fwrite(&qtd, sizeof(int), 1, arq);
+    //fwrite(&qtd, sizeof(int), 1, arq);
     for (int i = 0; i < qtd; i++) {
-        if (lesoes[i]) {
+        if(lesoes[i]){
             fwrite(lesoes[i], sizeof(tLesao), 1, arq);
         }
     }
 }
 
-tLesao* LerLesaoBinario(FILE *arq){
-    tLesao *lesao = malloc(sizeof(tLesao));
-    if (!lesao) {
-        return NULL;
+tLesao **RecuperaLesoesBinario(FILE *arq, int *qtd){
+    tLesao **lesoes = malloc(*qtd * sizeof(tLesao *));
+    for(int i=0; i < *qtd; i++){
+        lesoes[i] = malloc(sizeof(tLesao));
+        fread(lesoes[i], sizeof(tLesao), 1, arq);
     }
-    fread(lesao, sizeof(tLesao), 1, arq);
-    return lesao;
+    return lesoes;
 }

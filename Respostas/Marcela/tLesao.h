@@ -27,6 +27,6 @@ void ImprimeLesaoArquivo(tLesao *lesao, FILE *arq);
 
 void SalvaLesoesEmBinario(tLesao **lesoes, int qtd, FILE *arq);
 
-tLesao* LerLesaoBinario(FILE *arq);
+tLesao **RecuperaLesoesBinario(FILE *arq, int *qtd);
 
 #endif

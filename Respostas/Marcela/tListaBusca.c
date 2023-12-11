@@ -6,7 +6,7 @@ struct tListaPacientes {
 };
 
 tListaPacientes *CriaListaPacientes(){
-    tListaPacientes *lista = malloc(sizeof(tListaPacientes));
+    tListaPacientes *lista = calloc(1, sizeof(tListaPacientes));
     if(!lista){
         exit(1);
     }
@@ -42,10 +42,14 @@ void ImprimeListaPacientesArquivo(void *dado, char *path){
     sprintf(diretorio, "%s/lista_busca.txt", path);
     printf("%s\n", path);
     FILE *arq = fopen(diretorio, "a");
-    for(int i=0; i < lista->qtdPacientes; i++){
-        fprintf(arq, "%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
-    }
+    if(arq){
+        for(int i=0; i < lista->qtdPacientes; i++){
+        fprintf(arq, "%d - %s (%s)\n", i, ObtemNomePaciente(lista->paciente[i]), ObtemCPFPaciente(lista->paciente[i]));
+        }
     fclose(arq);
+    }
+   
+    
 }
 
 int ObtemTamanhoLista(tListaPacientes *lista){

@@ -6,7 +6,7 @@
 #include "tMedico.h"
 typedef struct tEncaminhamento tEncaminhamento;
 
-tEncaminhamento *CriaEncaminhamento(tPaciente *paciente, tMedico *medico, char *data);
+tEncaminhamento *CriaEncaminhamento(char *nomeMed, char *CRM, char *nomePac, char *cpfPac, char *data);
 
 void DesalocaEncaminhamento(void *dado);
 

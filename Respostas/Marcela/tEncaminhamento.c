@@ -13,21 +13,15 @@ struct tEncaminhamento {
     char motivo[300];
 };
 
-tEncaminhamento *CriaEncaminhamento(tPaciente *paciente, tMedico *medico, char *data){
+tEncaminhamento *CriaEncaminhamento(char *nomeMed, char *CRM, char *nomePac, char *cpfPac, char *data){
     tEncaminhamento *enc = malloc(sizeof(tEncaminhamento));
     if(enc == NULL){
         exit(1);
     }
-    if(medico == NULL){
-        enc->nomeMedico[0] = '\0';
-        enc->CRMMedico[0] = '\0';
-    }
-    else {
-        strcpy(enc->nomeMedico, ObtemNomeMedico(medico));
-        strcpy(enc->CRMMedico, ObtemCRMMedico(medico));
-    }
-    strcpy(enc->nomePaciente, ObtemNomePaciente(paciente));
-    strcpy(enc->cpfPaciente, ObtemCPFPaciente(paciente));
+    strcpy(enc->nomeMedico, nomeMed);
+    strcpy(enc->CRMMedico, CRM);
+    strcpy(enc->nomePaciente, nomePac);
+    strcpy(enc->cpfPaciente, cpfPac);
     strcpy(enc->data, data);
     printf("ENCAMINHAMENTO:\n");
     printf("ESPECIALIDADE ENCAMINHADA: ");

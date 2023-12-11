@@ -11,22 +11,15 @@ struct tBiopsia {
 
 };
 
-tBiopsia *CriaBiopsia(tMedico *medico, tPaciente *paciente, char *data){
+tBiopsia *CriaBiopsia(char *nomeMed, char *CRM, char *nomePac, char *cpfPac, char *data){
     tBiopsia *biopsia = malloc(sizeof(tBiopsia));
     if(!biopsia){
         exit(1);
     }
-    if(medico == NULL){
-        biopsia->nomeMedico[0] = '\0';
-        biopsia->CRMMedico[0] = '\0';
-    }
-    else {
-        strcpy(biopsia->nomeMedico, ObtemNomeMedico(medico));
-        strcpy(biopsia->CRMMedico, ObtemCRMMedico(medico));
-    }
-    strcpy(biopsia->nomePaciente, ObtemNomePaciente(paciente));
-    strcpy(biopsia->cpfPaciente, ObtemCPFPaciente(paciente));
-    
+    strcpy(biopsia->nomeMedico, nomeMed);
+    strcpy(biopsia->CRMMedico, CRM);
+    strcpy(biopsia->nomePaciente, nomePac);
+    strcpy(biopsia->cpfPaciente, cpfPac);
     strcpy(biopsia->data, data);
     biopsia->qtdLesoes = 0;
     biopsia->lesoes = NULL;

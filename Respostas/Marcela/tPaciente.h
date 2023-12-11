@@ -17,11 +17,7 @@ void DesalocaPaciente(tPaciente *);
 
 void SalvarPacientesEmBinario(tPaciente **pacientes, int qtdPac, char *path);
 
-void SalvarPacienteEmBinario(tPaciente *paciente, FILE *arq);
-
 tPaciente **RecuperaPacientesBinario(int *qtd, char *path);
-
-tPaciente* LerPacienteBinario(FILE *arq);
 
 char *ObtemCPFPaciente(tPaciente *);
 

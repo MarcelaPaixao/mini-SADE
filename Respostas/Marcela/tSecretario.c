@@ -115,7 +115,7 @@ int VerificaCadastroSecretario(tSecretario **secretarios, int qtdSec, char *logi
             }
         }
     }
-    return 0;
+    return -1;
 }
 
 int VerificaSeJaExisteSecretario(tSecretario **secretarios, int qtdSec, char *cpf){

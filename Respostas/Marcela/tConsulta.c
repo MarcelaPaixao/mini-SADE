@@ -6,16 +6,15 @@
 struct tConsulta {
     int diabetes, fumante, alergia, histCancer;
     int qtdLesoes;
-    //int qtdReceitas, qtdEncam;
     char pele[2];
     tLesao **lesoes;
-    tPaciente *paciente;
-    tMedico *medico;
+    char nomePac[100], cpfPac[15];
+    char nomeMed[100], CRM[12];
     char data[11];
 };
 
 tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
-    tConsulta *consulta = malloc(sizeof(tConsulta));
+    tConsulta *consulta = calloc(1, sizeof(tConsulta));
     if(!consulta){
         exit(1);
     }
@@ -39,8 +38,16 @@ tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
     printf("\n############################################################\n");
     
     consulta->lesoes = NULL;
-    consulta->medico = medico;
-    consulta->paciente = paciente;
+    strcpy(consulta->nomePac, ObtemNomePaciente(paciente));
+    strcpy(consulta->cpfPac, ObtemCPFPaciente(paciente));
+    if(medico == NULL){
+        consulta->nomeMed[0] = '\0';
+        consulta->CRM[0] = '\0';
+    }
+    else{
+        strcpy(consulta->nomeMed, ObtemNomeMedico(medico));
+        strcpy(consulta->CRM, ObtemCRMMedico(medico));
+    }
     //consulta->qtdEncam = 0;
     //consulta->qtdReceitas = 0;
     consulta->qtdLesoes = 0;
@@ -72,7 +79,7 @@ void CadastraLesao(tConsulta *consulta){
     if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
     (consulta->qtdLesoes)++;
-    consulta->lesoes = realloc(consulta->lesoes, consulta->qtdLesoes * sizeof(tLesao *));
+    consulta->lesoes = realloc(consulta->lesoes, (consulta->qtdLesoes) * sizeof(tLesao *));
     consulta->lesoes[consulta->qtdLesoes - 1] = CriaLesao(consulta->qtdLesoes);
     printf("\nLESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
@@ -97,7 +104,7 @@ void SolicitaBiopsia(tConsulta *consulta, tFila *fila){
         printf("############################################################\n");
     }
     else{
-       tBiopsia *biopsia = CriaBiopsia(consulta->medico, consulta->paciente, consulta->data);
+       tBiopsia *biopsia = CriaBiopsia(consulta->nomeMed, consulta->CRM, consulta->nomePac, consulta->cpfPac, consulta->data);
         for(int i=0; i < consulta->qtdLesoes; i++){
             if(ObtemEnviaCirugia(consulta->lesoes[i])){
                 AdicionaLesao(biopsia, consulta->lesoes[i]);
@@ -113,7 +120,7 @@ void SolicitaBiopsia(tConsulta *consulta, tFila *fila){
 void EncaminhaPaciente(tConsulta *consulta, tFila *fila){
     if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
-    tEncaminhamento *encaminhamento = CriaEncaminhamento(consulta->paciente, consulta->medico, consulta->data);
+    tEncaminhamento *encaminhamento = CriaEncaminhamento(consulta->nomeMed, consulta->CRM, consulta->nomePac, consulta->cpfPac, consulta->data);
     insereDocumentoFila(fila, encaminhamento, ImprimeNaTelaEncam, ImprimeEmArquivoEncam, DesalocaEncaminhamento);
     printf("\nENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
@@ -149,20 +156,9 @@ void GeraReceita(tConsulta *consulta, tFila *fila){
         tipoUso = TOPICO;
     }
         
-    char nomeMedico[100];
-    char CRM[12];
-    if(consulta->medico == NULL){
-        nomeMedico[0] = '\0';
-        CRM[0] = '\0';
-    }
-    else {
-        strcpy(ObtemNomeMedico(consulta->medico), nomeMedico);
-        strcpy(ObtemCRMMedico(consulta->medico), CRM);
-    }
-    tReceita *receita = criaReceita( ObtemNomePaciente(consulta->paciente), tipoUso, 
-                                                                nomeMedicamento, tipoMedicamento, instrucoes, qtd, 
-                                                                nomeMedico, CRM, consulta->data);  
-                           insereDocumentoFila(fila, receita, imprimeNaTelaReceita, imprimeEmArquivoReceita, desalocaReceita);                                      
+    tReceita *receita = criaReceita(consulta->nomePac,tipoUso, nomeMedicamento, tipoMedicamento, instrucoes, qtd, 
+                                    consulta->nomeMed, consulta->CRM, consulta->data);  
+    insereDocumentoFila(fila, receita, imprimeNaTelaReceita, imprimeEmArquivoReceita, desalocaReceita);                                      
     printf("\nRECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
     printf("############################################################\n");
     scanf("%*c");
@@ -196,8 +192,8 @@ int ObtemTotalCrioterapia(tConsulta *consulta){
     return total;
 }
 
-tPaciente *ObtemPaciente(tConsulta *consulta){
-    return consulta->paciente;
+char *ObtemCpfPaciente(tConsulta *consulta){
+    return consulta->cpfPac;
 }
 
 void SalvarConsultasEmBinario(tConsulta **consultas, int qtd, char *path){
@@ -205,48 +201,19 @@ void SalvarConsultasEmBinario(tConsulta **consultas, int qtd, char *path){
     sprintf(diretorioConsulta, "%s/consultas.bin", path);
     FILE *arqConsulta = fopen(diretorioConsulta, "wb");
     
-    char diretorioLesao[1000];
-    sprintf(diretorioLesao, "%s/lesoes.bin", path);
-    FILE *arqLesao = fopen(diretorioLesao, "wb");
-
-    if (arqConsulta == NULL || arqLesao == NULL) {
+    if (arqConsulta == NULL) {
         return;
     }
     
     fwrite(&qtd, sizeof(int), 1, arqConsulta);
-    
-    for (int i = 0; i < qtd; i++) {
+    for(int i=0; i < qtd; i++){
         fwrite(consultas[i], sizeof(tConsulta), 1, arqConsulta);
-        
-        for (int j = 0; j < consultas[i]->qtdLesoes; j++) {
-            SalvaLesoesEmBinario(consultas[i]->lesoes, consultas[i]->qtdLesoes, arqLesao);
+        if (consultas[i]->lesoes != NULL) {
             SalvaLesoesEmBinario(consultas[i]->lesoes, consultas[i]->qtdLesoes, arqConsulta);
         }
-        SalvarPacienteEmBinario(consultas[i]->paciente, arqConsulta);
-        SalvarMedicoEmBinario(consultas[i]->medico, arqConsulta);
     }
-
+     
     fclose(arqConsulta);
-    fclose(arqLesao);
-}
-
-tConsulta* LerConsultaBinario(FILE *arq){
-    tConsulta *consulta = malloc(sizeof(tConsulta));
-    if (!consulta) {
-        return NULL;
-    }
-
-    fread(consulta, sizeof(tConsulta), 1, arq);
-
-    consulta->lesoes = malloc(consulta->qtdLesoes * sizeof(tLesao*));
-    for(int i=0; i < consulta->qtdLesoes; i++){
-        consulta->lesoes[i] = LerLesaoBinario(arq);
-    }
-
-    consulta->paciente = LerPacienteBinario(arq);
-    consulta->medico = LerMedicoBinario(arq);
-
-    return consulta;
 }
 
 tConsulta **RecuperaConsultasBinario(int *qtd, char *path){
@@ -259,12 +226,17 @@ tConsulta **RecuperaConsultasBinario(int *qtd, char *path){
     }
     
     fread(qtd, sizeof(int), 1, arqConsulta);
-    tConsulta **consultas = malloc(*qtd * sizeof(tConsulta *));
+    tConsulta **vetConsultas = malloc(*qtd * sizeof(tConsulta *));
 
-    for (int i = 0; i < *qtd; i++) {
-        tConsulta *consulta = LerConsultaBinario(arqConsulta);
-        consultas[i] = consulta;
+    for(int i = 0; i < *qtd; i++){
+        tConsulta *consulta = malloc(sizeof(tConsulta));
+        fread(consulta, sizeof(tConsulta), 1, arqConsulta);
+        
+        consulta->lesoes = RecuperaLesoesBinario(arqConsulta, &consulta->qtdLesoes);
+        
+        vetConsultas[i] = consulta;
     }
     
-    return consultas;
+    fclose(arqConsulta);
+    return vetConsultas;
 }
