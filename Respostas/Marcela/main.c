@@ -18,7 +18,7 @@
 #define USER 'U'
 
 int main(int argc, char *argv[]){
-    char nome[100], cpf[15], telefone[15], CRM[12], genero[10], acesso[6], user[20];
+    char nome[100], cpf[16], telefone[16], CRM[13], genero[11], acesso[7], user[20];
     char login[20], code[20], senha[20], nivel = '\0';
     int dia=0, mes=0, ano=0, flagJaExiste = 0, opcao=0, ehSecret=-1, ehMed=-1;
     int qtdMed=0, qtdSec=0, qtdPac=0, qtdConsult=0;
@@ -107,6 +107,7 @@ int main(int argc, char *argv[]){
         scanf("%d%*c", &opcao);
          
         if(opcao == 1 && nivel == ADMIN){
+            flagJaExiste = 0;
             printf("#################### CADASTRO SECRETARIO #######################\n");
             printf("NOME COMPLETO: ");
             scanf("%[^\n]%*c", nome);
@@ -141,6 +142,7 @@ int main(int argc, char *argv[]){
             }
         }
         else if(opcao ==  2 && ehMed < 0){
+            flagJaExiste = 0;
             printf("#################### CADASTRO MEDICO #######################\n");
             printf("NOME COMPLETO: ");
             scanf("%[^\n]%*c", nome);
@@ -175,6 +177,7 @@ int main(int argc, char *argv[]){
             }
         }
         else if(opcao == 3 && ehMed < 0){
+            flagJaExiste = 0;
             printf("#################### CADASTRO PACIENTE #######################\n");
             printf("NOME COMPLETO: ");
             scanf("%[^\n]%*c", nome);
@@ -189,7 +192,6 @@ int main(int argc, char *argv[]){
 
             if(VerificaSeJaExistePaciente(pacientes, qtdPac, cpf) >= 0){
                 printf("CPF JA EXISTENTE. OPERACAO NAO PERMITIDA.\n");
-                printf("###############################################################\n");
                 flagJaExiste = 1;
             }
             if(!flagJaExiste){

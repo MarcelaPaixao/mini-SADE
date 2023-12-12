@@ -2,10 +2,10 @@
 
 struct tPaciente {
     char nome[100];
-    char cpf[15];
+    char cpf[16];
     int nascDia, nascMes, nascAno, atendido;
-    char telefone[15];
-    char genero[10];
+    char telefone[16];
+    char genero[11];
 };
 
 tPaciente *CadastraPaciente(char *nome, char *cpf, char *telefone, char *genero, int dia, int mes, int ano){
