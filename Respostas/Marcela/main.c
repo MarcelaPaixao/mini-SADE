@@ -19,7 +19,7 @@
 
 int main(int argc, char *argv[]){
     char nome[100], cpf[15], telefone[15], CRM[12], genero[10], acesso[6], user[20];
-    char login[20], code[20], senha[20], nivel;
+    char login[20], code[20], senha[20], nivel = '\0';
     int dia=0, mes=0, ano=0, flagJaExiste = 0, opcao=0, ehSecret=-1, ehMed=-1;
     int qtdMed=0, qtdSec=0, qtdPac=0, qtdConsult=0;
 
@@ -251,26 +251,29 @@ int main(int argc, char *argv[]){
             }
         }
         else if(opcao == 5){
-            listaPacientes = CriaListaPacientes();
             char nomePaciente[100];
 
             printf("#################### BUSCAR PACIENTES #######################\n");
             printf("NOME DO PACIENTE: ");
             scanf("%[^\n]%*c", nomePaciente);
 
+            int encontrou=0;
             for(int i=0; i < qtdPac; i++){
                 if(strcmp(nomePaciente, ObtemNomePaciente(pacientes[i])) == 0){
+                    if(!encontrou){
+                        listaPacientes = CriaListaPacientes();
+                        encontrou = 1;
+                    }
                     AdicionaPacienteLista(listaPacientes, pacientes[i]);
                 }
             }
-            if(ObtemTamanhoLista(listaPacientes) > 0){
+            if(encontrou){
                 printf("PACIENTES ENCONTRADOS:\n");
                 ImprimeListaPacientesTela(listaPacientes);
                 MenuBusca(listaPacientes, fila);
             }
             else {
-                printf("\nNENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
-                printf("############################################################\n");
+                printf("NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
                 scanf("%*c");
             }
         }
@@ -333,6 +336,8 @@ int main(int argc, char *argv[]){
     SalvarPacientesEmBinario(pacientes, qtdPac, pathBanco);
     SalvarConsultasEmBinario(consultas, qtdConsult, pathBanco);
 
+    desalocaFila(fila);   
+
     for(int i=0; i < qtdMed; i++){
         DesalocaMedico(medicos[i]);
     }
@@ -352,8 +357,6 @@ int main(int argc, char *argv[]){
         DesalocaConsulta(consultas[i]);
     }
     if(consultas) free(consultas);
-
-    desalocaFila(fila); 
     
     return 0;
 }
