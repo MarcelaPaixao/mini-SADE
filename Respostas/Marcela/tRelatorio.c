@@ -94,3 +94,12 @@ void ImprimeEmArquivoRelatorio(void *dado, char *path){
 
     fclose(arq);
 }
+
+void ImprimeMenuRelatorio(tRelatorio *relatorio){
+    printf("#################### RELATORIO GERAL #######################\n");
+    ImprimeNaTelaRelatorio(relatorio);
+    printf("\nESCOLHA UMA OPCAO:\n");
+    printf("\t(1) ENVIAR PARA IMPRESSAO\n");
+    printf("\t(2) RETORNAR AO MENU PRINCIPAL\n");
+    printf("############################################################\n");
+}

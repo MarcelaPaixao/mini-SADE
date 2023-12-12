@@ -24,6 +24,6 @@ void ImprimeListaPacientesArquivo(void *dado, char *path);
 
 int ObtemTamanhoLista(tListaPacientes *lista);
 
-void MenuBusca(void *dado, tFila *fila);
+void ImprimeMenuBusca();
 
 #endif

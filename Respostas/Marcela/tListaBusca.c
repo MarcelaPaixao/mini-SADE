@@ -55,22 +55,10 @@ int ObtemTamanhoLista(tListaPacientes *lista){
     return lista->qtdPacientes;
 }
 
-void MenuBusca(void *dado, tFila *fila){
-    tListaPacientes *lista = (tListaPacientes*) dado;
-    int opcao=0;
+void ImprimeMenuBusca(){
     printf("#################### BUSCAR PACIENTES #######################\n");
     printf("ESCOLHA UMA OPCAO:\n");
     printf("\t(1) ENVIAR LISTA PARA IMPRESSAO\n");
     printf("\t(2) RETORNAR AO MENU PRINCIPAL\n");
     printf("############################################################\n");
-    scanf("%d%*c", &opcao);
-    if(opcao == 1){
-        insereDocumentoFila(fila, lista, ImprimeListaPacientesTela, ImprimeListaPacientesArquivo, DesalocaListaPacientes);
-        printf("\nLISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU PRINCIPAL\n");
-        printf("############################################################\n");
-        scanf("%*c");
-    }
-    if(opcao == 2){
-        return;
-    }
 }

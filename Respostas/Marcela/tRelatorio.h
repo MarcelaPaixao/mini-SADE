@@ -19,4 +19,6 @@ void ImprimeNaTelaRelatorio(void *dado);
 
 void ImprimeEmArquivoRelatorio(void *dado, char *path);
 
+void ImprimeMenuRelatorio(tRelatorio *relatorio);
+
 #endif
