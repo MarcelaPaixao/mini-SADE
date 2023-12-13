@@ -20,6 +20,7 @@ typedef enum{
     PACIENTE
 }ePessoa;
 
+//Lê as informações do secretário, do paciente e do médico;
 void LePessoa(ePessoa tipo, char *nome, char *cpf, int *dia, int *mes, int *ano, char *telefone, 
               char *genero, char *CRM, char *user, char *senha, char *acesso){
     printf("NOME COMPLETO: ");
@@ -33,17 +34,14 @@ void LePessoa(ePessoa tipo, char *nome, char *cpf, int *dia, int *mes, int *ano,
     printf("GENERO: ");
     scanf("%[^\n]%*c", genero);
     if(tipo == PACIENTE) return;
-    
     if(tipo == MEDICO){
         printf("CRM: ");
         scanf("%[^\n]%*c", CRM);
     }
-    
     printf("NOME DE USUARIO: ");
     scanf("%[^\n]%*c", user);
     printf("SENHA: ");
     scanf("%[^\n]%*c", senha);
-    
     if(tipo == SECRETARIO){
         printf("NIVEL DE ACESSO: ");
         scanf("%[^\n]%*c", acesso);
@@ -71,6 +69,8 @@ int main(int argc, char *argv[]){
     printf("Caminho do banco de dados: %s\n", pathBanco);
     printf("Caminho da pasta de saida: %s\n", path);
 
+    //Caso existam as iformações no banco de dados, os vetores são preenchidos, caso contrário, 
+    //a função retorna NULL;
     tPaciente **pacientes = RecuperaPacientesBinario(&qtdPac, pathBanco);
     tMedico ** medicos = RecuperaMedicosBinario(&qtdMed, pathBanco);
     tSecretario **secretarios = RecuperaSecretariosBinario(&qtdSec, pathBanco);
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]){
     tListaPacientes *listaPacientes = NULL;
     tRelatorio *relatorio = NULL;
 
-    //significa q não tem banco de dados, pois obrigatoriamente existe pelo menos 1 secretario
+    //Significa que é o primeiro acesso, pois se não fosse, obrigatoriamente haveria ao menos 1 secretario;
     if(secretarios == NULL){
         printf("#################### CADASTRO SECRETARIO #######################\n");
         LePessoa(SECRETARIO, nome, cpf, &dia, &mes, &ano, telefone, genero, CRM, user, senha, acesso);
@@ -96,11 +96,11 @@ int main(int argc, char *argv[]){
         scanf("%[^\n]%*c", code);
         printf("###############################################################\n");
 
-        //vai retornar o indice se encontrar e -1 caso contrário
+        //Vai retornar o índice se encontrar e -1 caso contrário;
         ehSecret = VerificaCadastroSecretario(secretarios, qtdSec, login, code);
         ehMed = VerificaCadastroMedicos(medicos, qtdMed, login, code);
 
-        //Se nenhum dos dois foi encontrado, o login está incorreto
+        //Se nenhum dos dois foi encontrado, o login está incorreto;
         if(ehSecret < 0 && ehMed < 0){
             printf("SENHA INCORRETA OU USUARIO INEXISTENTE\n");
         }
@@ -132,12 +132,14 @@ int main(int argc, char *argv[]){
             printf("#################### CADASTRO SECRETARIO #######################\n");
             LePessoa(SECRETARIO, nome, cpf, &dia, &mes, &ano, telefone, genero, CRM, user, senha, acesso);
 
+            //Vai retornar o índice se encontrar e -1 caso contrário;
             if(VerificaSeJaExisteSecretario(secretarios, qtdSec, cpf) >= 0){
                 printf("CPF JA EXISTENTE. OPERACAO NAO PERMITIDA.\n");
                 printf("###############################################################\n");
                 flagJaExiste = 1;
             }
             
+            //Se ainda não existir, cadastra um novo secretário
             if(!flagJaExiste){
                 qtdSec++;
                 secretarios = realloc(secretarios, qtdSec * sizeof(tSecretario *));
@@ -152,12 +154,14 @@ int main(int argc, char *argv[]){
             printf("#################### CADASTRO MEDICO #######################\n");
             LePessoa(MEDICO, nome, cpf, &dia, &mes, &ano, telefone, genero, CRM, user, senha, acesso);
 
+            //Vai retornar o índice se encontrar e -1 caso contrário;
             if(VerificaSeJaExisteMedico(medicos, qtdMed, cpf) >= 0){
                 printf("CPF JA EXISTENTE. OPERACAO NAO PERMITIDA.\n");
                 printf("###############################################################\n");
                 flagJaExiste = 1;
             }
 
+            //Se ainda não existir, cadastra um novo medico
             if(!flagJaExiste){
                 qtdMed++;
                 medicos = realloc(medicos, qtdMed * sizeof(tMedico *));
@@ -172,11 +176,13 @@ int main(int argc, char *argv[]){
             printf("#################### CADASTRO PACIENTE #######################\n");
             LePessoa(PACIENTE, nome, cpf, &dia, &mes, &ano, telefone, genero, CRM, user, senha, acesso);
 
+            //Vai retornar o índice se encontrar e -1 caso contrário;
             if(VerificaSeJaExistePaciente(pacientes, qtdPac, cpf) >= 0){
                 printf("CPF JA EXISTENTE. OPERACAO NAO PERMITIDA.\n");
                 flagJaExiste = 1;
             }
 
+            //Se ainda não existir, cadastra um novo paciente
             if(!flagJaExiste){
                 qtdPac++;
                 pacientes = realloc(pacientes, qtdPac * sizeof(tPaciente *));
@@ -200,7 +206,10 @@ int main(int argc, char *argv[]){
                 printf("###############################################################\n");
                 scanf("%*c");
             }
+            //Caso o paciente já esteja cadastrado, a consulta é iniciada e é fornecido um novo menu e opções;
             else {
+                //Verifica se quem está realizando a consulta é médico e, caso seja, obtem seu índice 
+                //dentro do vetor de médicos;
                 if(ehMed >= 0){
                     medicoConsulta = medicos[(VerificaCadastroMedicos(medicos, qtdMed, login, code))];
                 }
@@ -209,7 +218,6 @@ int main(int argc, char *argv[]){
                 consultas = realloc(consultas, qtdConsult * sizeof(tConsulta *));
                 consultas[qtdConsult - 1] = IniciaConsulta(pacientes[idxPaciente], medicoConsulta); 
                 
-                opcao = 0;
                 while(opcao != 5){
                     ImprimeMenuConsulta();
                     scanf("%d%*c", &opcao);
@@ -234,6 +242,7 @@ int main(int argc, char *argv[]){
                     case 5:
                         break;
                     }
+                    //Aponta que paciente já foi atendido ao menos uma vez em alguma consulta;
                     SetaAtendidoPaciente(pacientes[idxPaciente]);
                 }
             }
@@ -245,6 +254,8 @@ int main(int argc, char *argv[]){
             scanf("%[^\n]%*c", nomePaciente);
 
             int encontrou=0;
+            //Compara o nome lido com o nome de todos pacientes cadastrados e, caso encontre, cria uma lista
+            //e adiciona todos pacientes com esse nome nela;
             for(int i=0; i < qtdPac; i++){
                 if(strcmp(nomePaciente, ObtemNomePaciente(pacientes[i])) == 0){
                     if(!encontrou){
@@ -254,6 +265,7 @@ int main(int argc, char *argv[]){
                     AdicionaPacienteLista(listaPacientes, pacientes[i]);
                 }
             }
+            //Caso a lista tenha sido criada, é fornecido um novo menu de opções ao usuário;
             if(encontrou){
                 printf("PACIENTES ENCONTRADOS:\n");
                 ImprimeListaPacientesTela(listaPacientes);
@@ -278,6 +290,7 @@ int main(int argc, char *argv[]){
             }
         }
         else if(opcao == 6){
+            //O relatório é gerado e é fornecido um novo menu e opções;
             relatorio = GeraRelatorio(consultas, qtdConsult, pacientes, qtdPac);
             ImprimeMenuRelatorio(relatorio);
             
@@ -322,15 +335,18 @@ int main(int argc, char *argv[]){
             }               
         }
         else if(opcao == 8){
+            //Fecha o sistema;
             break;     
         }
     }      
 
+    //Salva os arquivos binários necessários para consultas futuras;
     SalvarMedicosEmBinario(medicos, qtdMed, pathBanco);
     SalvarSecretariosEmBinario(secretarios, qtdSec, pathBanco);
     SalvarPacientesEmBinario(pacientes, qtdPac, pathBanco);
     SalvarConsultasEmBinario(consultas, qtdConsult, pathBanco); 
 
+    //Desaloca a memória alocada e finaliza o programa;
     for(int i=0; i < qtdMed; i++){
         DesalocaMedico(medicos[i]);
     }

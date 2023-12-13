@@ -3,9 +3,6 @@
 #include <string.h>
 #include "tReceita.h"
 
-#define NOME_ARQUIVO_RECEITA "receita.txt"
-
-
 struct tReceita {
     char nomePaciente[100];
     eTipoUso tipoUso;

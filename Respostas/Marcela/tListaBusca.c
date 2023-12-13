@@ -5,6 +5,9 @@ struct tListaPacientes {
     int qtdPacientes;
 };
 
+/**
+ * Função que cria e retorna um ponteiro para lista de pacientes vazio.
+ */
 tListaPacientes *CriaListaPacientes(){
     tListaPacientes *lista = calloc(1, sizeof(tListaPacientes));
     if(!lista){
@@ -15,12 +18,19 @@ tListaPacientes *CriaListaPacientes(){
     return lista;
 }
 
+/**
+ * Função que acrescenta um paciente, passada como parâmetro, à lista de pacientes tembém passada como parâmetro.
+ */
 void AdicionaPacienteLista(tListaPacientes *lista, tPaciente *paciente){
     (lista->qtdPacientes)++;
     lista->paciente = realloc(lista->paciente, lista->qtdPacientes * sizeof(tPaciente *));
     lista->paciente[lista->qtdPacientes - 1] = paciente;
 }
 
+/**
+ * Função que recebe o ponteiro genérico (que deve conter uma lista de pacientes) e o desaloca da memória, 
+ * mas sem desalocar a memória alocada para cada paciente.
+ */
 void DesalocaListaPacientes(void *dado){
     tListaPacientes *lista = (tListaPacientes*) dado;
     if(!lista) return;
@@ -28,6 +38,10 @@ void DesalocaListaPacientes(void *dado){
     free(lista);
 }
 
+/**
+ * Função que recebe um ponteiro genérico (que deve conter uma lista de pacientes) e imprime os dados na tela
+ * de acordo com o especificado na descrição do trabalho.
+ */
 void ImprimeListaPacientesTela(void *dado){
     tListaPacientes *lista = (tListaPacientes*) dado;
     for(int i=0; i < lista->qtdPacientes; i++){
@@ -36,6 +50,11 @@ void ImprimeListaPacientesTela(void *dado){
     printf("\n");
 }
 
+/**
+ * Função que recebe um ponteiro genérico (que deve conter uma lista de pacientes) e imprime os dados no arquivo
+ * específico de acordo com a descrição do trabalho.
+ * Essa função também recebe o path da pasta onde o arquivo deve ser criado ou editado.
+ */
 void ImprimeListaPacientesArquivo(void *dado, char *path){
     char diretorio[1000];
     tListaPacientes *lista = (tListaPacientes*) dado;
@@ -51,10 +70,16 @@ void ImprimeListaPacientesArquivo(void *dado, char *path){
     }
 }
 
+/**
+ * Função que retorna a quantidade de pacientes da lista.
+ */
 int ObtemTamanhoLista(tListaPacientes *lista){
     return lista->qtdPacientes;
 }
 
+/**
+ * Função que imprime o menu de opções da busca de pacientes.
+ */
 void ImprimeMenuBusca(){
     printf("#################### BUSCAR PACIENTES #######################\n");
     printf("ESCOLHA UMA OPCAO:\n");

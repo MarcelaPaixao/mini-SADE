@@ -11,6 +11,9 @@ struct tSecretario {
     char acesso;
 };
 
+/**
+ * Função que cria um ponteiro para secretário de acordo com as informações passadas como parâmetro.
+ */
 tSecretario *CadastraSecretario(char *nome, char *cpf, char *telefone, char *genero, char *acesso, 
                                 char *user, char *senha, int dia, int mes, int ano){
     tSecretario *secretario = calloc(1, sizeof(tSecretario));
@@ -36,11 +39,124 @@ tSecretario *CadastraSecretario(char *nome, char *cpf, char *telefone, char *gen
     return secretario;
 }
 
+/**
+ * Função que recebe o ponteiro para secretário e o desaloca da memória.
+ */
 void DesalocaSecretario(tSecretario *s){
     if(!s) return;
     free(s);
 }
 
+/**
+ * Função que retorna o cpf do secretário passado como parâmetro.
+ */
+char *ObtemCPFSecretario(tSecretario *s){
+    char *cpf = s->cpf;
+    return cpf;
+}
+
+/**
+ * Função que retorna o nome do secretário passado como parâmetro.
+ */
+char *ObtemNomeSecretario(tSecretario *s){
+    char *nome = s->nome;
+    return nome;
+}
+
+/**
+ * Função que retorna a senha do secretário passado como parâmetro.
+ */
+char *ObtemSenhaSecretario(tSecretario *s){
+    char *senha = s->senha;
+    return senha;
+}
+
+/**
+ * Função que retorna o nome de usuário do secretário passado como parâmetro.
+ */
+char *ObtemUserSecretario(tSecretario *s){
+    char *user = s->user;
+    return user;
+}
+
+/**
+ * Função que retorna o nível de acesso do secretário passado como parâmetro.
+ */
+char ObtemAcessoSecretario(tSecretario *s){
+    char acesso = s->acesso;
+    return acesso;
+}
+
+/**
+ * Função que percorre um vetor de ponteiros para estruturas tSecretario para verificar se existe 
+ * algum secretário cadastrado com o cpf igual ao cpf passado como parâmetro.
+ * Caso encontre, retorna o índice do secretário dentro do vetor. Caso contrário, retorna -1.
+ */
+int VerificaCadastroSecretario(tSecretario **secretarios, int qtdSec, char *login, char *senha){
+    if(!secretarios) return 0;
+    for(int i=0; i < qtdSec; i++){
+        if(strcmp(login, secretarios[i]->user) == 0){
+            if(strcmp(senha, secretarios[i]->senha) == 0){
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+/**
+ * Função que percorre um vetor de ponteiros para estruturas tSecretario para verificar se existe 
+ * algum secretário cadastrado com o login e senha iguais aos passados como parâmetro.
+ * Caso encontre, retorna o índice do secretário dentro do vetor. Caso contrário, retorna -1.
+ */
+int VerificaSeJaExisteSecretario(tSecretario **secretarios, int qtdSec, char *cpf){
+    for(int i=0; i < qtdSec && qtdSec >= 1; i++){
+        if(strcmp(secretarios[i]->cpf, cpf)==0){
+            return i;
+        }
+    }
+    return -1;
+}
+
+/**
+ * Função que imprime o menu de opções disponíveis para quando o usuário do sistema
+ * for um secretário de nível USER.
+ */
+void ImprimeMenuUser(){
+    printf("####################### MENU PRINCIPAL #########################\n");
+    printf("ESCOLHA UMA OPCAO:\n");
+    printf("\t(2) CADASTRAR MEDICO\n");
+    printf("\t(3) CADASTRAR PACIENTE\n");
+    printf("\t(5) BUSCAR PACIENTES\n");
+    printf("\t(6) RELATORIO GERAL\n");
+    printf("\t(7) FILA DE IMPRESSAO\n");
+    printf("\t(8) FINALIZAR O PROGRAMA\n");
+    printf("###############################################################\n");
+}
+
+/**
+ * Função que imprime o menu de opções disponíveis para quando o usuário do sistema
+ * for um secretário de nível ADMIN.
+ */
+void ImprimeMenuAdmin(){
+    printf("####################### MENU PRINCIPAL #########################\n");
+    printf("ESCOLHA UMA OPCAO:\n");
+    printf("\t(1) CADASTRAR SECRETARIO\n");
+    printf("\t(2) CADASTRAR MEDICO\n");
+    printf("\t(3) CADASTRAR PACIENTE\n");
+    printf("\t(4) REALIZAR CONSULTA\n");
+    printf("\t(5) BUSCAR PACIENTES\n");
+    printf("\t(6) RELATORIO GERAL\n");
+    printf("\t(7) FILA DE IMPRESSAO\n");
+    printf("\t(8) FINALIZAR O PROGRAMA\n");
+    printf("###############################################################\n");
+}
+
+/**
+ * Função que recebe um vetor de ponteiros para estruturas tSecretario, além da quantidade 
+ * de medicos, e o path da pasta onde o arquivo deve ser criado, e cria um arquivo biário
+ * contendo os secretários.
+ */
 void SalvarSecretariosEmBinario(tSecretario **secretarios, int qtdSec, char *path){
     char diretorio[1000];
     sprintf(diretorio, "%s/secretarios.bin", path);
@@ -59,6 +175,11 @@ void SalvarSecretariosEmBinario(tSecretario **secretarios, int qtdSec, char *pat
     fclose(arq);
 }
 
+/**
+ * Função que recebe um ponteiro para preencher com a quatidade de secretários e o path da pasta onde 
+ * o arquivo binário está. A função lê o que está no arquivo, cria e retorna um vetor de ponteiros 
+ * para estruturas tSecretario preenchido com as informações lidas.
+ */
 tSecretario **RecuperaSecretariosBinario(int *qtd, char *path){
     char diretorio[1000];
     sprintf(diretorio, "%s/secretarios.bin", path);
@@ -79,76 +200,4 @@ tSecretario **RecuperaSecretariosBinario(int *qtd, char *path){
     
     fclose(arq);
     return secretarios;
-}
-
-char *ObtemCPFSecretario(tSecretario *s){
-    char *cpf = s->cpf;
-    return cpf;
-}
-
-char *ObtemNomeSecretario(tSecretario *s){
-    char *nome = s->nome;
-    return nome;
-}
-
-char *ObtemSenhaSecretario(tSecretario *s){
-    char *senha = s->senha;
-    return senha;
-}
-
-char *ObtemUserSecretario(tSecretario *s){
-    char *user = s->user;
-    return user;
-}
-
-char ObtemAcessoSecretario(tSecretario *s){
-    char acesso = s->acesso;
-    return acesso;
-}
-
-int VerificaCadastroSecretario(tSecretario **secretarios, int qtdSec, char *login, char *senha){
-    if(!secretarios) return 0;
-    for(int i=0; i < qtdSec; i++){
-        if(strcmp(login, secretarios[i]->user) == 0){
-            if(strcmp(senha, secretarios[i]->senha) == 0){
-                return i;
-            }
-        }
-    }
-    return -1;
-}
-
-int VerificaSeJaExisteSecretario(tSecretario **secretarios, int qtdSec, char *cpf){
-    for(int i=0; i < qtdSec && qtdSec >= 1; i++){
-        if(strcmp(secretarios[i]->cpf, cpf)==0){
-            return i;
-        }
-    }
-    return -1;
-}
-
-void ImprimeMenuUser(){
-    printf("####################### MENU PRINCIPAL #########################\n");
-    printf("ESCOLHA UMA OPCAO:\n");
-    printf("\t(2) CADASTRAR MEDICO\n");
-    printf("\t(3) CADASTRAR PACIENTE\n");
-    printf("\t(5) BUSCAR PACIENTES\n");
-    printf("\t(6) RELATORIO GERAL\n");
-    printf("\t(7) FILA DE IMPRESSAO\n");
-    printf("\t(8) FINALIZAR O PROGRAMA\n");
-    printf("###############################################################\n");
-}
-
-void ImprimeMenuAdmin(){
-    printf("####################### MENU PRINCIPAL #########################\n");
-    printf("ESCOLHA UMA OPCAO:\n");
-    printf("\t(1) CADASTRAR SECRETARIO\n");
-    printf("\t(2) CADASTRAR MEDICO\n");
-    printf("\t(3) CADASTRAR PACIENTE\n");
-    printf("\t(4) REALIZAR CONSULTA\n");
-    printf("\t(5) BUSCAR PACIENTES\n");
-    printf("\t(6) RELATORIO GERAL\n");
-    printf("\t(7) FILA DE IMPRESSAO\n");
-    printf("\t(8) FINALIZAR O PROGRAMA\n");
-    printf("###############################################################\n");
 }

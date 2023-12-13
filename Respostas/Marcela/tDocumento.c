@@ -9,7 +9,6 @@ struct tDocumento {
     func_ptr_desaloca funcDesaloca;
 };
 
-
 /**
  * Função que recebe um dado genérico (representando um tipo de documento) e suas funções de callback.
  * A função cria um Documento e retorna um ponteiro para ele.

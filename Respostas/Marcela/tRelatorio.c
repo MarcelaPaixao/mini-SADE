@@ -6,6 +6,9 @@ struct  tRelatorio {
     int mediaIdade, mediaLesoes;
 };
 
+/**
+ * Função que gera um relatório de acordo com as informações passadas como parâmetro.
+ */
 tRelatorio *GeraRelatorio(tConsulta **consultas, int qtdConsulta, tPaciente **pacientes, int qtdPac){
     tRelatorio *relatorio = malloc(sizeof(tRelatorio));
     if(!relatorio){
@@ -55,12 +58,19 @@ tRelatorio *GeraRelatorio(tConsulta **consultas, int qtdConsulta, tPaciente **pa
     return relatorio;
 }
 
+/**
+ * Função que recebe o ponteiro genérico (que deve conter um relatório) e o desaloca da memória.
+ */
 void DesalocaRelatorio(void *dado){
     if(!dado)return;
     tRelatorio *r = (tRelatorio *) dado;
     if(r) free(r);
 }
 
+/**
+ * Função que recebe um ponteiro genérico (que deve conter um relatório) e imprime os dados na tela
+ * de acordo com o especificado na descrição do trabalho.
+ */
 void ImprimeNaTelaRelatorio(void *dado){
     tRelatorio *r = (tRelatorio *) dado;
     printf("NUMERO TOTAL DE PACIENTES ATENDIDOS: %d\n", r->qtdPacientesAtend);
@@ -75,6 +85,11 @@ void ImprimeNaTelaRelatorio(void *dado){
     printf("NUMERO TOTAL DE CRIOTERAPIA: %d\n", r->qtdCrioterapia);
 }
 
+/**
+ * Função que recebe um ponteiro genérico (que deve conter um relatório) e imprime os dados no arquivo
+ * específico de acordo com a descrição do trabalho.
+ * Essa função também recebe o path da pasta onde o arquivo deve ser criado ou editado.
+ */
 void ImprimeEmArquivoRelatorio(void *dado, char *path){
     tRelatorio *r = (tRelatorio *) dado;
     char diretorio[1000];
@@ -95,6 +110,9 @@ void ImprimeEmArquivoRelatorio(void *dado, char *path){
     fclose(arq);
 }
 
+/**
+ * Função que imprime do relatório e o menu de opções relacionado a ele.
+ */
 void ImprimeMenuRelatorio(tRelatorio *relatorio){
     printf("#################### RELATORIO GERAL #######################\n");
     ImprimeNaTelaRelatorio(relatorio);

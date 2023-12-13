@@ -13,6 +13,10 @@ struct tConsulta {
     char data[20];
 };
 
+/**
+ * Função que cria um ponteiro para consulta e o preenche com informações do médico e do paciente passados como parâmetro,
+ * além de outras infomações necessárias para a realização da consulta;
+ */
 tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
     tConsulta *consulta = calloc(1, sizeof(tConsulta));
     if(!consulta){
@@ -50,13 +54,14 @@ tConsulta *IniciaConsulta(tPaciente *paciente, tMedico *medico){
         strcpy(consulta->nomeMed, ObtemNomeMedico(medico));
         strcpy(consulta->CRM, ObtemCRMMedico(medico));
     }
-    //consulta->qtdEncam = 0;
-    //consulta->qtdReceitas = 0;
     consulta->qtdLesoes = 0;
 
     return consulta;
 }
 
+/**
+ * Função que recebe o ponteiro para consulta e o desaloca da memória.
+ */
 void DesalocaConsulta(tConsulta *consulta){
     if(!consulta) return; 
     for(int i=0; i < consulta->qtdLesoes; i++){
@@ -66,6 +71,9 @@ void DesalocaConsulta(tConsulta *consulta){
     free(consulta);
 }
 
+/**
+ * Função que imprime na tela o menu de opções para o usuário realizar a consulta.
+ */
 void ImprimeMenuConsulta(){
     printf("#################### CONSULTA MEDICA #######################\n");
     printf("ESCOLHA UMA OPCAO:\n");
@@ -77,6 +85,9 @@ void ImprimeMenuConsulta(){
     printf("############################################################\n");
 }
 
+/**
+ * Função que cadastra uma lesão dentro da consulta passada como parâmetro.
+ */
 void CadastraLesao(tConsulta *consulta){
     if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
@@ -88,6 +99,10 @@ void CadastraLesao(tConsulta *consulta){
     scanf("%*c");
 }
 
+/**
+ * Função que retorna 1 se existe ao menos uma lesão que precisa de cirurgia, 
+ * e 0 caso contrário;
+ */
 int VerificaSePrecisaCirurgia(tConsulta *consulta){
     if(!consulta) return 0;
     for(int i=0; i < consulta->qtdLesoes; i++){
@@ -98,6 +113,10 @@ int VerificaSePrecisaCirurgia(tConsulta *consulta){
     return 0;
 }
 
+/**
+ * Função que, após verificar se há lesões que precisam de cirurgia, solicita a biopsia 
+ * para as lesões em questão e a envia para a fila de impressão passada como parâmetro.
+ */
 void SolicitaBiopsia(tConsulta *consulta, tFila *fila){
     if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
@@ -119,6 +138,9 @@ void SolicitaBiopsia(tConsulta *consulta, tFila *fila){
     scanf("%*c");
 }
 
+/**
+ * Função que cria um encaminhamento e o envia para a fila de impressão passada como parâmetro.
+ */
 void EncaminhaPaciente(tConsulta *consulta, tFila *fila){
     if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
@@ -129,6 +151,9 @@ void EncaminhaPaciente(tConsulta *consulta, tFila *fila){
     scanf("%*c");
 }
 
+/**
+ * Função que lê as informações necessárias para criar uma receita e a envia para a fila de impressão passada como parâmetro.
+ */
 void GeraReceita(tConsulta *consulta, tFila *fila){
     if(!consulta) return;
     printf("#################### CONSULTA MEDICA #######################\n");
@@ -166,10 +191,16 @@ void GeraReceita(tConsulta *consulta, tFila *fila){
     scanf("%*c");
 }
 
+/**
+ * Função que retorna a quantidade de lesões da consulta.
+ */
 int ObtemQtdLesoes(tConsulta *consulta){
     return consulta->qtdLesoes;
 }
 
+/**
+ * Função que retorna a soma do tamanho de todas as lesões da consulta.
+ */
 int ObtemSomaTamanhoLesoes(tConsulta *consulta){
     int tamanho=0;
     for(int i=0; i < consulta->qtdLesoes; i++){
@@ -178,6 +209,9 @@ int ObtemSomaTamanhoLesoes(tConsulta *consulta){
     return tamanho;
 }
 
+/**
+ * Função que retorna a soma total da quantidade de cirurgias da consulta.
+ */
 int ObtemTotalCirurgia(tConsulta *consulta){
     int total=0;
     for(int i=0; i < consulta->qtdLesoes; i++){
@@ -186,6 +220,9 @@ int ObtemTotalCirurgia(tConsulta *consulta){
     return total;
 }
 
+/**
+ * Função que retorna a soma total da quantidade de crioterapias da consulta.
+ */
 int ObtemTotalCrioterapia(tConsulta *consulta){
     int total=0;
     for(int i=0; i < consulta->qtdLesoes; i++){
@@ -194,10 +231,18 @@ int ObtemTotalCrioterapia(tConsulta *consulta){
     return total;
 }
 
+/**
+ * Função que retorna uma string com cpf do paciente da consulta.
+ */
 char *ObtemCpfPaciente(tConsulta *consulta){
     return consulta->cpfPac;
 }
 
+/**
+ * Função que recebe um vetor de ponteiros para estruturas tConsulta, além da quantidade 
+ * de consultas, e o path da pasta onde o arquivo deve ser criado, e cria um arquivo biário
+ * contendo as consultas.
+ */
 void SalvarConsultasEmBinario(tConsulta **consultas, int qtd, char *path){
     char diretorioConsulta[1000];
     sprintf(diretorioConsulta, "%s/consultas.bin", path);
@@ -218,6 +263,11 @@ void SalvarConsultasEmBinario(tConsulta **consultas, int qtd, char *path){
     fclose(arqConsulta);
 }
 
+/**
+ * Função que recebe um ponteiro para preencher com a quatidade de consultas e o path da pasta onde o arquivo binário está.
+ * A função lê o que está no arquivo binário, cria e retorna um vetor de ponteiros para estruturas tConsulta
+ *  preenchido com as informações lidas.
+ */
 tConsulta **RecuperaConsultasBinario(int *qtd, char *path){
     char diretorio[1000];
     sprintf(diretorio, "%s/consultas.bin", path);
@@ -234,7 +284,7 @@ tConsulta **RecuperaConsultasBinario(int *qtd, char *path){
         tConsulta *consulta = malloc(sizeof(tConsulta));
         fread(consulta, sizeof(tConsulta), 1, arqConsulta);
         
-        consulta->lesoes = RecuperaLesoesBinario(arqConsulta, &consulta->qtdLesoes);
+        consulta->lesoes = RecuperaLesoesBinario(arqConsulta, consulta->qtdLesoes);
         
         vetConsultas[i] = consulta;
     }

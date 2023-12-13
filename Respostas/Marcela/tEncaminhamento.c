@@ -13,6 +13,9 @@ struct tEncaminhamento {
     char motivo[300];
 };
 
+/**
+ * Função que cria um ponteiro para encaminhamento de acordo com as informações passadas como parâmetro.
+ */
 tEncaminhamento *CriaEncaminhamento(char *nomeMed, char *CRM, char *nomePac, char *cpfPac, char *data){
     tEncaminhamento *enc = malloc(sizeof(tEncaminhamento));
     if(enc == NULL){
@@ -31,6 +34,19 @@ tEncaminhamento *CriaEncaminhamento(char *nomeMed, char *CRM, char *nomePac, cha
     return enc;
 }
 
+/**
+ * Função que recebe o ponteiro genérico (que deve conter um encaminhamento) e o desaloca da memória.
+ */
+void DesalocaEncaminhamento(void *dado){
+    tEncaminhamento *enc = (tEncaminhamento*) dado;
+    if(!enc) return;
+    free(enc);
+}
+
+/**
+ * Função que recebe um ponteiro genérico (que deve conter um encaminhamento) e imprime os dados na tela
+ * de acordo com o especificado na descrição do trabalho.
+ */
 void ImprimeNaTelaEncam(void *dado){
     tEncaminhamento *enc = (tEncaminhamento*) dado;
     printf("PACIENTE: %s\n", enc->nomePaciente);
@@ -42,6 +58,11 @@ void ImprimeNaTelaEncam(void *dado){
     printf("%s\n", enc->data);
 }
 
+/**
+ * Função que recebe um ponteiro genérico (que deve conter um encaminhamento) e imprime os dados no arquivo
+ * específico de acordo com a descrição do trabalho.
+ * Essa função também recebe o path da pasta onde o arquivo deve ser criado ou editado.
+ */
 void ImprimeEmArquivoEncam(void *dado, char *path){
     tEncaminhamento *enc = (tEncaminhamento*) dado;
     char diretorio[1000];
@@ -57,10 +78,3 @@ void ImprimeEmArquivoEncam(void *dado, char *path){
     fprintf(arq, "%s\n", enc->data);
     fclose(arq);
 }
-
-void DesalocaEncaminhamento(void *dado){
-    tEncaminhamento *enc = (tEncaminhamento*) dado;
-    if(!enc) return;
-    free(enc);
-}
-

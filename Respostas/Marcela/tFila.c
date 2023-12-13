@@ -68,4 +68,3 @@ void imprimeFila(tFila *f, char *path){
         imprimeEmArquivoDocumento(f->documentos[i], path);
     }
 }
-
